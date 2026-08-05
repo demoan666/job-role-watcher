@@ -1,0 +1,34 @@
+name: Fetch job postings
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run fetch script
+        run: python scripts/fetch_postings.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/postings.json data/archive.json; then
+            echo "No changes to commit."
+          else
+            git add data/postings.json data/archive.json
+            git commit -m "Update postings ($(date -u +%Y-%m-%d))"
+            git push
+          fi

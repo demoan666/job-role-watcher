@@ -1,0 +1,50 @@
+[
+  {
+    "id": "greenhouse:Adyen:7355910",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Art Director - Internal Comms Branding",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7355910",
+    "ats": "greenhouse",
+    "first_seen": "2026-08-05"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000138815279",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Motion Designer and Video Editor",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138815279",
+    "ats": "smartrecruiters",
+    "first_seen": "2026-08-05"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000139058360",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Videographer / Video Editor - 12 Month FTC",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139058360",
+    "ats": "smartrecruiters",
+    "first_seen": "2026-08-05"
+  },
+  {
+    "id": "greenhouse:Storyblok:4908911101",
+    "company": "Storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "2D Motion Designer - Europe",
+    "location": "Remote",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://www.storyblok.com/job?gh_jid=4908911101",
+    "ats": "greenhouse",
+    "first_seen": "2026-08-05"
+  }
+]

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In-House Motion Role Watcher</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --border: #d0d0d0;
+    --muted: #666;
+    --bg-alt: #f5f5f5;
+    --accent: #2a5db0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --border: #444;
+      --muted: #aaa;
+      --bg-alt: #1c1c1c;
+      --accent: #7aa2f7;
+    }
+  }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 0 auto;
+    max-width: 1100px;
+    padding: 1.5rem;
+    line-height: 1.4;
+  }
+  h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
+  .meta { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; }
+  .controls { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+  .controls input[type="search"] {
+    flex: 1; min-width: 200px; padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit;
+  }
+  .controls label { font-size: 0.9rem; display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 1.5rem; }
+  caption {
+    text-align: left; font-weight: 600; padding: 0.5rem 0.3rem;
+    border-bottom: 2px solid var(--border);
+  }
+  th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+  th { cursor: pointer; user-select: none; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  th:hover { color: var(--accent); }
+  tr:hover td { background: var(--bg-alt); }
+  a { color: var(--accent); }
+  .flag-remote { font-weight: 600; }
+  .flag-warn { color: #b06a2a; }
+  .empty { color: var(--muted); padding: 1rem 0.3rem; }
+  #archive-toggle { cursor: pointer; color: var(--accent); background: none; border: none; font-size: 0.9rem; padding: 0; }
+</style>
+</head>
+<body>
+  <h1>In-House Motion Role Watcher</h1>
+  <div class="meta" id="meta">Loading…</div>
+
+  <div class="controls">
+    <input type="search" id="search" placeholder="Filter by company, title, location…">
+    <label><input type="checkbox" id="remote-only"> Remote / EU-hireable only</label>
+  </div>
+
+  <div id="active-container"></div>
+
+  <p><button id="archive-toggle">Show archived / closed postings ▾</button></p>
+  <div id="archive-container" style="display:none"></div>
+
+<script>
+(function () {
+  var state = { postings: [], archive: [], sortKey: "company", sortDir: 1 };
+
+  function fmtFlag(p) {
+    var bits = [];
+    if (p.remote) bits.push('<span class="flag-remote">Remote</span>');
+    if (!p.eu_hireable_or_remote) bits.push('<span class="flag-warn">⚠ verify location</span>');
+    return bits.join(" ");
+  }
+
+  function groupByCluster(list) {
+    var groups = {};
+    list.forEach(function (p) {
+      var key = p.cluster || "Uncategorized";
+      (groups[key] = groups[key] || []).push(p);
+    });
+    return groups;
+  }
+
+  function sortList(list) {
+    var key = state.sortKey, dir = state.sortDir;
+    return list.slice().sort(function (a, b) {
+      var av = (a[key] || "").toString().toLowerCase();
+      var bv = (b[key] || "").toString().toLowerCase();
+      if (av < bv) return -1 * dir;
+      if (av > bv) return 1 * dir;
+      return 0;
+    });
+  }
+
+  function matchesFilter(p, q, remoteOnly) {
+    if (remoteOnly && !(p.remote || p.eu_hireable_or_remote)) return false;
+    if (!q) return true;
+    var haystack = [p.company, p.title, p.location].join(" ").toLowerCase();
+    return haystack.indexOf(q) !== -1;
+  }
+
+  function renderTable(list, opts) {
+    opts = opts || {};
+    var groups = groupByCluster(list);
+    var clusters = Object.keys(groups).sort();
+    if (clusters.length === 0) {
+      return '<p class="empty">No postings match.</p>';
+    }
+    return clusters.map(function (cluster) {
+      var rows = sortList(groups[cluster]);
+      var body = rows.map(function (p) {
+        return "<tr>" +
+          "<td>" + escapeHtml(p.company) + "</td>" +
+          "<td><a href=\"" + escapeAttr(p.url) + "\" target=\"_blank\" rel=\"noopener\">" + escapeHtml(p.title) + "</a></td>" +
+          "<td>" + escapeHtml(p.location || "") + "</td>" +
+          "<td>" + fmtFlag(p) + "</td>" +
+          "<td>" + escapeHtml(opts.dateField === "closed_date" ? (p.closed_date || "") : (p.first_seen || "")) + "</td>" +
+          "<td>" + escapeHtml(p.ats || "") + "</td>" +
+          "</tr>";
+      }).join("");
+      var dateHeader = opts.dateField === "closed_date" ? "Closed" : "First seen";
+      return "<table>" +
+        "<caption>" + escapeHtml(cluster) + " (" + rows.length + ")</caption>" +
+        "<thead><tr>" +
+        "<th data-key=\"company\">Company</th>" +
+        "<th data-key=\"title\">Title</th>" +
+        "<th data-key=\"location\">Location</th>" +
+        "<th>Flags</th>" +
+        "<th data-key=\"" + (opts.dateField || "first_seen") + "\">" + dateHeader + "</th>" +
+        "<th data-key=\"ats\">Source</th>" +
+        "</tr></thead>" +
+        "<tbody>" + body + "</tbody>" +
+        "</table>";
+    }).join("");
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function escapeAttr(s) { return escapeHtml(s); }
+
+  function render() {
+    var q = document.getElementById("search").value.trim().toLowerCase();
+    var remoteOnly = document.getElementById("remote-only").checked;
+    var active = state.postings.filter(function (p) { return matchesFilter(p, q, remoteOnly); });
+    var archived = state.archive.filter(function (p) { return matchesFilter(p, q, remoteOnly); });
+
+    document.getElementById("active-container").innerHTML = renderTable(active);
+    document.getElementById("archive-container").innerHTML = renderTable(archived, { dateField: "closed_date" });
+    document.getElementById("archive-toggle").textContent =
+      (document.getElementById("archive-container").style.display === "none" ? "Show" : "Hide") +
+      " archived / closed postings (" + archived.length + ") " +
+      (document.getElementById("archive-container").style.display === "none" ? "▾" : "▴");
+
+    bindSortHandlers();
+  }
+
+  function bindSortHandlers() {
+    document.querySelectorAll("th[data-key]").forEach(function (th) {
+      th.onclick = function () {
+        var key = th.getAttribute("data-key");
+        if (state.sortKey === key) {
+          state.sortDir *= -1;
+        } else {
+          state.sortKey = key;
+          state.sortDir = 1;
+        }
+        render();
+      };
+    });
+  }
+
+  document.getElementById("search").addEventListener("input", render);
+  document.getElementById("remote-only").addEventListener("change", render);
+  document.getElementById("archive-toggle").addEventListener("click", function () {
+    var el = document.getElementById("archive-container");
+    el.style.display = el.style.display === "none" ? "block" : "none";
+    render();
+  });
+
+  Promise.all([
+    fetch("data/postings.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),
+    fetch("data/archive.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+  ]).then(function (results) {
+    state.postings = results[0] || [];
+    state.archive = results[1] || [];
+    var latest = state.postings.reduce(function (max, p) { return p.first_seen > max ? p.first_seen : max; }, "");
+    document.getElementById("meta").textContent =
+      state.postings.length + " active posting(s) across " +
+      new Set(state.postings.map(function (p) { return p.company; })).size + " companies." +
+      (latest ? " Most recent first_seen: " + latest + "." : "");
+    render();
+  });
+})();
+</script>
+</body>
+</html>

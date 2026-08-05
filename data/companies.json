@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Storyblok",
+    "ats": "greenhouse",
+    "slug": "storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech"
+  },
+  {
+    "name": "Adyen",
+    "ats": "greenhouse",
+    "slug": "adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech"
+  },
+  {
+    "name": "Experian",
+    "ats": "smartrecruiters",
+    "slug": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech"
+  },
+  {
+    "name": "Wise",
+    "ats": "smartrecruiters",
+    "slug": "wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech"
+  }
+]
