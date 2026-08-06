@@ -72,6 +72,24 @@ TASKS = {
 DEFAULT_ASSIGNMENT = {"provider": "anthropic", "model": "claude-sonnet-5"}
 
 
+def get_all_providers():
+    """The static PROVIDERS table merged with any user-added custom
+    (OpenAI-API-compatible) providers stored in config.json's
+    llm.providers.<id> — those carry their own label/models/base_url since
+    they aren't hardcoded here (see config.save_custom_provider)."""
+    settings = get_llm_settings()
+    merged = dict(PROVIDERS)
+    for provider_id, meta in settings["providers"].items():
+        if meta.get("custom"):
+            merged[provider_id] = {
+                "label": meta.get("label", provider_id),
+                "models": meta.get("models", []),
+                "base_url": meta.get("base_url"),
+                "custom": True,
+            }
+    return merged
+
+
 def _extract_json(text):
     match = re.search(r"\{.*\}", text, re.DOTALL)
     if not match:
@@ -92,9 +110,9 @@ def _call_anthropic(api_key, model, system_prompt, user_content, max_tokens):
     return text, response.usage.input_tokens, response.usage.output_tokens
 
 
-def _call_openai(api_key, model, system_prompt, user_content, max_tokens):
+def _call_openai(api_key, model, system_prompt, user_content, max_tokens, base_url=None):
     import openai
-    client = openai.OpenAI(api_key=api_key)
+    client = openai.OpenAI(api_key=api_key, base_url=base_url) if base_url else openai.OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model=model,
         max_completion_tokens=max_tokens,
@@ -134,8 +152,10 @@ _DISPATCH = {"anthropic": _call_anthropic, "openai": _call_openai, "google": _ca
 
 def _estimate_cost(provider, model, input_tokens, output_tokens):
     """None when this provider/model has no verified per-token pricing in
-    PROVIDERS — see the module docstring above PROVIDERS."""
-    models = PROVIDERS.get(provider, {}).get("models", [])
+    PROVIDERS — see the module docstring above PROVIDERS. Custom providers
+    never have price_in/price_out set, so this always returns None for them,
+    same as OpenAI/Google's currently-unpriced models."""
+    models = get_all_providers().get(provider, {}).get("models", [])
     meta = next((m for m in models if m["id"] == model), None)
     if not meta or meta.get("price_in") is None or meta.get("price_out") is None:
         return None
@@ -148,19 +168,28 @@ def _call_json(system_prompt, user_content, task, max_tokens=1024):
     provider = assignment["provider"]
     model = assignment["model"]
 
-    api_key = (settings["providers"].get(provider) or {}).get("api_key")
+    provider_settings = settings["providers"].get(provider) or {}
+    api_key = provider_settings.get("api_key")
     if not api_key:
-        provider_label = PROVIDERS.get(provider, {}).get("label", provider)
+        provider_label = get_all_providers().get(provider, {}).get("label", provider)
         raise RuntimeError(
             f"No API key configured for {provider_label}. Add one in Setup > LLM settings."
         )
 
-    call_fn = _DISPATCH.get(provider)
-    if not call_fn:
-        raise RuntimeError(f"Unknown LLM provider: {provider}")
-
     system_with_json_instruction = system_prompt + "\n\nRespond with a single JSON object only, no other text."
-    text, input_tokens, output_tokens = call_fn(api_key, model, system_with_json_instruction, user_content, max_tokens)
+
+    if provider_settings.get("custom"):
+        # Custom providers are always OpenAI-API-compatible, called at their
+        # own base_url — see config.save_custom_provider.
+        text, input_tokens, output_tokens = _call_openai(
+            api_key, model, system_with_json_instruction, user_content, max_tokens,
+            base_url=provider_settings.get("base_url"),
+        )
+    else:
+        call_fn = _DISPATCH.get(provider)
+        if not call_fn:
+            raise RuntimeError(f"Unknown LLM provider: {provider}")
+        text, input_tokens, output_tokens = call_fn(api_key, model, system_with_json_instruction, user_content, max_tokens)
 
     try:
         cost = _estimate_cost(provider, model, input_tokens, output_tokens)

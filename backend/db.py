@@ -8,7 +8,7 @@ need migrations — most tables just stay empty until their phase lands.
 import json
 import os
 import sqlite3
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(BACKEND_DIR)
@@ -485,32 +485,50 @@ def log_llm_usage(task, provider, model, input_tokens, output_tokens, estimated_
         conn.close()
 
 
-def get_llm_usage_summary():
-    """Returns {"today": {...}, "all_time": {...}}, each a dict with calls/
-    input_tokens/output_tokens (always real counts) and estimated_cost_usd
-    (None if every call in that window used a provider/model with no known
-    pricing — distinct from a real $0) plus cost_unavailable_calls, the
-    count of calls excluded from the cost total for that reason."""
+def get_llm_usage_summary(since=None):
+    """Returns {"today": W, "week": W, "all_time": W, "session": W or absent},
+    each W = {"summary": {...}, "by_provider": {provider_id: {...}}}. Each
+    stats dict has calls/input_tokens/output_tokens (always real counts) and
+    estimated_cost_usd (None if every call in that window used a provider/
+    model with no known pricing — distinct from a real $0) plus
+    cost_unavailable_calls, the count of calls excluded from the cost total
+    for that reason. "session" is only included when `since` (an ISO
+    timestamp — the frontend passes its own page-load time) is given, since
+    there's no server-side session concept in this single-user local app."""
     conn = get_connection()
     try:
         def summarize(where_sql, params):
             rows = conn.execute(
-                f"SELECT input_tokens, output_tokens, estimated_cost_usd FROM llm_usage {where_sql}",
+                f"SELECT provider, input_tokens, output_tokens, estimated_cost_usd FROM llm_usage {where_sql}",
                 params,
             ).fetchall()
-            priced = [r for r in rows if r["estimated_cost_usd"] is not None]
-            return {
-                "calls": len(rows),
-                "input_tokens": sum(r["input_tokens"] for r in rows),
-                "output_tokens": sum(r["output_tokens"] for r in rows),
-                "estimated_cost_usd": sum(r["estimated_cost_usd"] for r in priced) if priced else None,
-                "cost_unavailable_calls": len(rows) - len(priced),
-            }
 
-        today = now_iso()[:10]
-        return {
+            def stats_for(rows):
+                priced = [r for r in rows if r["estimated_cost_usd"] is not None]
+                return {
+                    "calls": len(rows),
+                    "input_tokens": sum(r["input_tokens"] for r in rows),
+                    "output_tokens": sum(r["output_tokens"] for r in rows),
+                    "estimated_cost_usd": sum(r["estimated_cost_usd"] for r in priced) if priced else None,
+                    "cost_unavailable_calls": len(rows) - len(priced),
+                }
+
+            by_provider = {}
+            for provider in {r["provider"] for r in rows}:
+                by_provider[provider] = stats_for([r for r in rows if r["provider"] == provider])
+            return {"summary": stats_for(rows), "by_provider": by_provider}
+
+        now = now_iso()
+        today = now[:10]
+        week_cutoff = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat(timespec="seconds")
+
+        result = {
             "today": summarize("WHERE substr(created_at, 1, 10) = ?", (today,)),
+            "week": summarize("WHERE created_at >= ?", (week_cutoff,)),
             "all_time": summarize("", ()),
         }
+        if since:
+            result["session"] = summarize("WHERE created_at >= ?", (since,))
+        return result
     finally:
         conn.close()

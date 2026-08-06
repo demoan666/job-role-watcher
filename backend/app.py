@@ -11,11 +11,20 @@ from fastapi import FastAPI, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+import re
+
 import db
 import gmail
 import llm
 import resume_parse
-from config import get_llm_settings, load_config, mask_key, save_llm_settings
+from config import (
+    delete_custom_provider,
+    get_llm_settings,
+    load_config,
+    mask_key,
+    save_custom_provider,
+    save_llm_settings,
+)
 
 app = FastAPI(title="job-search backend")
 
@@ -92,18 +101,20 @@ class LLMSettingsSave(BaseModel):
 
 @app.get("/settings/llm")
 def get_llm_settings_endpoint():
-    """Static provider/task metadata (labels, curated model lists, tooltip
-    descriptions) plus which providers currently have a key configured —
-    never the key itself, only a masked preview and a boolean."""
+    """Provider/task metadata (labels, curated model lists, tooltip
+    descriptions — static for built-ins, user-supplied for custom providers)
+    plus which providers currently have a key configured — never the key
+    itself, only a masked preview and a boolean."""
     settings = get_llm_settings()
     providers_out = {}
-    for provider_id, meta in llm.PROVIDERS.items():
+    for provider_id, meta in llm.get_all_providers().items():
         api_key = (settings["providers"].get(provider_id) or {}).get("api_key") or ""
         providers_out[provider_id] = {
             "label": meta["label"],
             "models": meta["models"],
             "configured": bool(api_key),
             "masked_key": mask_key(api_key),
+            "custom": bool(meta.get("custom")),
         }
     assignments_out = {}
     for task_id, meta in llm.TASKS.items():
@@ -123,12 +134,55 @@ def save_llm_settings_endpoint(body: LLMSettingsSave):
     return {"status": "saved"}
 
 
+class ModelSpec(BaseModel):
+    id: str
+    label: str
+
+
+class CustomProviderSave(BaseModel):
+    label: str
+    base_url: str
+    api_key: str = ""
+    models: list[ModelSpec] = []
+
+
+@app.post("/settings/llm/custom-provider")
+def add_custom_provider(body: CustomProviderSave):
+    """Adds a user-defined OpenAI-API-compatible provider (Groq, DeepSeek,
+    OpenRouter, a local Ollama server, etc.) — anything not in llm.PROVIDERS.
+    provider_id is slugified from the label, de-duplicated against existing
+    provider ids (built-in or custom) if it collides."""
+    if not body.label.strip() or not body.base_url.strip() or not body.models:
+        raise HTTPException(status_code=400, detail="Label, base URL, and at least one model are required.")
+    slug = re.sub(r"[^a-z0-9]+", "-", body.label.strip().lower()).strip("-") or "custom"
+    existing_ids = set(llm.get_all_providers().keys())
+    provider_id = f"custom_{slug}"
+    n = 2
+    while provider_id in existing_ids:
+        provider_id = f"custom_{slug}-{n}"
+        n += 1
+    save_custom_provider(
+        provider_id, body.label.strip(), body.base_url.strip(),
+        [m.model_dump() for m in body.models], body.api_key.strip(),
+    )
+    return {"status": "saved", "provider_id": provider_id}
+
+
+@app.delete("/settings/llm/custom-provider/{provider_id}")
+def remove_custom_provider(provider_id: str):
+    delete_custom_provider(provider_id)
+    return {"status": "deleted"}
+
+
 @app.get("/usage/llm")
-def get_llm_usage():
+def get_llm_usage(since: str | None = None):
     """Real token counts (from each provider's own response) plus an
     estimated $ cost where backend/llm.py has verified pricing for that
-    provider/model — see llm.PROVIDERS."""
-    return db.get_llm_usage_summary()
+    provider/model — see llm.PROVIDERS. `since` (ISO timestamp) adds a
+    "session" window scoped to whatever the caller considers a session —
+    the frontend passes its own page-load time, since this single-user
+    local backend has no server-side session concept of its own."""
+    return db.get_llm_usage_summary(since=since)
 
 
 class CompanyToggle(BaseModel):
