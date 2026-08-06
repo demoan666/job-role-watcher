@@ -9,6 +9,7 @@
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/7355910",
     "ats": "greenhouse",
+    "contract_type": null,
     "first_seen": "2026-08-05"
   },
   {
@@ -21,6 +22,7 @@
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138815279",
     "ats": "smartrecruiters",
+    "contract_type": "full-time",
     "first_seen": "2026-08-05"
   },
   {
@@ -33,6 +35,7 @@
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139058360",
     "ats": "smartrecruiters",
+    "contract_type": "full-time",
     "first_seen": "2026-08-05"
   },
   {
@@ -45,6 +48,7 @@
     "eu_hireable_or_remote": true,
     "url": "https://www.storyblok.com/job?gh_jid=4908911101",
     "ats": "greenhouse",
+    "contract_type": null,
     "first_seen": "2026-08-05"
   }
 ]

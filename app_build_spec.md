@@ -14,6 +14,12 @@ Companies on Workday or bespoke/custom career portals (most large industrials �
 **Goal:** a repo that runs on a schedule, checks the covered companies for new postings matching the candidate's profile, and keeps a running diff — so the candidate sees new listings without re-running manual searches.
 
 ## Non-goals
+
+**These applied to v1 (this spec) and still govern `scripts/fetch_postings.py` specifically. They
+were deliberately superseded for the v2 command center in `backend/` — see `CLAUDE.md`'s "v2: Job
+Search Command Center" section for what changed (real backend, auth-by-localhost-binding, automated
+email) and why. Don't cite this list to argue the v2 backend shouldn't exist.**
+
 - No login/auth, no user accounts — single user (repo owner).
 - No email/push notifications in v1 — output is a committed file + rendered page the user checks manually.
 - No attempt to verify "named in-house studio" status automatically — that judgment call stays manual, recorded in `role_search.md` by a human/LLM session, not by this app.

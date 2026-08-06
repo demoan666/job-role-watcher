@@ -1,0 +1,16 @@
+{
+  "active_ats": [
+    "greenhouse",
+    "lever",
+    "smartrecruiters"
+  ],
+  "contract_modes": [
+    "full-time",
+    "contract",
+    "freelance",
+    "internship"
+  ],
+  "industries": [],
+  "countries": [],
+  "updated_at": "2026-08-05T21:34:04+00:00"
+}

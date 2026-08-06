@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Malt",
+    "region": "EU (FR-headquartered, strong DACH/Benelux presence)",
+    "integration_needed": true,
+    "notes": "No public/unauthenticated API found — the site's own frontend calls an internal API that isn't documented for third-party use. Would need re-verification by hand before any integration; do not guess an endpoint."
+  },
+  {
+    "name": "Upwork",
+    "region": "Global",
+    "integration_needed": true,
+    "notes": "Has an official API, but it requires an approved OAuth app (partner approval process), not a public unauthenticated endpoint like Greenhouse/Lever/SmartRecruiters. Out of scope until that approval exists."
+  },
+  {
+    "name": "Contra",
+    "region": "Global",
+    "integration_needed": true,
+    "notes": "No public API found. Manual browsing only for now."
+  },
+  {
+    "name": "Braintrust",
+    "region": "Global (remote-first)",
+    "integration_needed": true,
+    "notes": "No public unauthenticated API found. Manual browsing only for now."
+  }
+]

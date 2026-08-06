@@ -35,6 +35,16 @@
     border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit;
   }
   .controls label { font-size: 0.9rem; display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+  .controls select {
+    padding: 0.3rem 0.5rem; border: 1px solid var(--border); border-radius: 4px;
+    background: transparent; color: inherit;
+  }
+  .scope-group { margin-top: 1rem; }
+  .scope-group h3 { font-size: 0.95rem; margin: 0 0 0.4rem; }
+  .scope-group .checks { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; font-size: 0.9rem; }
+  .scope-group .checks label { display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+  .freelance-list { font-size: 0.85rem; color: var(--muted); }
+  .freelance-list li { margin-bottom: 0.3rem; }
   table { border-collapse: collapse; width: 100%; margin-bottom: 1.5rem; }
   caption {
     text-align: left; font-weight: 600; padding: 0.5rem 0.3rem;
@@ -49,25 +59,1141 @@
   .flag-warn { color: #b06a2a; }
   .empty { color: var(--muted); padding: 1rem 0.3rem; }
   #archive-toggle { cursor: pointer; color: var(--accent); background: none; border: none; font-size: 0.9rem; padding: 0; }
+  .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .tabs button {
+    background: none; border: none; padding: 0.5rem 0.8rem; font-size: 0.95rem;
+    cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent;
+  }
+  .tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  #leads-badge {
+    display: inline-block; min-width: 1.1rem; padding: 0 0.3rem; margin-left: 0.3rem;
+    border-radius: 999px; background: var(--accent); color: white; font-size: 0.75rem;
+    text-align: center; line-height: 1.3rem;
+  }
+  #leads-badge:empty { display: none; }
+  #tab-leads .capture-form { display: flex; flex-direction: column; gap: 0.5rem; max-width: 500px; margin-bottom: 1.5rem; }
+  #tab-leads .capture-form select, #tab-leads .capture-form input, #tab-leads .capture-form textarea {
+    padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: 4px;
+    background: transparent; color: inherit; font-family: inherit;
+  }
+  #tab-leads .capture-form textarea { min-height: 80px; }
+  #tab-leads .capture-form button {
+    align-self: flex-start; padding: 0.4rem 0.9rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer;
+  }
+  .lead-card { border: 1px solid var(--border); border-radius: 6px; padding: 0.7rem 0.9rem; margin-bottom: 0.6rem; }
+  .lead-card .lead-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .lead-card .lead-tag {
+    display: inline-block; font-size: 0.75rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.4rem;
+  }
+  .lead-tag.opportunity { background: #2a5db022; color: var(--accent); }
+  .lead-tag.noise { background: transparent; color: var(--muted); }
+  #tab-outreach .contact-form { display: flex; flex-direction: column; gap: 0.5rem; max-width: 500px; margin-bottom: 1.5rem; }
+  #tab-outreach .contact-form input {
+    padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: 4px;
+    background: transparent; color: inherit; font-family: inherit;
+  }
+  #tab-outreach .contact-form button {
+    align-self: flex-start; padding: 0.4rem 0.9rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer;
+  }
+  .contact-card { border: 1px solid var(--border); border-radius: 6px; padding: 0.7rem 0.9rem; margin-bottom: 0.6rem; }
+  .contact-card .contact-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; }
+  .contact-card .contact-status {
+    display: inline-block; font-size: 0.75rem; padding: 0.1rem 0.4rem; border-radius: 3px;
+    background: #2a5db022; color: var(--accent); margin-left: 0.4rem;
+  }
+  .contact-card button {
+    margin-top: 0.4rem; padding: 0.35rem 0.8rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 0.85rem;
+  }
+  .contact-card button:disabled { opacity: 0.5; cursor: default; }
+  .contact-card .outreach-result { font-size: 0.85rem; margin-top: 0.4rem; white-space: pre-wrap; }
+  .glance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .glance-card { border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+  .glance-card .glance-number { font-size: 2rem; font-weight: 700; line-height: 1; }
+  .glance-card .glance-label { color: var(--muted); font-size: 0.85rem; margin: 0.3rem 0 0.7rem; }
+  .glance-card button {
+    padding: 0.35rem 0.8rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 0.85rem;
+  }
+  .stale-outreach-item {
+    border: 1px solid var(--border); border-radius: 6px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem;
+    font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  }
+  .stale-outreach-item button {
+    padding: 0.3rem 0.7rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 0.8rem; white-space: nowrap;
+  }
+  #tab-setup textarea {
+    width: 100%; min-height: 160px; box-sizing: border-box; padding: 0.6rem;
+    border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit;
+    font-family: inherit; font-size: 0.9rem;
+  }
+  #tab-setup label { display: block; font-size: 0.85rem; color: var(--muted); margin: 0.9rem 0 0.2rem; }
+  #tab-setup input[type="text"] {
+    width: 100%; box-sizing: border-box; padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit;
+  }
+  #tab-setup button {
+    margin-top: 0.9rem; padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 0.9rem;
+  }
+  #tab-setup .status { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+  .tag-pill-editor {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding: 0.4rem;
+    border: 1px solid var(--border); border-radius: 4px; min-height: 2.2rem;
+  }
+  .tag-pill {
+    display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.3rem 0.15rem 0.6rem;
+    border-radius: 999px; background: #2a5db022; color: var(--accent); font-size: 0.85rem;
+  }
+  .tag-pill button {
+    border: none; background: none; color: inherit; cursor: pointer; font-size: 0.9rem;
+    line-height: 1; padding: 0.1rem 0.3rem; border-radius: 50%;
+  }
+  .tag-pill button:hover { background: #2a5db044; }
+  .tag-pill-editor input {
+    border: none; outline: none; background: none; color: inherit; font-size: 0.9rem;
+    flex: 1; min-width: 120px; font-family: inherit;
+  }
+  .resume-keyword-view {
+    border: 1px solid var(--border); border-radius: 4px; padding: 0.6rem; font-size: 0.85rem;
+    line-height: 1.7; max-height: 240px; overflow-y: auto; white-space: pre-wrap;
+  }
+  .resume-keyword-view .kw-tagged {
+    background: #2a5db022; color: var(--accent); border-radius: 3px; padding: 0.05rem 0.15rem;
+    cursor: pointer;
+  }
+  .resume-keyword-view .kw-tagged:hover { background: #2a5db044; }
+  .resume-keyword-view .kw-tagged::after { content: " ×"; font-size: 0.75rem; }
+  .dropzone {
+    border: 2px dashed var(--border); border-radius: 6px; padding: 1.5rem; text-align: center;
+    cursor: pointer; color: var(--muted); font-size: 0.9rem; transition: border-color 0.15s, color 0.15s;
+  }
+  .dropzone:hover, .dropzone.dragover { border-color: var(--accent); color: var(--accent); }
+  .dropzone .filename { display: block; margin-top: 0.3rem; font-size: 0.8rem; }
+  .country-quickselect { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.6rem 0; }
+  .country-quickselect button {
+    padding: 0.3rem 0.7rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 0.85rem;
+  }
+  .map-zoom-controls {
+    position: absolute; top: 0.5rem; right: 0.5rem; z-index: 2;
+    display: inline-flex; gap: 0.2rem; background: var(--bg-alt);
+    border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem;
+  }
+  .map-zoom-controls button {
+    padding: 0.3rem 0.6rem; border-radius: 3px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 0.9rem; line-height: 1;
+  }
+  .country-map-viewport {
+    max-width: 100%; overflow: hidden; border: 1px solid var(--border);
+    border-radius: 6px; margin: 0.6rem 0; background: var(--bg-alt); cursor: grab;
+    position: relative;
+    /* matches data/world-map.svg's native viewBox ratio (784.077 x 458.627) so
+       the map fills the viewport exactly at zoom 1 with no scrollbar. */
+    aspect-ratio: 784.077 / 458.627;
+  }
+  .country-map-viewport.panning { cursor: grabbing; }
+  .country-map {
+    transform-origin: 0 0; transition: transform 0.1s ease-out;
+    width: 100%; position: absolute; top: 0; left: 0;
+  }
+  .country-map svg { width: 100%; height: auto; display: block; }
+  /* Most countries are a single <path id="xx">; multi-territory countries
+     (Sweden, Norway, Denmark, etc. — ~37 of them) are a <g id="xx"> wrapping
+     several unlabeled child <path>s instead. Style both shapes directly. */
+  .country-map path { fill: var(--border); stroke: var(--bg-alt); stroke-width: 0.5; cursor: pointer; }
+  .country-map g[id] path { cursor: pointer; }
+  .country-map path:hover, .country-map g[id]:hover path { fill: var(--accent); opacity: 0.7; }
+  .country-map path.selected, .country-map g[id].selected path { fill: var(--accent); opacity: 1; }
+  #country-search {
+    width: 100%; max-width: 320px; margin-bottom: 0.5rem; padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit;
+    box-sizing: border-box; display: block;
+  }
+  #country-list {
+    max-height: 420px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.6rem 0.8rem;
+    /* Force continents onto a single row of columns (grid-auto-flow: column
+       creates exactly one row, one column per continent-group, however many
+       there are) rather than letting auto-fit collapse to fewer columns and
+       stack continent blocks vertically on narrower viewports. */
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(130px, 1fr);
+    gap: 0 1.2rem; align-items: start;
+  }
+  #country-list .country-pill[data-hidden] { display: none; }
+  .continent-group { margin-bottom: 0; }
+  .continent-group h4 {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted);
+    margin: 0 0 0.4rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border);
+  }
+  .continent-group .checks {
+    display: block; column-count: 2; column-gap: 0.8rem; row-gap: 0.3rem;
+  }
+  /* #country-list prefix needed for specificity over the generic #tab-setup
+     button rule, which would otherwise force every pill to the same accent
+     border/text regardless of selection state. */
+  #country-list .country-pill {
+    display: block; width: fit-content; max-width: 100%; break-inside: avoid;
+    margin: 0 0 0.35rem; padding: 0.2rem 0.65rem; border-radius: 999px; border: 1px solid var(--border);
+    background: none; color: var(--muted); font-size: 0.8rem; font-family: inherit;
+    cursor: pointer; text-align: left; white-space: normal; line-height: 1.3;
+  }
+  #country-list .country-pill:hover { border-color: var(--accent); color: var(--accent); }
+  #country-list .country-pill.selected {
+    background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600;
+  }
+  .continent-group[data-empty] { display: none; }
 </style>
 </head>
 <body>
   <h1>In-House Motion Role Watcher</h1>
-  <div class="meta" id="meta">Loading…</div>
 
-  <div class="controls">
-    <input type="search" id="search" placeholder="Filter by company, title, location…">
-    <label><input type="checkbox" id="remote-only"> Remote / EU-hireable only</label>
+  <div class="tabs">
+    <button data-tab="glance" class="active">Glance</button>
+    <button data-tab="search">Search</button>
+    <button data-tab="leads">Leads<span id="leads-badge"></span></button>
+    <button data-tab="outreach">Outreach</button>
+    <button data-tab="setup">Setup</button>
   </div>
 
-  <div id="active-container"></div>
+  <div id="tab-glance" class="tab-panel active">
+    <p class="meta">
+      Requires the local backend running on <code>127.0.0.1:8420</code>. One screen instead of three —
+      new postings, new leads, and outreach that's gone quiet.
+    </p>
+    <div class="glance-grid">
+      <div class="glance-card">
+        <div class="glance-number" id="glance-new-postings">–</div>
+        <div class="glance-label">new posting(s) since last visit</div>
+        <button data-jump-tab="search">View postings</button>
+      </div>
+      <div class="glance-card">
+        <div class="glance-number" id="glance-new-leads">–</div>
+        <div class="glance-label">new lead(s) since last visit</div>
+        <button data-jump-tab="leads">View leads</button>
+      </div>
+      <div class="glance-card">
+        <div class="glance-number" id="glance-stale-count">–</div>
+        <div class="glance-label">outreach sent, gone quiet (7+ days)</div>
+        <button data-jump-tab="outreach">View outreach</button>
+      </div>
+    </div>
+    <div id="glance-stale-list"></div>
+  </div>
 
-  <p><button id="archive-toggle">Show archived / closed postings ▾</button></p>
-  <div id="archive-container" style="display:none"></div>
+  <div id="tab-search" class="tab-panel">
+    <div class="meta" id="meta">Loading…</div>
+
+    <div class="controls">
+      <input type="search" id="search" placeholder="Filter by company, title, location…">
+      <label><input type="checkbox" id="remote-only"> Remote / EU-hireable only</label>
+      <label>Contract type
+        <select id="contract-filter">
+          <option value="">All</option>
+          <option value="full-time">Full-time</option>
+          <option value="contract">Contract</option>
+          <option value="freelance">Freelance</option>
+          <option value="internship">Internship</option>
+          <option value="unknown">Unknown / unspecified</option>
+        </select>
+      </label>
+    </div>
+
+    <div id="active-container"></div>
+
+    <p><button id="archive-toggle">Show archived / closed postings ▾</button></p>
+    <div id="archive-container" style="display:none"></div>
+  </div>
+
+  <div id="tab-leads" class="tab-panel">
+    <p class="meta">
+      Requires the local backend running on <code>127.0.0.1:8420</code>. Telegram and Slack feed this
+      automatically once configured in <code>backend/config.json</code> (see <code>backend/ingest/</code>);
+      Discord and WhatsApp have no safe automated route, so paste anything you see below instead —
+      it goes through the same triage pipeline either way.
+    </p>
+    <div class="capture-form">
+      <select id="capture-source">
+        <option value="discord">Discord</option>
+        <option value="whatsapp">WhatsApp</option>
+        <option value="other">Other</option>
+      </select>
+      <input type="text" id="capture-channel" placeholder="Channel/group name (optional)">
+      <input type="text" id="capture-author" placeholder="Who posted it (optional)">
+      <textarea id="capture-text" placeholder="Paste the message text…"></textarea>
+      <button id="capture-btn">Add lead</button>
+    </div>
+    <div class="status" id="capture-status"></div>
+    <div id="leads-feed"></div>
+  </div>
+
+  <div id="tab-outreach" class="tab-panel">
+    <p class="meta">
+      Requires the local backend running on <code>127.0.0.1:8420</code> and a one-time Gmail OAuth
+      setup (see <code>backend/gmail.py</code>). "Send outreach" drafts an email with the LLM and
+      <strong>sends it immediately</strong> — no review step. Safety nets: at most one automated
+      email per contact ever, and a daily send cap (see <code>backend/config.json</code>).
+    </p>
+    <div class="contact-form">
+      <input type="text" id="contact-company" placeholder="Company">
+      <input type="text" id="contact-name" placeholder="Contact name">
+      <input type="text" id="contact-role" placeholder="Their role">
+      <input type="text" id="contact-email" placeholder="Email address">
+      <button id="add-contact-btn">Add contact</button>
+    </div>
+    <div class="status" id="contact-status"></div>
+    <div id="contacts-list"></div>
+  </div>
+
+  <div id="tab-setup" class="tab-panel">
+    <p class="meta">
+      Requires the local backend running on <code>127.0.0.1:8420</code> (see <code>backend/</code>).
+      Paste your resume, review the extracted profile, then save — saved keywords/industries feed
+      <code>data/search_profile.json</code>, which the daily fetch reads to match postings.
+    </p>
+    <label>Upload resume file</label>
+    <div id="resume-dropzone" class="dropzone">
+      <span id="dropzone-label">Drag a resume file here, or click to browse — .pdf, .docx, .txt, .md</span>
+      <span class="filename" id="dropzone-filename"></span>
+    </div>
+    <input type="file" id="resume-file-input" accept=".pdf,.docx,.txt,.md" style="display:none">
+    <div class="status" id="upload-status"></div>
+
+    <label for="resume-text">Resume text (uploaded text lands here, or paste directly)</label>
+    <textarea id="resume-text" placeholder="Paste resume text here…"></textarea>
+    <button id="extract-btn">Extract profile</button>
+
+    <div id="profile-review" style="display:none">
+      <label>Skills</label>
+      <div class="tag-pill-editor" id="profile-skills-tags"></div>
+
+      <label>Industries</label>
+      <div class="tag-pill-editor" id="profile-industries-tags"></div>
+
+      <label>Job-posting match keywords</label>
+      <div class="tag-pill-editor" id="profile-keywords-tags"></div>
+      <p class="meta">
+        Click a highlighted phrase below to untag it. Select any other text in your resume and
+        click "Tag selection" to add it as a keyword — or just add it directly above.
+      </p>
+      <div id="resume-keyword-view" class="resume-keyword-view"></div>
+      <button type="button" id="tag-selection-btn" style="display:none">+ Tag selected text</button>
+
+      <label for="profile-summary">Summary</label>
+      <input type="text" id="profile-summary">
+      <button id="save-profile-btn">Save profile</button>
+    </div>
+    <div class="status" id="setup-status"></div>
+
+    <div class="scope-group">
+      <h3>Active ATS sources</h3>
+      <div class="checks" id="scope-ats"></div>
+    </div>
+    <div class="scope-group">
+      <h3>Contract modes you want surfaced</h3>
+      <div class="checks" id="scope-contract-modes"></div>
+    </div>
+    <div class="scope-group">
+      <h3>Industries you're interested in</h3>
+      <p class="meta">
+        The full taxonomy from <code>DOCS/research_brief.md</code>/<code>role_search.md</code>, not
+        just the industries currently covered by <code>data/companies.json</code>. This is a
+        forward-looking preference — it doesn't filter fetches yet, it's the signal for what to
+        sweep next.
+      </p>
+      <div class="checks" id="scope-industries"></div>
+    </div>
+    <div class="scope-group">
+      <h3>Countries you're targeting</h3>
+      <p class="meta">
+        Click the map or the list below. Restricts the "verify location" flag in the Search tab to
+        just these countries — falls back to the default EU/EEA+UK+CH allowlist if nothing's
+        selected here. The map covers the whole world; matching works for any country you pick.
+      </p>
+      <div class="country-quickselect">
+        <button type="button" data-tier="nordics">Nordics</button>
+        <button type="button" data-tier="benelux-dach-ch">Benelux / DACH / CH</button>
+        <button type="button" data-tier="uk">UK</button>
+        <button type="button" data-tier="us">US</button>
+        <button type="button" data-tier="clear">Clear all</button>
+      </div>
+      <div id="country-map-viewport" class="country-map-viewport">
+        <div id="country-map-container" class="country-map"></div>
+        <span class="map-zoom-controls">
+          <button type="button" id="map-zoom-out" title="Zoom out">−</button>
+          <button type="button" id="map-zoom-reset" title="Reset zoom">Reset</button>
+          <button type="button" id="map-zoom-in" title="Zoom in">+</button>
+        </span>
+      </div>
+      <input type="search" id="country-search" placeholder="Search countries…">
+      <div id="country-list"></div>
+    </div>
+    <div class="scope-group">
+      <h3>Companies (disable to skip fetching without deleting the entry)</h3>
+      <div class="checks" id="scope-companies"></div>
+    </div>
+    <div class="scope-group">
+      <h3>Freelance platforms tracked</h3>
+      <ul class="freelance-list" id="freelance-list"></ul>
+    </div>
+    <button id="save-scope-btn">Save scope</button>
+    <div class="status" id="scope-status"></div>
+  </div>
 
 <script>
 (function () {
+  var BACKEND = "http://127.0.0.1:8420";
   var state = { postings: [], archive: [], sortKey: "company", sortDir: 1 };
+
+  function activateTab(tabName) {
+    document.querySelectorAll(".tabs button").forEach(function (b) { b.classList.remove("active"); });
+    document.querySelectorAll(".tab-panel").forEach(function (p) { p.classList.remove("active"); });
+    var btn = document.querySelector(".tabs button[data-tab=\"" + tabName + "\"]");
+    if (btn) btn.classList.add("active");
+    document.getElementById("tab-" + tabName).classList.add("active");
+    if (tabName === "leads") onLeadsTabOpened();
+    if (tabName === "search") {
+      fetch(BACKEND + "/glance/seen-postings", { method: "POST" }).catch(function () {});
+    }
+    if (tabName === "glance") initGlance();
+  }
+
+  function initTabs() {
+    document.querySelectorAll(".tabs button[data-tab]").forEach(function (btn) {
+      btn.addEventListener("click", function () { activateTab(btn.dataset.tab); });
+    });
+    document.querySelectorAll("[data-jump-tab]").forEach(function (btn) {
+      btn.addEventListener("click", function () { activateTab(btn.dataset.jumpTab); });
+    });
+  }
+
+  function initResumeUpload() {
+    var dropzone = document.getElementById("resume-dropzone");
+    var fileInput = document.getElementById("resume-file-input");
+    var uploadStatus = document.getElementById("upload-status");
+    var filenameEl = document.getElementById("dropzone-filename");
+
+    function uploadFile(file) {
+      filenameEl.textContent = file.name;
+      uploadStatus.textContent = "Uploading & extracting text…";
+      var formData = new FormData();
+      formData.append("file", file);
+      fetch(BACKEND + "/profile/upload", { method: "POST", body: formData })
+        .then(function (r) {
+          return r.json().then(function (data) { return { ok: r.ok, data: data }; });
+        })
+        .then(function (result) {
+          if (!result.ok) throw new Error(result.data.detail || "upload failed");
+          document.getElementById("resume-text").value = result.data.resume_text;
+          uploadStatus.textContent = "Extracted text from \"" + file.name + "\" — review it below, then Extract profile.";
+        })
+        .catch(function (err) {
+          uploadStatus.textContent = "Couldn't read that file (" + err.message + ").";
+        });
+    }
+
+    dropzone.addEventListener("click", function () { fileInput.click(); });
+    fileInput.addEventListener("change", function () {
+      if (fileInput.files[0]) uploadFile(fileInput.files[0]);
+    });
+    ["dragover", "dragenter"].forEach(function (evt) {
+      dropzone.addEventListener(evt, function (e) { e.preventDefault(); dropzone.classList.add("dragover"); });
+    });
+    ["dragleave", "drop"].forEach(function (evt) {
+      dropzone.addEventListener(evt, function (e) { e.preventDefault(); dropzone.classList.remove("dragover"); });
+    });
+    dropzone.addEventListener("drop", function (e) {
+      var file = e.dataTransfer.files[0];
+      if (file) uploadFile(file);
+    });
+  }
+
+  function createTagPillEditor(container, initialTags, onChange) {
+    var tags = (initialTags || []).slice();
+
+    function render() {
+      container.innerHTML = "";
+      tags.forEach(function (tag, idx) {
+        var pill = document.createElement("span");
+        pill.className = "tag-pill";
+        pill.textContent = tag;
+        var removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.textContent = "×";
+        removeBtn.title = "Remove";
+        removeBtn.addEventListener("click", function () {
+          tags.splice(idx, 1);
+          render();
+          if (onChange) onChange(tags.slice());
+        });
+        pill.appendChild(removeBtn);
+        container.appendChild(pill);
+      });
+      var input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Type and press Enter…";
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === ",") {
+          e.preventDefault();
+          var val = input.value.trim().replace(/,$/, "");
+          if (val && tags.indexOf(val) === -1) {
+            tags.push(val);
+            render();
+            if (onChange) onChange(tags.slice());
+          } else {
+            input.value = "";
+          }
+        } else if (e.key === "Backspace" && !input.value && tags.length) {
+          tags.pop();
+          render();
+          if (onChange) onChange(tags.slice());
+        }
+      });
+      container.appendChild(input);
+    }
+    render();
+
+    return {
+      getTags: function () { return tags.slice(); },
+      setTags: function (newTags) { tags = (newTags || []).slice(); render(); },
+      addTag: function (tag) {
+        if (tag && tags.indexOf(tag) === -1) {
+          tags.push(tag);
+          render();
+          if (onChange) onChange(tags.slice());
+        }
+      },
+      removeTag: function (tag) {
+        var idx = tags.indexOf(tag);
+        if (idx !== -1) {
+          tags.splice(idx, 1);
+          render();
+          if (onChange) onChange(tags.slice());
+        }
+      }
+    };
+  }
+
+  function highlightKeywords(text, keywords) {
+    if (!keywords.length) return escapeHtml(text);
+    function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+    // Longest-first so "video editor" is matched whole instead of "video" +
+    // "editor" separately when both happen to be tagged.
+    var sorted = keywords.slice().sort(function (a, b) { return b.length - a.length; });
+    var pattern = sorted.map(escapeRegex).join("|");
+    var re = new RegExp("(" + pattern + ")", "gi");
+    var result = "", lastIndex = 0, match;
+    while ((match = re.exec(text)) !== null) {
+      var canonical = sorted.filter(function (kw) { return kw.toLowerCase() === match[0].toLowerCase(); })[0] || match[0];
+      result += escapeHtml(text.slice(lastIndex, match.index));
+      result += '<span class="kw-tagged" data-kw="' + escapeAttr(canonical) + '">' + escapeHtml(match[0]) + '</span>';
+      lastIndex = match.index + match[0].length;
+    }
+    result += escapeHtml(text.slice(lastIndex));
+    return result;
+  }
+
+  function initResumeKeywordView(resumeText, keywordsEditor) {
+    var viewEl = document.getElementById("resume-keyword-view");
+    var tagBtn = document.getElementById("tag-selection-btn");
+
+    function render() {
+      if (!resumeText) {
+        viewEl.innerHTML = '<p class="empty">No resume text to tag against.</p>';
+        return;
+      }
+      viewEl.innerHTML = highlightKeywords(resumeText, keywordsEditor.getTags());
+      viewEl.querySelectorAll(".kw-tagged").forEach(function (span) {
+        span.addEventListener("click", function () {
+          keywordsEditor.removeTag(span.dataset.kw);
+          render();
+        });
+      });
+    }
+    render();
+
+    viewEl.addEventListener("mouseup", function () {
+      var text = window.getSelection().toString().trim();
+      if (text && text.length > 1 && text.length < 80) {
+        tagBtn.style.display = "inline-block";
+        tagBtn.dataset.pendingTag = text;
+      } else {
+        tagBtn.style.display = "none";
+      }
+    });
+    tagBtn.addEventListener("click", function () {
+      if (tagBtn.dataset.pendingTag) {
+        keywordsEditor.addTag(tagBtn.dataset.pendingTag);
+        render();
+      }
+      tagBtn.style.display = "none";
+      window.getSelection().removeAllRanges();
+    });
+
+    return { refresh: render };
+  }
+
+  function initSetup() {
+    var setupStatus = document.getElementById("setup-status");
+    var skillsEditor = null, industriesEditor = null, keywordsEditor = null;
+
+    document.getElementById("extract-btn").addEventListener("click", function () {
+      var resumeText = document.getElementById("resume-text").value.trim();
+      if (!resumeText) { setupStatus.textContent = "Paste your resume text first."; return; }
+      setupStatus.textContent = "Extracting…";
+      fetch(BACKEND + "/profile/extract", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resume_text: resumeText })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        return r.json();
+      }).then(function (extracted) {
+        skillsEditor = createTagPillEditor(document.getElementById("profile-skills-tags"), extracted.skills || []);
+        industriesEditor = createTagPillEditor(document.getElementById("profile-industries-tags"), extracted.industries || []);
+        var resumeKeywordView = null;
+        keywordsEditor = createTagPillEditor(document.getElementById("profile-keywords-tags"), extracted.keywords || [], function () {
+          if (resumeKeywordView) resumeKeywordView.refresh();
+        });
+        resumeKeywordView = initResumeKeywordView(resumeText, keywordsEditor);
+        document.getElementById("profile-summary").value = extracted.summary || "";
+        document.getElementById("profile-review").style.display = "block";
+        setupStatus.textContent = "Review the extracted profile below, edit anything wrong, then save.";
+      }).catch(function (err) {
+        setupStatus.textContent = "Couldn't reach the local backend (" + err.message + "). Is it running?";
+      });
+    });
+
+    document.getElementById("save-profile-btn").addEventListener("click", function () {
+      var extracted = {
+        skills: skillsEditor ? skillsEditor.getTags() : [],
+        industries: industriesEditor ? industriesEditor.getTags() : [],
+        keywords: keywordsEditor ? keywordsEditor.getTags() : [],
+        summary: document.getElementById("profile-summary").value.trim()
+      };
+      var resumeText = document.getElementById("resume-text").value.trim();
+      setupStatus.textContent = "Saving…";
+      fetch(BACKEND + "/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resume_text: resumeText, extracted: extracted })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        return r.json();
+      }).then(function () {
+        setupStatus.textContent = "Saved. data/search_profile.json will pick this up on the next commit from the backend.";
+      }).catch(function (err) {
+        setupStatus.textContent = "Couldn't save (" + err.message + ").";
+      });
+    });
+  }
+
+  function leadCardHtml(lead) {
+    var triage = lead.triage_json ? JSON.parse(lead.triage_json) : null;
+    var tag = "";
+    if (triage) {
+      tag = triage.is_opportunity
+        ? '<span class="lead-tag opportunity">possible opportunity</span>'
+        : '<span class="lead-tag noise">noise</span>';
+    } else {
+      tag = '<span class="lead-tag noise">untriaged</span>';
+    }
+    var contact = triage && triage.point_of_contact ? " · contact: " + escapeHtml(triage.point_of_contact) : "";
+    return '<div class="lead-card">' +
+      '<div class="lead-meta">' + escapeHtml(lead.source) +
+      (lead.source_channel ? " / " + escapeHtml(lead.source_channel) : "") +
+      (lead.author ? " · " + escapeHtml(lead.author) : "") +
+      " · " + escapeHtml(lead.created_at) + contact + tag + '</div>' +
+      '<div>' + escapeHtml(lead.raw_text) + '</div>' +
+      '</div>';
+  }
+
+  function refreshLeads() {
+    fetch(BACKEND + "/leads").then(function (r) {
+      if (!r.ok) throw new Error("Backend returned " + r.status);
+      return r.json();
+    }).then(function (data) {
+      var feed = document.getElementById("leads-feed");
+      feed.innerHTML = data.leads.length
+        ? data.leads.map(leadCardHtml).join("")
+        : '<p class="empty">No leads yet.</p>';
+      document.getElementById("leads-badge").textContent = data.unread_count > 0 ? data.unread_count : "";
+    }).catch(function () {
+      document.getElementById("leads-feed").innerHTML =
+        '<p class="empty">Couldn\'t reach the local backend. Is it running?</p>';
+    });
+  }
+
+  function onLeadsTabOpened() {
+    refreshLeads();
+    fetch(BACKEND + "/leads/seen", { method: "POST" }).then(function () {
+      // Badge reflects "unread since last visit" — clear it now that this visit counts as seen.
+      document.getElementById("leads-badge").textContent = "";
+    }).catch(function () {});
+  }
+
+  function initLeads() {
+    document.getElementById("capture-btn").addEventListener("click", function () {
+      var status = document.getElementById("capture-status");
+      var text = document.getElementById("capture-text").value.trim();
+      if (!text) { status.textContent = "Paste a message first."; return; }
+      status.textContent = "Adding…";
+      fetch(BACKEND + "/leads/capture", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: document.getElementById("capture-source").value,
+          source_channel: document.getElementById("capture-channel").value.trim(),
+          author: document.getElementById("capture-author").value.trim(),
+          raw_text: text
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        return r.json();
+      }).then(function () {
+        document.getElementById("capture-text").value = "";
+        status.textContent = "Added.";
+        refreshLeads();
+      }).catch(function (err) {
+        status.textContent = "Couldn't add (" + err.message + ").";
+      });
+    });
+    // Poll the unread count on load so the badge shows without opening the tab first.
+    fetch(BACKEND + "/leads").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (data) document.getElementById("leads-badge").textContent = data.unread_count > 0 ? data.unread_count : "";
+    }).catch(function () {});
+  }
+
+  function contactCardHtml(c) {
+    return '<div class="contact-card" data-contact-id="' + c.id + '">' +
+      '<div class="contact-meta">' + escapeHtml(c.name || "(no name)") +
+      (c.role ? " — " + escapeHtml(c.role) : "") +
+      (c.company ? " at " + escapeHtml(c.company) : "") +
+      " · " + escapeHtml(c.email) +
+      '<span class="contact-status">' + escapeHtml(c.status) + '</span></div>' +
+      '<button class="send-outreach-btn" data-contact-id="' + c.id + '"' +
+      (c.status === "sent" ? " disabled" : "") + '>Send outreach</button>' +
+      '<div class="outreach-result" id="outreach-result-' + c.id + '"></div>' +
+      '</div>';
+  }
+
+  function refreshContacts() {
+    fetch(BACKEND + "/contacts").then(function (r) {
+      if (!r.ok) throw new Error("Backend returned " + r.status);
+      return r.json();
+    }).then(function (contacts) {
+      var list = document.getElementById("contacts-list");
+      list.innerHTML = contacts.length ? contacts.map(contactCardHtml).join("") : '<p class="empty">No contacts yet.</p>';
+      list.querySelectorAll(".send-outreach-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var id = btn.dataset.contactId;
+          var resultEl = document.getElementById("outreach-result-" + id);
+          btn.disabled = true;
+          resultEl.textContent = "Sending…";
+          fetch(BACKEND + "/contacts/" + id + "/outreach", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({})
+          }).then(function (r) {
+            if (!r.ok) throw new Error("Backend returned " + r.status);
+            return r.json();
+          }).then(function (result) {
+            if (result.status === "sent") {
+              resultEl.textContent = "Sent: \"" + result.subject + "\"";
+            } else {
+              resultEl.textContent = "Not sent: " + result.reason;
+              btn.disabled = false;
+            }
+          }).catch(function (err) {
+            resultEl.textContent = "Failed: " + err.message;
+            btn.disabled = false;
+          });
+        });
+      });
+    }).catch(function () {
+      document.getElementById("contacts-list").innerHTML =
+        '<p class="empty">Couldn\'t reach the local backend. Is it running?</p>';
+    });
+  }
+
+  function initOutreach() {
+    document.getElementById("add-contact-btn").addEventListener("click", function () {
+      var status = document.getElementById("contact-status");
+      var email = document.getElementById("contact-email").value.trim();
+      if (!email) { status.textContent = "Email address is required."; return; }
+      status.textContent = "Adding…";
+      fetch(BACKEND + "/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          company: document.getElementById("contact-company").value.trim(),
+          name: document.getElementById("contact-name").value.trim(),
+          role: document.getElementById("contact-role").value.trim(),
+          email: email
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        return r.json();
+      }).then(function () {
+        ["contact-company", "contact-name", "contact-role", "contact-email"].forEach(function (id) {
+          document.getElementById(id).value = "";
+        });
+        status.textContent = "Added.";
+        refreshContacts();
+      }).catch(function (err) {
+        status.textContent = "Couldn't add (" + err.message + ").";
+      });
+    });
+    refreshContacts();
+  }
+
+  function initGlance() {
+    fetch(BACKEND + "/glance").then(function (r) {
+      if (!r.ok) throw new Error("Backend returned " + r.status);
+      return r.json();
+    }).then(function (g) {
+      document.getElementById("glance-new-postings").textContent = g.new_postings_count;
+      document.getElementById("glance-new-leads").textContent = g.new_leads_count;
+      document.getElementById("glance-stale-count").textContent = g.stale_outreach.length;
+
+      var staleList = document.getElementById("glance-stale-list");
+      if (!g.stale_outreach.length) {
+        staleList.innerHTML = "";
+        return;
+      }
+      staleList.innerHTML = g.stale_outreach.map(function (c) {
+        return '<div class="stale-outreach-item" data-contact-id="' + c.id + '">' +
+          '<span>' + escapeHtml(c.name || c.email) + (c.company ? " at " + escapeHtml(c.company) : "") + '</span>' +
+          '<button class="mark-replied-btn" data-contact-id="' + c.id + '">Mark handled</button>' +
+          '</div>';
+      }).join("");
+      staleList.querySelectorAll(".mark-replied-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          fetch(BACKEND + "/contacts/" + btn.dataset.contactId + "/status", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "replied" })
+          }).then(function () { initGlance(); }).catch(function () {});
+        });
+      });
+    }).catch(function () {
+      document.getElementById("glance-new-postings").textContent = "?";
+      document.getElementById("glance-new-leads").textContent = "?";
+      document.getElementById("glance-stale-count").textContent = "?";
+    });
+  }
+
+  var ALL_ATS = ["greenhouse", "lever", "smartrecruiters"];
+  var ALL_CONTRACT_MODES = ["full-time", "contract", "freelance", "internship"];
+
+  function checkboxRow(container, id, value, label, checked) {
+    var wrap = document.createElement("label");
+    var input = document.createElement("input");
+    input.type = "checkbox";
+    input.id = id;
+    input.value = value;
+    input.checked = checked;
+    wrap.appendChild(input);
+    wrap.appendChild(document.createTextNode(label));
+    container.appendChild(wrap);
+    return input;
+  }
+
+  var COUNTRY_TIERS = {
+    "nordics": ["se", "dk", "no", "fi", "is"],
+    "benelux-dach-ch": ["lu", "be", "nl", "de", "ch"],
+    "uk": ["gb"],
+    "us": ["us"],
+    "clear": []
+  };
+
+  function getSelectedCountries() {
+    var mapEl = document.getElementById("country-map-container");
+    var selected = mapEl.querySelectorAll("path[id].selected, g[id].selected");
+    return Array.prototype.map.call(selected, function (el) { return el.id.toUpperCase(); });
+  }
+
+  function setSelectedCountries(codes) {
+    var codeSet = {};
+    codes.forEach(function (c) { codeSet[c.toLowerCase()] = true; });
+    // Countries are either a single <path id="xx"> or a <g id="xx"> wrapping
+    // several unlabeled child paths (multi-territory countries) — select on
+    // whichever element actually carries the id, not path specifically.
+    document.querySelectorAll("#country-map-container path[id], #country-map-container g[id]").forEach(function (el) {
+      el.classList.toggle("selected", !!codeSet[el.id.toLowerCase()]);
+    });
+    document.querySelectorAll("#country-list .country-pill").forEach(function (pill) {
+      pill.classList.toggle("selected", !!codeSet[pill.dataset.code.toLowerCase()]);
+    });
+  }
+
+  function initCountryMap(savedCountries) {
+    var mapContainer = document.getElementById("country-map-container");
+    var listContainer = document.getElementById("country-list");
+    var searchInput = document.getElementById("country-search");
+
+    Promise.all([
+      fetch("data/world-map.svg").then(function (r) { return r.ok ? r.text() : ""; }).catch(function () { return ""; }),
+      fetch("data/country-codes.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+    ]).then(function (results) {
+      var svgText = results[0];
+      var countries = results[1] || [];
+
+      if (svgText) {
+        mapContainer.innerHTML = svgText;
+        // Countries are either a single <path id="xx"> or a <g id="xx">
+        // wrapping several unlabeled child paths — bind clicks on whichever
+        // element actually carries the id.
+        mapContainer.querySelectorAll("path[id], g[id]").forEach(function (el) {
+          el.addEventListener("click", function () {
+            el.classList.toggle("selected");
+            var pill = listContainer.querySelector(".country-pill[data-code=\"" + el.id.toLowerCase() + "\"]");
+            if (pill) pill.classList.toggle("selected", el.classList.contains("selected"));
+          });
+        });
+      } else {
+        mapContainer.innerHTML = '<p class="empty">Couldn\'t load the world map asset.</p>';
+      }
+
+      var CONTINENT_ORDER = ["Europe", "Asia", "Africa", "Americas", "Oceania"];
+      var byContinent = {};
+      countries.forEach(function (c) {
+        var key = c.continent || "Other";
+        (byContinent[key] = byContinent[key] || []).push(c);
+      });
+      var continents = CONTINENT_ORDER.filter(function (k) { return byContinent[k]; })
+        .concat(Object.keys(byContinent).filter(function (k) { return CONTINENT_ORDER.indexOf(k) === -1; }));
+
+      continents.forEach(function (continent) {
+        var group = document.createElement("div");
+        group.className = "continent-group";
+        group.dataset.continent = continent;
+        var heading = document.createElement("h4");
+        heading.textContent = continent;
+        var row = document.createElement("div");
+        row.className = "checks";
+        group.appendChild(heading);
+        group.appendChild(row);
+        listContainer.appendChild(group);
+
+        var sorted = byContinent[continent].slice().sort(function (a, b) { return a.name.localeCompare(b.name); });
+        sorted.forEach(function (c) {
+          var pill = document.createElement("button");
+          pill.type = "button";
+          pill.className = "country-pill";
+          pill.dataset.code = c.code.toLowerCase();
+          pill.textContent = c.name;
+          pill.addEventListener("click", function () {
+            pill.classList.toggle("selected");
+            var el = mapContainer.querySelector("[id=\"" + c.code.toLowerCase() + "\"]");
+            if (el) el.classList.toggle("selected", pill.classList.contains("selected"));
+          });
+          row.appendChild(pill);
+        });
+      });
+
+      if (savedCountries && savedCountries.length) setSelectedCountries(savedCountries);
+    });
+
+    searchInput.addEventListener("input", function () {
+      var q = searchInput.value.trim().toLowerCase();
+      listContainer.querySelectorAll(".continent-group").forEach(function (group) {
+        var anyVisible = false;
+        group.querySelectorAll(".country-pill").forEach(function (pill) {
+          var match = !q || pill.textContent.toLowerCase().indexOf(q) !== -1;
+          pill.toggleAttribute("data-hidden", !match);
+          if (match) anyVisible = true;
+        });
+        group.toggleAttribute("data-empty", !anyVisible);
+      });
+    });
+
+    document.querySelectorAll(".country-quickselect button[data-tier]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setSelectedCountries(COUNTRY_TIERS[btn.dataset.tier] || []);
+      });
+    });
+
+    initMapZoom();
+  }
+
+  function initMapZoom() {
+    var viewport = document.getElementById("country-map-viewport");
+    var mapEl = document.getElementById("country-map-container");
+    var zoom = 1, panX = 0, panY = 0;
+    var MIN_ZOOM = 1, MAX_ZOOM = 6;
+
+    // Pan/zoom driven entirely by a CSS transform (translate + scale) instead
+    // of scrollLeft/scrollTop — the viewport has overflow:hidden, so there's
+    // never a scrollbar, even at zoom 1 or mid-pan.
+    function clampPan() {
+      var vw = viewport.clientWidth, vh = viewport.clientHeight;
+      var scaledW = vw * zoom, scaledH = vh * zoom;
+      var minX = Math.min(0, vw - scaledW);
+      var minY = Math.min(0, vh - scaledH);
+      panX = Math.min(0, Math.max(minX, panX));
+      panY = Math.min(0, Math.max(minY, panY));
+    }
+
+    function applyTransform() {
+      clampPan();
+      mapEl.style.transform = "translate(" + panX + "px, " + panY + "px) scale(" + zoom + ")";
+    }
+
+    // Zoom while keeping the point under clientX/clientY visually fixed —
+    // matches the "scroll = zoom toward cursor" convention of Figma/Google Maps.
+    function zoomAt(newZoom, clientX, clientY) {
+      newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newZoom));
+      if (newZoom === zoom) return;
+      var rect = viewport.getBoundingClientRect();
+      var mx = clientX - rect.left, my = clientY - rect.top;
+      var contentX = (mx - panX) / zoom;
+      var contentY = (my - panY) / zoom;
+      zoom = newZoom;
+      panX = mx - contentX * zoom;
+      panY = my - contentY * zoom;
+      applyTransform();
+    }
+
+    document.getElementById("map-zoom-in").addEventListener("click", function () {
+      var rect = viewport.getBoundingClientRect();
+      zoomAt(zoom + 0.5, rect.left + rect.width / 2, rect.top + rect.height / 2);
+    });
+    document.getElementById("map-zoom-out").addEventListener("click", function () {
+      var rect = viewport.getBoundingClientRect();
+      zoomAt(zoom - 0.5, rect.left + rect.width / 2, rect.top + rect.height / 2);
+    });
+    document.getElementById("map-zoom-reset").addEventListener("click", function () {
+      zoom = 1; panX = 0; panY = 0;
+      applyTransform();
+    });
+
+    // Modern navigation: plain scroll wheel zooms in/out (no modifier key
+    // needed), middle-mouse-button drag pans.
+    viewport.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      zoomAt(zoom + (e.deltaY < 0 ? 0.5 : -0.5), e.clientX, e.clientY);
+    }, { passive: false });
+
+    var panning = false, panStartClientX = 0, panStartClientY = 0, panOriginX = 0, panOriginY = 0;
+    viewport.addEventListener("mousedown", function (e) {
+      if (e.button !== 1) return; // middle mouse button only
+      e.preventDefault();
+      panning = true;
+      panStartClientX = e.clientX;
+      panStartClientY = e.clientY;
+      panOriginX = panX;
+      panOriginY = panY;
+      viewport.classList.add("panning");
+    });
+    window.addEventListener("mousemove", function (e) {
+      if (!panning) return;
+      panX = panOriginX + (e.clientX - panStartClientX);
+      panY = panOriginY + (e.clientY - panStartClientY);
+      applyTransform();
+    });
+    window.addEventListener("mouseup", function () {
+      if (!panning) return;
+      panning = false;
+      viewport.classList.remove("panning");
+    });
+    // Middle-click alone (no drag) would otherwise trigger the browser's
+    // native autoscroll mode — suppress it on the viewport.
+    viewport.addEventListener("auxclick", function (e) {
+      if (e.button === 1) e.preventDefault();
+    });
+  }
+
+  var ALL_INDUSTRIES = []; // populated from GET /scope/options once loaded
+
+  function initScope() {
+    var scopeStatus = document.getElementById("scope-status");
+    var atsContainer = document.getElementById("scope-ats");
+    var modesContainer = document.getElementById("scope-contract-modes");
+    var industriesContainer = document.getElementById("scope-industries");
+    var companiesContainer = document.getElementById("scope-companies");
+    var freelanceList = document.getElementById("freelance-list");
+
+    Promise.all([
+      fetch(BACKEND + "/scope").then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+      fetch(BACKEND + "/scope/options").then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
+      fetch("data/companies.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),
+      fetch("data/freelance_sources.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+    ]).then(function (results) {
+      var scope = results[0] || { active_ats: ALL_ATS, contract_modes: ALL_CONTRACT_MODES, industries: [], countries: [] };
+      var options = results[1];
+      var companies = results[2] || [];
+      var freelanceSources = results[3] || [];
+
+      ALL_ATS.forEach(function (ats) {
+        checkboxRow(atsContainer, "ats-" + ats, ats, ats, scope.active_ats.indexOf(ats) !== -1);
+      });
+      ALL_CONTRACT_MODES.forEach(function (mode) {
+        checkboxRow(modesContainer, "mode-" + mode, mode, mode, scope.contract_modes.indexOf(mode) !== -1);
+      });
+
+      var companyCountByCluster = {};
+      companies.forEach(function (c) {
+        companyCountByCluster[c.cluster] = (companyCountByCluster[c.cluster] || 0) + 1;
+      });
+
+      ALL_INDUSTRIES = (options && options.industries) || [];
+      ALL_INDUSTRIES.forEach(function (industry, idx) {
+        var count = companyCountByCluster[industry] || 0;
+        var label = industry + (count ? " (" + count + " compan" + (count === 1 ? "y" : "ies") + ")" : " — no companies yet");
+        checkboxRow(industriesContainer, "industry-" + idx, industry, label, scope.industries.indexOf(industry) !== -1);
+      });
+      if (!ALL_INDUSTRIES.length) {
+        industriesContainer.innerHTML = '<p class="empty">Couldn\'t load the industry list from the backend.</p>';
+      }
+
+      companies.forEach(function (c) {
+        checkboxRow(companiesContainer, "company-" + c.name, c.name, c.name + " (" + c.cluster + ")", c.enabled !== false);
+      });
+      freelanceSources.forEach(function (f) {
+        var li = document.createElement("li");
+        li.textContent = f.name + " — " + (f.integration_needed ? "no automated fetch yet: " + f.notes : "automated");
+        freelanceList.appendChild(li);
+      });
+
+      initCountryMap(scope.countries || []);
+
+      if (!results[0]) {
+        scopeStatus.textContent = "Couldn't reach the local backend to load saved scope — showing defaults (all sources/modes active).";
+      }
+    });
+
+    document.getElementById("save-scope-btn").addEventListener("click", function () {
+      var activeAts = ALL_ATS.filter(function (ats) { return document.getElementById("ats-" + ats).checked; });
+      var contractModes = ALL_CONTRACT_MODES.filter(function (m) { return document.getElementById("mode-" + m).checked; });
+      var industries = ALL_INDUSTRIES.filter(function (_, idx) { return document.getElementById("industry-" + idx).checked; });
+      var companyToggles = Array.prototype.slice.call(companiesContainer.querySelectorAll("input[type=checkbox]"))
+        .map(function (input) { return { name: input.value, enabled: input.checked }; });
+      var countries = typeof getSelectedCountries === "function" ? getSelectedCountries() : [];
+
+      scopeStatus.textContent = "Saving…";
+      fetch(BACKEND + "/scope", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          active_ats: activeAts, contract_modes: contractModes, companies: companyToggles,
+          industries: industries, countries: countries
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        return r.json();
+      }).then(function () {
+        scopeStatus.textContent = "Saved. Takes effect on the next fetch_postings.py run.";
+      }).catch(function (err) {
+        scopeStatus.textContent = "Couldn't save (" + err.message + ").";
+      });
+    });
+  }
 
   function fmtFlag(p) {
     var bits = [];
@@ -96,8 +1222,12 @@
     });
   }
 
-  function matchesFilter(p, q, remoteOnly) {
+  function matchesFilter(p, q, remoteOnly, contractFilter) {
     if (remoteOnly && !(p.remote || p.eu_hireable_or_remote)) return false;
+    if (contractFilter) {
+      var contractType = p.contract_type || "unknown";
+      if (contractType !== contractFilter) return false;
+    }
     if (!q) return true;
     var haystack = [p.company, p.title, p.location].join(" ").toLowerCase();
     return haystack.indexOf(q) !== -1;
@@ -118,6 +1248,7 @@
           "<td><a href=\"" + escapeAttr(p.url) + "\" target=\"_blank\" rel=\"noopener\">" + escapeHtml(p.title) + "</a></td>" +
           "<td>" + escapeHtml(p.location || "") + "</td>" +
           "<td>" + fmtFlag(p) + "</td>" +
+          "<td>" + escapeHtml(p.contract_type || "unknown") + "</td>" +
           "<td>" + escapeHtml(opts.dateField === "closed_date" ? (p.closed_date || "") : (p.first_seen || "")) + "</td>" +
           "<td>" + escapeHtml(p.ats || "") + "</td>" +
           "</tr>";
@@ -130,6 +1261,7 @@
         "<th data-key=\"title\">Title</th>" +
         "<th data-key=\"location\">Location</th>" +
         "<th>Flags</th>" +
+        "<th data-key=\"contract_type\">Contract</th>" +
         "<th data-key=\"" + (opts.dateField || "first_seen") + "\">" + dateHeader + "</th>" +
         "<th data-key=\"ats\">Source</th>" +
         "</tr></thead>" +
@@ -148,8 +1280,9 @@
   function render() {
     var q = document.getElementById("search").value.trim().toLowerCase();
     var remoteOnly = document.getElementById("remote-only").checked;
-    var active = state.postings.filter(function (p) { return matchesFilter(p, q, remoteOnly); });
-    var archived = state.archive.filter(function (p) { return matchesFilter(p, q, remoteOnly); });
+    var contractFilter = document.getElementById("contract-filter").value;
+    var active = state.postings.filter(function (p) { return matchesFilter(p, q, remoteOnly, contractFilter); });
+    var archived = state.archive.filter(function (p) { return matchesFilter(p, q, remoteOnly, contractFilter); });
 
     document.getElementById("active-container").innerHTML = renderTable(active);
     document.getElementById("archive-container").innerHTML = renderTable(archived, { dateField: "closed_date" });
@@ -178,11 +1311,20 @@
 
   document.getElementById("search").addEventListener("input", render);
   document.getElementById("remote-only").addEventListener("change", render);
+  document.getElementById("contract-filter").addEventListener("change", render);
   document.getElementById("archive-toggle").addEventListener("click", function () {
     var el = document.getElementById("archive-container");
     el.style.display = el.style.display === "none" ? "block" : "none";
     render();
   });
+
+  initTabs();
+  initSetup();
+  initResumeUpload();
+  initScope();
+  initLeads();
+  initOutreach();
+  initGlance();
 
   Promise.all([
     fetch("data/postings.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),

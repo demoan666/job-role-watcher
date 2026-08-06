@@ -1,0 +1,435 @@
+"""SQLite schema and access helpers for the job-search backend.
+
+Single-user, local file DB. Schema covers all four modes up front
+(profile, contacts, leads, sent_emails, settings) so later phases don't
+need migrations — most tables just stay empty until their phase lands.
+"""
+
+import json
+import os
+import sqlite3
+from datetime import datetime, timezone
+
+BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(BACKEND_DIR)
+DB_PATH = os.path.join(BACKEND_DIR, "app.db")
+SEARCH_PROFILE_PATH = os.path.join(REPO_ROOT, "data", "search_profile.json")
+SEARCH_SCOPE_PATH = os.path.join(REPO_ROOT, "data", "search_scope.json")
+COMPANIES_PATH = os.path.join(REPO_ROOT, "data", "companies.json")
+POSTINGS_PATH = os.path.join(REPO_ROOT, "data", "postings.json")
+STALE_OUTREACH_DAYS = 7
+ALL_ATS = ["greenhouse", "lever", "smartrecruiters"]
+ALL_CONTRACT_MODES = ["full-time", "contract", "freelance", "internship"]
+
+# Verbatim from DOCS/role_search.md — the 3 clusters already established there
+# (have manual tracker entries; only the first has any companies.json/ATS
+# coverage) plus the 26 clusters listed under "Industry Clusters Not Yet
+# Swept" (which itself already reconciled the naming overlap between
+# research_brief.md's raw list and the established clusters — e.g.
+# "Cybersecurity" is kept distinct from "Enterprise Software / SaaS /
+# Fintech / B2B Tech"). Keep this in sync with role_search.md by hand if
+# that file's cluster list changes — don't let it silently drift.
+ALL_INDUSTRIES = [
+    "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "Nordic Industrial / Energy / Pharma",
+    "DACH / Benelux Large Enterprise",
+    "Pharma & biotech",
+    "HR/PEO/workforce platforms",
+    "Industrial machinery (general)",
+    "Medical equipment manufacturers",
+    "Machine tools manufacturers",
+    "Elevators & escalators",
+    "Robotics & industrial automation",
+    "Mining & construction equipment",
+    "Agricultural machinery",
+    "Print/packaging machinery",
+    "Textile machinery",
+    "Test/measurement/scientific instruments",
+    "Process industries/chemicals/materials",
+    "Aerospace & defense",
+    "Maritime/shipbuilding + classification societies",
+    "Rail & mobility infrastructure",
+    "Cybersecurity (separate from general enterprise SaaS above)",
+    "Flavors/fragrances/food ingredients",
+    "Testing/certification/compliance",
+    "Data center/power infrastructure",
+    "Insurance & reinsurance",
+    "Water & environmental tech",
+    "Medical devices/diagnostics/dental",
+    "Renewable energy & utilities (beyond Ørsted)",
+    "Staffing & workforce solutions",
+    "Semiconductor equipment (beyond ASML)",
+]
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS profile (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  resume_text TEXT,
+  extracted_json TEXT,
+  updated_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS contacts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  company TEXT,
+  name TEXT,
+  role TEXT,
+  email TEXT,
+  source_type TEXT,
+  source_id TEXT,
+  status TEXT NOT NULL DEFAULT 'not_contacted',
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS leads (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  source TEXT NOT NULL,
+  source_channel TEXT,
+  author TEXT,
+  raw_text TEXT NOT NULL,
+  is_opportunity INTEGER,
+  point_of_contact TEXT,
+  triage_json TEXT,
+  created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sent_emails (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  contact_id INTEGER NOT NULL REFERENCES contacts(id),
+  lead_id INTEGER REFERENCES leads(id),
+  subject TEXT,
+  body TEXT,
+  sent_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT
+);
+"""
+
+
+def now_iso():
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def get_connection():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
+    return conn
+
+
+def init_db():
+    conn = get_connection()
+    try:
+        conn.executescript(SCHEMA)
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_setting(key, default=None):
+    conn = get_connection()
+    try:
+        row = conn.execute("SELECT value FROM settings WHERE key = ?", (key,)).fetchone()
+        return row["value"] if row else default
+    finally:
+        conn.close()
+
+
+def set_setting(key, value):
+    conn = get_connection()
+    try:
+        conn.execute(
+            "INSERT INTO settings (key, value) VALUES (?, ?) "
+            "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+            (key, value),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_profile():
+    conn = get_connection()
+    try:
+        row = conn.execute("SELECT resume_text, extracted_json, updated_at FROM profile WHERE id = 1").fetchone()
+        if not row:
+            return None
+        return {
+            "resume_text": row["resume_text"],
+            "extracted": json.loads(row["extracted_json"]) if row["extracted_json"] else None,
+            "updated_at": row["updated_at"],
+        }
+    finally:
+        conn.close()
+
+
+def save_profile(resume_text, extracted):
+    conn = get_connection()
+    try:
+        conn.execute(
+            "INSERT INTO profile (id, resume_text, extracted_json, updated_at) VALUES (1, ?, ?, ?) "
+            "ON CONFLICT(id) DO UPDATE SET resume_text = excluded.resume_text, "
+            "extracted_json = excluded.extracted_json, updated_at = excluded.updated_at",
+            (resume_text, json.dumps(extracted, ensure_ascii=False), now_iso()),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+    export_search_profile(extracted)
+
+
+def export_search_profile(extracted):
+    """Writes the derived keywords/industries (not raw resume text) to the
+    committed data/ dir so fetch_postings.py (run by GitHub Actions, no
+    access to this local DB) can read them. Deliberately excludes resume
+    text/summary/skills — this repo is public; only the matching-relevant
+    fields belong in it.
+    """
+    os.makedirs(os.path.dirname(SEARCH_PROFILE_PATH), exist_ok=True)
+    payload = {
+        "keywords": extracted.get("keywords", []),
+        "industries": extracted.get("industries", []),
+        "updated_at": now_iso(),
+    }
+    with open(SEARCH_PROFILE_PATH, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+
+def get_scope():
+    return {
+        "active_ats": json.loads(get_setting("scope_active_ats", "null") or "null") or ALL_ATS,
+        "contract_modes": json.loads(get_setting("scope_contract_modes", "null") or "null") or ALL_CONTRACT_MODES,
+        # industries/countries default to [] (not "everything"), unlike
+        # active_ats/contract_modes above — an empty list here means "no
+        # preference recorded yet / no restriction", not "all 29 industries"
+        # or "all ~195 countries". fetch_postings.py treats an empty/absent
+        # countries list as "fall back to the existing hardcoded allowlist".
+        "industries": json.loads(get_setting("scope_industries", "null") or "null") or [],
+        "countries": json.loads(get_setting("scope_countries", "null") or "null") or [],
+    }
+
+
+def save_scope(active_ats, contract_modes, companies, industries=None, countries=None):
+    """Persists ATS/contract-mode/industry/country toggles to settings +
+    exports search_scope.json, and rewrites companies.json's `enabled`
+    flags in place (matched by name) — never touches ats/slug/cluster
+    fields, those stay hand-verified per app_build_spec.md's rule against
+    guessed slugs.
+    """
+    industries = industries or []
+    countries = countries or []
+    set_setting("scope_active_ats", json.dumps(active_ats, ensure_ascii=False))
+    set_setting("scope_contract_modes", json.dumps(contract_modes, ensure_ascii=False))
+    set_setting("scope_industries", json.dumps(industries, ensure_ascii=False))
+    set_setting("scope_countries", json.dumps(countries, ensure_ascii=False))
+
+    os.makedirs(os.path.dirname(SEARCH_SCOPE_PATH), exist_ok=True)
+    with open(SEARCH_SCOPE_PATH, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "active_ats": active_ats,
+                "contract_modes": contract_modes,
+                "industries": industries,
+                "countries": countries,
+                "updated_at": now_iso(),
+            },
+            f, indent=2, ensure_ascii=False,
+        )
+        f.write("\n")
+
+    if companies is not None and os.path.exists(COMPANIES_PATH):
+        with open(COMPANIES_PATH, "r", encoding="utf-8") as f:
+            existing = json.load(f)
+        enabled_by_name = {c["name"]: c.get("enabled", True) for c in companies}
+        for entry in existing:
+            if entry["name"] in enabled_by_name:
+                entry["enabled"] = enabled_by_name[entry["name"]]
+        with open(COMPANIES_PATH, "w", encoding="utf-8") as f:
+            json.dump(existing, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+
+
+def insert_lead(source, source_channel, author, raw_text, triage):
+    """triage is the dict from llm.triage_message (or None if triage failed —
+    stored untriaged rather than dropped, since a missed opportunity is worse
+    than a noisy one)."""
+    conn = get_connection()
+    try:
+        conn.execute(
+            "INSERT INTO leads (source, source_channel, author, raw_text, is_opportunity, "
+            "point_of_contact, triage_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                source, source_channel, author, raw_text,
+                int(triage["is_opportunity"]) if triage else None,
+                triage.get("point_of_contact") if triage else None,
+                json.dumps(triage, ensure_ascii=False) if triage else None,
+                now_iso(),
+            ),
+        )
+        conn.commit()
+        return conn.execute("SELECT last_insert_rowid() AS id").fetchone()["id"]
+    finally:
+        conn.close()
+
+
+def get_leads(limit=200):
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            "SELECT * FROM leads ORDER BY created_at DESC LIMIT ?", (limit,)
+        ).fetchall()
+        return [dict(row) for row in rows]
+    finally:
+        conn.close()
+
+
+def get_last_seen(key="leads_last_seen_at"):
+    return get_setting(key, None)
+
+
+def mark_seen(key="leads_last_seen_at"):
+    set_setting(key, now_iso())
+
+
+def insert_contact(company, name, role, email, source_type, source_id):
+    conn = get_connection()
+    try:
+        ts = now_iso()
+        conn.execute(
+            "INSERT INTO contacts (company, name, role, email, source_type, source_id, "
+            "status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, 'not_contacted', ?, ?)",
+            (company, name, role, email, source_type, source_id, ts, ts),
+        )
+        conn.commit()
+        return conn.execute("SELECT last_insert_rowid() AS id").fetchone()["id"]
+    finally:
+        conn.close()
+
+
+def get_contacts():
+    conn = get_connection()
+    try:
+        rows = conn.execute("SELECT * FROM contacts ORDER BY created_at DESC").fetchall()
+        return [dict(row) for row in rows]
+    finally:
+        conn.close()
+
+
+def get_contact(contact_id):
+    conn = get_connection()
+    try:
+        row = conn.execute("SELECT * FROM contacts WHERE id = ?", (contact_id,)).fetchone()
+        return dict(row) if row else None
+    finally:
+        conn.close()
+
+
+def update_contact_status(contact_id, status):
+    conn = get_connection()
+    try:
+        conn.execute(
+            "UPDATE contacts SET status = ?, updated_at = ? WHERE id = ?",
+            (status, now_iso(), contact_id),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def has_sent_to_contact(contact_id):
+    """Dedup rule: at most one automated outreach email per contact, ever.
+    A contact needing genuine follow-up is a manual reply in the user's own
+    Gmail, not another automated send."""
+    conn = get_connection()
+    try:
+        row = conn.execute(
+            "SELECT 1 FROM sent_emails WHERE contact_id = ? LIMIT 1", (contact_id,)
+        ).fetchone()
+        return row is not None
+    finally:
+        conn.close()
+
+
+def count_sent_today():
+    conn = get_connection()
+    try:
+        today = now_iso()[:10]
+        row = conn.execute(
+            "SELECT COUNT(*) AS n FROM sent_emails WHERE substr(sent_at, 1, 10) = ?", (today,)
+        ).fetchone()
+        return row["n"]
+    finally:
+        conn.close()
+
+
+def insert_sent_email(contact_id, lead_id, subject, body):
+    conn = get_connection()
+    try:
+        conn.execute(
+            "INSERT INTO sent_emails (contact_id, lead_id, subject, body, sent_at) VALUES (?, ?, ?, ?, ?)",
+            (contact_id, lead_id, subject, body, now_iso()),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_sent_emails():
+    conn = get_connection()
+    try:
+        rows = conn.execute("SELECT * FROM sent_emails ORDER BY sent_at DESC").fetchall()
+        return [dict(row) for row in rows]
+    finally:
+        conn.close()
+
+
+def get_stale_outreach(days=STALE_OUTREACH_DAYS):
+    """Contacts sent to and not marked otherwise (replied/etc via the manual
+    status endpoint) after `days` — there's no Gmail inbox read integration
+    (only gmail.send scope), so "no reply" is inferred from the status
+    never having been updated past 'sent', not from actually checking replies."""
+    conn = get_connection()
+    try:
+        cutoff = (datetime.now(timezone.utc).timestamp() - days * 86400)
+        rows = conn.execute("SELECT * FROM contacts WHERE status = 'sent'").fetchall()
+        stale = []
+        for row in rows:
+            updated_ts = datetime.fromisoformat(row["updated_at"]).timestamp()
+            if updated_ts <= cutoff:
+                stale.append(dict(row))
+        return stale
+    finally:
+        conn.close()
+
+
+def get_glance():
+    postings = []
+    if os.path.exists(POSTINGS_PATH):
+        with open(POSTINGS_PATH, "r", encoding="utf-8") as f:
+            postings = json.load(f)
+    postings_last_seen = get_setting("postings_last_seen_at")
+    new_postings_count = sum(
+        1 for p in postings if not postings_last_seen or p.get("first_seen", "") > postings_last_seen
+    )
+
+    leads = get_leads()
+    leads_last_seen = get_last_seen()
+    new_leads_count = sum(
+        1 for lead in leads if not leads_last_seen or lead["created_at"] > leads_last_seen
+    )
+
+    return {
+        "new_postings_count": new_postings_count,
+        "total_postings_count": len(postings),
+        "new_leads_count": new_leads_count,
+        "stale_outreach": get_stale_outreach(),
+    }
+
+
+def mark_postings_seen():
+    set_setting("postings_last_seen_at", now_iso())

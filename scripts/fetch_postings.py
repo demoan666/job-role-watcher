@@ -20,6 +20,9 @@ DATA_DIR = os.path.join(ROOT, "data")
 COMPANIES_PATH = os.path.join(DATA_DIR, "companies.json")
 POSTINGS_PATH = os.path.join(DATA_DIR, "postings.json")
 ARCHIVE_PATH = os.path.join(DATA_DIR, "archive.json")
+SEARCH_PROFILE_PATH = os.path.join(DATA_DIR, "search_profile.json")
+SEARCH_SCOPE_PATH = os.path.join(DATA_DIR, "search_scope.json")
+COUNTRY_CODES_PATH = os.path.join(DATA_DIR, "country-codes.json")
 
 USER_AGENT = "job-role-watcher/1.0 (personal job search tool)"
 TODAY = date.today().isoformat()
@@ -47,6 +50,24 @@ SPECIFIC_KEYWORDS = [
     "creative director",
     "motion graphics",
 ]
+
+
+def _load_profile_keywords():
+    """Additive only — never touches AMBIGUOUS_TITLE_ONLY_KEYWORDS. That
+    title-only split exists to fix a real false-positive bug (see
+    CLAUDE.md's "Known Bugs"); profile-derived keywords go through the same
+    title-or-description matching as the other SPECIFIC_KEYWORDS instead of
+    risking that regression. Missing file (profile never set up, or backend
+    never run) is expected, not an error — falls back to the hardcoded list.
+    """
+    if not os.path.exists(SEARCH_PROFILE_PATH):
+        return []
+    with open(SEARCH_PROFILE_PATH, "r", encoding="utf-8") as f:
+        profile = json.load(f)
+    return [kw.lower() for kw in profile.get("keywords", []) if kw]
+
+
+SPECIFIC_KEYWORDS.extend(_load_profile_keywords())
 # "brand designer" only counts if description also mentions video/motion/animation
 BRAND_DESIGNER = "brand designer"
 BRAND_DESIGNER_CONFIRM = ["video", "motion", "animation"]
@@ -67,22 +88,65 @@ def _word_in(term, text):
 # matching research_brief.md's own geography tiers (Nordics, Benelux/DE/CH,
 # UK). This is broader than strict EU/EEA membership (includes CH, UK) by
 # deliberate choice, since the tracker itself treats those as in-scope tiers.
-HIREABLE_COUNTRY_NAMES = [
-    "austria", "belgium", "bulgaria", "croatia", "cyprus", "czech", "denmark",
-    "estonia", "finland", "france", "germany", "greece", "hungary", "ireland",
-    "italy", "latvia", "lithuania", "luxembourg", "malta", "netherlands",
-    "poland", "portugal", "romania", "slovakia", "slovenia", "spain",
-    "sweden", "iceland", "liechtenstein", "norway", "switzerland",
-    "united kingdom",
+# Paired name/code so a Setup-tab country selection (ISO codes) can restrict
+# both the name-matching (Greenhouse) and code-matching (SmartRecruiters)
+# paths consistently — see _effective_countries() below.
+COUNTRY_CODE_NAME_PAIRS = [
+    ("at", "austria"), ("be", "belgium"), ("bg", "bulgaria"), ("hr", "croatia"),
+    ("cy", "cyprus"), ("cz", "czech"), ("dk", "denmark"), ("ee", "estonia"),
+    ("fi", "finland"), ("fr", "france"), ("de", "germany"), ("gr", "greece"),
+    ("hu", "hungary"), ("ie", "ireland"), ("it", "italy"), ("lv", "latvia"),
+    ("lt", "lithuania"), ("lu", "luxembourg"), ("mt", "malta"), ("nl", "netherlands"),
+    ("pl", "poland"), ("pt", "portugal"), ("ro", "romania"), ("sk", "slovakia"),
+    ("si", "slovenia"), ("es", "spain"), ("se", "sweden"), ("is", "iceland"),
+    ("li", "liechtenstein"), ("no", "norway"), ("ch", "switzerland"),
+    ("gb", "united kingdom"),
 ]
+HIREABLE_COUNTRY_NAMES = [name for _, name in COUNTRY_CODE_NAME_PAIRS]
 # SmartRecruiters returns lowercase ISO-3166-1 alpha-2 codes ("gb", "de") in
 # the location field rather than full names, so names alone miss them.
-HIREABLE_COUNTRY_CODES = {
-    "at", "be", "bg", "hr", "cy", "cz", "dk", "ee", "fi", "fr", "de", "gr",
-    "hu", "ie", "it", "lv", "lt", "lu", "mt", "nl", "pl", "pt", "ro", "sk",
-    "si", "es", "se", "is", "li", "no", "ch", "gb", "uk",
-}
+# "uk" kept as an alias for "gb" — some sources use it non-standardly.
+HIREABLE_COUNTRY_CODES = {code for code, _ in COUNTRY_CODE_NAME_PAIRS} | {"uk"}
 REMOTE_HINTS = ["remote"]
+
+
+def _load_full_country_name_map():
+    """data/country-codes.json — the same vendored ISO 3166-1 alpha-2 ->
+    name mapping the Setup tab's country map/list uses (175 entries,
+    global, see data/world-map.svg.LICENSE.txt) — so a selected country
+    outside the curated default allowlist below still matches on name,
+    not just on raw ISO code."""
+    if not os.path.exists(COUNTRY_CODES_PATH):
+        return {}
+    with open(COUNTRY_CODES_PATH, "r", encoding="utf-8") as f:
+        entries = json.load(f)
+    return {e["code"].lower(): e["name"].lower() for e in entries}
+
+
+def _effective_countries():
+    """Setup-tab country selection (ISO codes, data/search_scope.json)
+    restricts the default hardcoded allowlist above when present; an
+    empty/absent selection means "no restriction configured yet", falling
+    back to the full default list — same additive/defensive pattern as
+    _load_profile_keywords(). The default list stays the curated EU/EEA+UK+CH
+    "hireable without relocation friction" set on purpose (research_brief.md's
+    own framing) — it does NOT expand just because the global map/mapping
+    file supports more countries; only an explicit user selection reaches
+    beyond it.
+    """
+    scope = {}
+    if os.path.exists(SEARCH_SCOPE_PATH):
+        with open(SEARCH_SCOPE_PATH, "r", encoding="utf-8") as f:
+            scope = json.load(f)
+    selected = {c.lower() for c in (scope.get("countries") or [])}
+    if not selected:
+        return HIREABLE_COUNTRY_CODES, HIREABLE_COUNTRY_NAMES
+    name_map = _load_full_country_name_map()
+    names = [name_map[code] for code in selected if code in name_map]
+    return selected, names
+
+
+EFFECTIVE_COUNTRY_CODES, EFFECTIVE_COUNTRY_NAMES = _effective_countries()
 
 
 def log(msg):
@@ -125,6 +189,18 @@ def strip_html(raw):
 # --- per-ATS fetchers: each returns a list of raw posting dicts -----------
 # {id, title, location, description, url}
 
+def _employment_label(value):
+    """Normalizes the various shapes ATS APIs use for employment type into a
+    plain lowercase string, or None if genuinely absent — never guessed."""
+    if not value:
+        return None
+    if isinstance(value, dict):
+        value = value.get("label") or value.get("name")
+    if not value:
+        return None
+    return str(value).strip().lower() or None
+
+
 def fetch_greenhouse(slug):
     url = f"https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true"
     data = http_get_json(url)
@@ -132,12 +208,15 @@ def fetch_greenhouse(slug):
         return []
     out = []
     for job in data.get("jobs", []):
+        # Greenhouse's public boards API has no standard employment-type
+        # field — contract_type stays unknown rather than guessed.
         out.append({
             "id": str(job.get("id")),
             "title": job.get("title", "") or "",
             "location": (job.get("location") or {}).get("name", "") or "",
             "description": strip_html(job.get("content", "")),
             "url": job.get("absolute_url", "") or "",
+            "contract_type": None,
         })
     return out
 
@@ -162,6 +241,7 @@ def fetch_lever(slug):
             "location": categories.get("location", "") or "",
             "description": f"{description} {lists_text}".strip(),
             "url": job.get("hostedUrl", "") or "",
+            "contract_type": _employment_label(categories.get("commitment")),
         })
     return out
 
@@ -199,6 +279,7 @@ def fetch_smartrecruiters(slug):
             continue
 
         description = ""
+        contract_type = _employment_label(item.get("typeOfEmployment"))
         detail_url = f"https://api.smartrecruiters.com/v1/companies/{slug}/postings/{posting_id}"
         detail = http_get_json(detail_url)
         if detail:
@@ -209,6 +290,7 @@ def fetch_smartrecruiters(slug):
                 if isinstance(section, dict):
                     parts.append(strip_html(section.get("text", "")))
             description = " ".join(parts)
+            contract_type = contract_type or _employment_label(detail.get("typeOfEmployment"))
         time.sleep(0.1)
 
         posting_url = item.get("ref") or f"https://jobs.smartrecruiters.com/{slug}/{posting_id}"
@@ -219,6 +301,7 @@ def fetch_smartrecruiters(slug):
             "description": description,
             "url": posting_url,
             "_remote_hint": remote_hint,
+            "contract_type": contract_type,
         })
     return out
 
@@ -260,9 +343,9 @@ def location_ok(location, remote_hint):
     if remote_hint or any(term in haystack for term in REMOTE_HINTS):
         return True
     tokens = [w for part in re.split(r"[,/]", haystack) for w in part.split()]
-    if any(tok in HIREABLE_COUNTRY_CODES for tok in tokens):
+    if any(tok in EFFECTIVE_COUNTRY_CODES for tok in tokens):
         return True
-    return any(name in haystack for name in HIREABLE_COUNTRY_NAMES)
+    return any(name in haystack for name in EFFECTIVE_COUNTRY_NAMES)
 
 
 def filter_postings(raw_postings, company):
@@ -284,6 +367,7 @@ def filter_postings(raw_postings, company):
             "eu_hireable_or_remote": location_ok(p["location"], remote_hint),
             "url": p["url"],
             "ats": company["ats"],
+            "contract_type": p.get("contract_type"),
         })
     return matched
 
@@ -330,12 +414,23 @@ def diff_and_write(current_matches):
 
 def main():
     companies = load_json(COMPANIES_PATH, [])
+    # Missing search_scope.json (Setup mode never used) means "everything
+    # active" — same backward-compatible default as the profile keywords.
+    scope = load_json(SEARCH_SCOPE_PATH, {})
+    active_ats = scope.get("active_ats") or list(FETCHERS.keys())
+
     all_matches = []
     for company in companies:
         if company.get("ats_slug_needed"):
             log(f"skipping {company['name']}: ats_slug_needed")
             continue
+        if company.get("enabled", True) is False:
+            log(f"skipping {company['name']}: disabled in search scope")
+            continue
         ats = company.get("ats")
+        if ats not in active_ats:
+            log(f"skipping {company['name']}: {ats} not in active_ats scope")
+            continue
         fetcher = FETCHERS.get(ats)
         if not fetcher:
             log(f"skipping {company['name']}: unknown ats '{ats}'")

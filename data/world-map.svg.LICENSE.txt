@@ -1,0 +1,23 @@
+world-map.svg, country-codes.json
+
+Source: https://github.com/flekschas/simple-world-map
+Author: Al MacDonald (original artwork)
+Editor: Fritz Lekschas
+License: Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+https://creativecommons.org/licenses/by-sa/3.0/
+
+197 countries/territories, paths annotated by `id` with ISO 3166-1 alpha-2
+codes (entities without an official code are prefixed with an underscore,
+e.g. `_somaliland`). world-map.svg vendored unmodified.
+
+country-codes.json's `continent` field is merged in from a second source:
+
+Source: https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes
+License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+https://creativecommons.org/licenses/by-sa/4.0/
+
+That dataset's `region` field (UN M49 continental grouping) was matched onto
+each entry by ISO alpha-2 code. Two entries have no ISO/UN region assignment
+and were set by hand on plain geography, not a political claim: `_somaliland`
+(Africa) and `tw`/Taiwan (Asia, unassigned in the UN M49 scheme due to its
+disputed status).

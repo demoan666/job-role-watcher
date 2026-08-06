@@ -4,22 +4,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repository is
 
-This repo has two parts:
+This repo has three parts:
 
 1. **An ongoing manual research effort** to find in-house (not agency) motion design / video / art
    direction roles for the candidate described in `DOCS/research_brief.md`, tracked in
    `DOCS/role_search.md`.
-2. **The automation app** (`scripts/fetch_postings.py` + `index.html`, built per `app_build_spec.md`)
-   that fetches postings from companies confirmed to run Greenhouse/Lever/SmartRecruiters, filters
-   them, and renders a static page. Built and live as of 2026-08-05.
+2. **The v1 automation app** (`scripts/fetch_postings.py` + the "Search" tab of `index.html`, built
+   per `app_build_spec.md`) that fetches postings from companies confirmed to run
+   Greenhouse/Lever/SmartRecruiters, filters them, and renders a static page. Built and live as of
+   2026-08-05. Still the only piece that runs unattended (GitHub Actions cron + GitHub Pages).
+3. **The v2 job-search command center** (`backend/` + the Leads/Outreach/Setup/Glance tabs of
+   `index.html`) — a local FastAPI+SQLite backend adding resume-driven search config, a
+   Telegram/Slack/manual-capture leads pipeline, and an LLM-drafted, auto-sent cold-email CRM. This
+   deliberately reverses several of `app_build_spec.md`'s v1 non-goals (no backend, no auth, no
+   email) — see "v2: Job Search Command Center" below for what changed and why.
 
 Research/planning docs live under `DOCS/` (published as part of this public repo — the candidate
 consented to that; see git history if that ever needs revisiting). App code lives at repo root
-(`scripts/`, `data/`, `index.html`, `.github/workflows/`) so `CLAUDE.md` stays discoverable from
-the root by tooling.
+(`scripts/`, `data/`, `index.html`, `.github/workflows/`, `backend/`) so `CLAUDE.md` stays
+discoverable from the root by tooling.
 
-Run the fetch script with `python scripts/fetch_postings.py` (stdlib only, no install step). No
-lint/test suite exists — see "Known gaps / things to revisit" below for what hasn't been verified.
+Run the v1 fetch script with `python scripts/fetch_postings.py` (stdlib only, no install step). Run
+the v2 backend from the repo-root `.venv` (see "v2" section below) — it's a separate, heavier
+dependency set (FastAPI, Anthropic SDK, Telethon, etc.), kept out of the stdlib-only v1 script
+deliberately. No lint/test suite exists — see "Known gaps / things to revisit" below for what
+hasn't been verified.
 
 ## File relationships — read in this order
 
@@ -68,17 +77,20 @@ Scope rules that define what belongs in the tracker (from `research_brief.md`):
   separate category evaluated independently of geographic tier and should be surfaced regardless of
   company HQ.
 
-## The planned automation app (`app_build_spec.md`) — scope constraints
+## The v1 automation app (`app_build_spec.md`) — scope constraints
 
-If asked to start building this app, respect these constraints exactly; they're deliberate, not
-oversights:
+These constraints governed the original build and still apply to `scripts/fetch_postings.py`
+specifically (it stays stdlib-only, unattended, GitHub Actions-driven). The "no auth / no email /
+no backend" constraints below were **v1-only** and have been deliberately superseded for the parts
+of the app now living in `backend/` — see "v2: Job Search Command Center" further down. Don't
+"fix" the v2 backend back toward these just because this section says so.
 
 - **Only covers companies on Greenhouse, Lever, or SmartRecruiters** (the three ATS platforms with public,
   unauthenticated JSON APIs). Workday and bespoke career portals are explicitly out of scope — do not add
   scraping for them, even if a company in `role_search.md` seems like a good candidate. That's a
   separate, more fragile project.
-- No auth/accounts (single user), no email/push notifications in v1 — output is a committed JSON file +
-  a static page the user checks manually.
+- No auth/accounts (single user), no email/push notifications in **`fetch_postings.py`/GitHub
+  Actions specifically** — that piece's output is still a committed JSON file + a static page.
 - No headless browser / JS-rendered page scraping in v1.
 - Stack is intentionally minimal: Python stdlib (`urllib`/`requests` + `json`) for the fetch script, no
   framework for the frontend (`index.html` fetches `data/postings.json` client-side), GitHub Actions for
@@ -102,6 +114,118 @@ oversights:
 - Filtering logic (title/description keyword matching, exclusion rules for cameraman/videographer terms,
   remote/location handling) is specified in detail in `app_build_spec.md`, with one deliberate deviation
   — see "Known gaps / things to revisit" below.
+
+## v2: Job Search Command Center (`backend/`)
+
+Built to turn the passive v1 watcher into an active command center: resume-driven search
+config, industry/contract-mode/source selection, a community leads feed, and an LLM-assisted,
+auto-sent cold-email CRM. Key decisions (confirmed with the user, not casual scope creep):
+
+- **Backend is a real local FastAPI+SQLite service, local-only for v1** — runs on the user's own
+  Windows machine ("on when the PC is on"), binds to `127.0.0.1` only, no auth beyond that binding.
+  Explicit intent to migrate to a small always-on cloud VM later; the code avoids hardcoding
+  local-only assumptions where it's cheap not to (host/port/paths are all config-driven).
+- **No automated "joining groups without invitations"** — there's no legitimate API for that, and
+  automating WhatsApp via unofficial libraries risks account bans. Instead: **live ingestion for
+  Telegram** (`backend/ingest/telegram.py`, the user's own account session via Telethon, channels
+  already joined) **and Slack** (`backend/ingest/slack.py`, a personal user OAuth token, workspaces
+  already joined); **Discord and WhatsApp get a manual quick-capture box** in the Leads tab feeding
+  the same pipeline.
+- **Cold email sends fully automatically** (not draft-and-review) — the user's explicit choice.
+  Safety nets exist anyway: at most one automated email per contact ever
+  (`db.has_sent_to_contact`), a configurable daily send cap, and a full `sent_emails` log.
+- **LLM access is a real Anthropic API key** (pay-per-token, `backend/config.json`, gitignored) —
+  not a ChatGPT/Claude.ai consumer subscription login, which doesn't exist as a programmatic
+  integration path.
+- **Notifications are in-app only** — an unread/new-since-last-visit badge (Leads tab) and a
+  unified Glance tab (new postings / new leads / stale outreach), not OS/mobile push.
+
+### Layout
+```
+backend/
+  app.py            — FastAPI app (127.0.0.1 only), all endpoints
+  db.py             — SQLite schema + access (profile, contacts, leads, sent_emails, settings);
+                      also holds ALL_INDUSTRIES (the 29-cluster taxonomy, verbatim from
+                      role_search.md — keep in sync by hand if that file's clusters change)
+  llm.py            — Anthropic wrapper: extract_resume_profile / triage_message / draft_cold_email
+  gmail.py           — Gmail OAuth (installed-app flow, gmail.send scope only) + send
+  resume_parse.py   — extension-dispatch text extraction for uploaded resumes (.txt/.md/.pdf/.docx;
+                      legacy .doc rejected — no clean pure-Python parser for it)
+  ingest/
+    telegram.py     — standalone script, posts to /leads/capture
+    slack.py        — standalone script, polls + posts to /leads/capture
+  config.example.json — template; copy to config.json (gitignored) and fill in real secrets
+data/
+  search_profile.json — resume-derived keywords/industries only (no raw resume text — repo is public)
+  search_scope.json   — Setup tab toggles: active_ats, contract_modes, industries (forward-looking
+                        preference from ALL_INDUSTRIES, doesn't hard-filter fetches), countries
+                        (ISO codes — restricts the location "verify" flag; empty = no restriction)
+  freelance_sources.json — curated gig-platform list, same "flag don't guess" convention as
+    companies.json's `ats_slug_needed`; none currently have a public API (integration_needed: true)
+  world-map.svg, country-codes.json — vendored from github.com/flekschas/simple-world-map
+    (CC BY-SA 3.0, attribution in data/world-map.svg.LICENSE.txt) — 197-territory SVG map +
+    175-entry ISO code -> name mapping, powering the Setup tab's country picker
+```
+`companies.json` gained an `enabled` field (Setup tab can disable a company's fetch without
+deleting the entry) and postings gained `contract_type` (from Lever's `categories.commitment` /
+SmartRecruiters' `typeOfEmployment`; Greenhouse has no such field, stays `null`/"unknown" —
+never guessed).
+
+`scripts/fetch_postings.py`'s location matching (`_effective_countries()`) keeps its original
+curated EU/EEA+UK+CH allowlist as the **default** when no countries are selected in Setup — that
+default does not expand just because the map/mapping file supports more countries. Only an
+explicit Setup-tab country selection reaches beyond the default set, and when it does, it's
+resolved against the full 175-country `data/country-codes.json` mapping, not the narrow default
+list — so picking any country in the world (not just the original ~31) works correctly for both
+name-based (Greenhouse) and code-based (SmartRecruiters) location matching.
+
+The vendored SVG mixes two shapes per country: most are a single `<path id="xx">`, but ~37
+multi-territory countries (Sweden, Norway, Denmark, etc.) are a `<path>`-wrapped `<g id="xx">`
+instead. `index.html`'s map JS (and its CSS) handles both — a selector that only matches `path[id]`
+will silently miss those 37 countries (this bit a first draft of the Nordics quick-select button).
+
+`data/country-codes.json`'s `continent` field is merged in from a second vendored source
+(github.com/lukes/ISO-3166-Countries-with-Regional-Codes, CC BY-SA 4.0, also credited in
+`data/world-map.svg.LICENSE.txt`) — the Setup tab's country list groups by this field into
+Europe/Asia/Africa/Americas/Oceania row sections instead of one flat alphabetical list. Two
+entries (`_somaliland`, `tw`/Taiwan) have no ISO/UN region assignment upstream and were set by
+hand on plain geography, not a political claim.
+
+The map supports zoom (buttons + ctrl/cmd+scroll-wheel) via a CSS `transform: scale()` on
+`#country-map-container` inside a fixed-height, `overflow: auto` viewport — panning is just native
+scrollbars once zoomed in, no custom drag logic. Plain scroll-wheel over the map still scrolls the
+page/panel normally; only ctrl/cmd+wheel zooms, so the map doesn't trap scrolling.
+
+The Setup tab's extracted skills/industries/keywords are edited as removable tag pills
+(`createTagPillEditor` in `index.html`), not comma-separated text fields. Keywords specifically get
+a second, richer view: the resume text is rendered read-only with every current keyword
+highlighted inline (`highlightKeywords`) — clicking a highlighted phrase untags it, and selecting
+any other span of resume text surfaces a "+ Tag selected text" button to tag it. A plain type-and-
+Enter input on the keyword pill editor itself covers tags that aren't literally in the resume text
+at all. All three editors (skills/industries/keywords) share one `createTagPillEditor` instance
+each; the keyword editor's `onChange` callback re-renders the highlighted resume view so the two
+stay in sync regardless of which side a tag was added/removed from.
+
+### One-time setup required before v2 features work
+- `backend/config.json` (copy from `config.example.json`): real Anthropic API key required for
+  resume extraction / message triage / email drafting to do anything but fail gracefully.
+- Telegram: `api_id`/`api_hash` from https://my.telegram.org + `channels` list; first run is an
+  interactive phone/code login that creates a session file (gitignored).
+- Slack: a personal user OAuth token (`xoxp-...`) + channel IDs to poll.
+- Gmail: a Google Cloud OAuth Desktop client (`backend/client_secret.json`, gitignored) — see the
+  setup steps in `backend/gmail.py`'s docstring. First send opens an interactive browser consent.
+- None of these being configured causes a crash — every integration point (`llm.py` calls,
+  `gmail.send_email`, the ingest scripts) fails closed with a clear message/no-op rather than
+  breaking the rest of the app.
+
+### Run it
+```
+cd backend && ../.venv/Scripts/python.exe -m uvicorn app:app --host 127.0.0.1 --port 8420
+```
+Then open `index.html` (locally or via the live GitHub Pages URL — CORS is wide open since the
+backend only ever binds to localhost, so the only thing that can reach it is the user's own
+browser on the same machine). Telegram/Slack ingestion run as separate long-lived processes:
+`python backend/ingest/telegram.py` / `python backend/ingest/slack.py`.
 
 ## Known gaps / things to revisit
 
@@ -130,3 +254,16 @@ oversights:
 - **Repo lives inside a Google-Drive-synced folder** (`H:\My Drive\Dev\Dev_jobSearch`). This was a
   known-risk decision (Drive's file locking can occasionally corrupt `.git` mid-write) — accepted
   deliberately, not an oversight. If `.git` ever gets corrupted, that's the likely cause.
+- **v2 backend is built and verified end-to-end with a placeholder Anthropic key** (every endpoint
+  round-trip tested via curl + a Playwright browser smoke test), but **not yet live-tested against
+  real credentials** — no real Anthropic key, Telegram session, Slack token, or Gmail OAuth client
+  existed at build time. Expect first-run friction there, not in the endpoint/DB/UI wiring itself.
+- **"Outreach gone quiet" (`db.get_stale_outreach`) is a status heuristic, not a real reply check.**
+  The Gmail integration only has `gmail.send` scope (deliberately, to keep the OAuth consent
+  narrow) — there's no inbox-read integration, so "no reply after 7 days" actually means "contact
+  status is still `sent` and hasn't been manually updated" via the Outreach/Glance "mark handled"
+  action. A genuine reply sitting unread in Gmail won't clear this on its own.
+- **`data/search_profile.json`/`search_scope.json` are written by the local backend, not the daily
+  GitHub Actions cron** — they only update when the user runs the Setup tab locally and commits the
+  result themselves (same manual-commit pattern as hand-editing `companies.json` already was).
+  `fetch_postings.py` reads them additively/defensively so a missing file is a no-op, not a crash.

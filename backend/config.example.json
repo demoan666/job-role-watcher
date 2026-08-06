@@ -1,0 +1,21 @@
+{
+  "host": "127.0.0.1",
+  "port": 8420,
+  "anthropic_api_key": "sk-ant-...",
+  "anthropic_model": "claude-sonnet-5",
+  "telegram": {
+    "api_id": null,
+    "api_hash": "",
+    "session_name": "telegram_session",
+    "channels": []
+  },
+  "slack": {
+    "user_token": "xoxp-...",
+    "channels": [],
+    "poll_interval_seconds": 60
+  },
+  "gmail": {
+    "client_secret_path": "client_secret.json",
+    "daily_send_cap": 20
+  }
+}
