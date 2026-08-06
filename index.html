@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>In-House Motion Role Watcher</title>
+<title>Job Watcher</title>
 <style>
   :root {
     color-scheme: light dark;
@@ -11,6 +11,7 @@
     --muted: #666;
     --bg-alt: #f5f5f5;
     --accent: #2a5db0;
+    --success: #2e7d32;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -18,6 +19,7 @@
       --muted: #aaa;
       --bg-alt: #1c1c1c;
       --accent: #7aa2f7;
+      --success: #6fcf73;
     }
   }
   body {
@@ -67,6 +69,18 @@
   .tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
+  #glance-panel { margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+  .subtabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.8rem 0 1rem; border-bottom: 1px solid var(--border); }
+  /* #tab-setup prefix needed for specificity over the generic #tab-setup
+     button rule (ID selector), which would otherwise force every subtab
+     button to that boxed accent-border look regardless of active state. */
+  #tab-setup .subtabs button {
+    margin-top: 0; background: none; border: none; padding: 0.4rem 0.7rem; font-size: 0.85rem;
+    cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; border-radius: 0;
+  }
+  #tab-setup .subtabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .subtab-panel { display: none; }
+  .subtab-panel.active { display: block; }
   #leads-badge {
     display: inline-block; min-width: 1.1rem; padding: 0 0.3rem; margin-left: 0.3rem;
     border-radius: 999px; background: var(--accent); color: white; font-size: 0.75rem;
@@ -111,14 +125,19 @@
   }
   .contact-card button:disabled { opacity: 0.5; cursor: default; }
   .contact-card .outreach-result { font-size: 0.85rem; margin-top: 0.4rem; white-space: pre-wrap; }
-  .glance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-  .glance-card { border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
-  .glance-card .glance-number { font-size: 2rem; font-weight: 700; line-height: 1; }
-  .glance-card .glance-label { color: var(--muted); font-size: 0.85rem; margin: 0.3rem 0 0.7rem; }
-  .glance-card button {
-    padding: 0.35rem 0.8rem; border-radius: 4px; border: 1px solid var(--accent);
-    background: none; color: var(--accent); cursor: pointer; font-size: 0.85rem;
+  .glance-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .glance-notif {
+    display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.7rem;
+    border-radius: 999px; border: 1px solid var(--border); background: none; color: inherit;
+    cursor: pointer; font-size: 0.85rem; font-family: inherit;
   }
+  .glance-notif:hover { border-color: var(--accent); color: var(--accent); }
+  .glance-notif .glance-badge {
+    display: inline-block; min-width: 1.1rem; padding: 0 0.3rem;
+    border-radius: 999px; background: var(--accent); color: white; font-size: 0.75rem;
+    text-align: center; line-height: 1.3rem;
+  }
+  .glance-notif .glance-badge:empty { display: none; }
   .stale-outreach-item {
     border: 1px solid var(--border); border-radius: 6px; padding: 0.6rem 0.9rem; margin-bottom: 0.5rem;
     font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
@@ -169,6 +188,26 @@
   }
   .resume-keyword-view .kw-tagged:hover { background: #2a5db044; }
   .resume-keyword-view .kw-tagged::after { content: " ×"; font-size: 0.75rem; }
+  .meta-inline { color: var(--muted); font-weight: normal; font-size: 0.8rem; }
+  .tag-summary {
+    display: flex; flex-direction: column; gap: 0.6rem; padding: 0.8rem;
+    border: 1px solid var(--border); border-radius: 6px; background: var(--bg-alt); margin-bottom: 1rem;
+  }
+  .tag-summary-group { display: flex; flex-direction: column; gap: 0.3rem; }
+  .tag-summary-head {
+    display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--muted);
+  }
+  .tag-summary-badge {
+    font-size: 0.7rem; font-weight: normal; padding: 0.1rem 0.5rem; border-radius: 999px;
+  }
+  .tag-summary-badge.drives { color: var(--success); background: color-mix(in srgb, var(--success) 18%, transparent); }
+  .tag-summary-badge.reference { color: var(--muted); background: color-mix(in srgb, var(--muted) 18%, transparent); }
+  .tag-summary-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .tag-summary-pills .tag-pill-static {
+    display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px;
+    background: #2a5db022; color: var(--accent); font-size: 0.8rem;
+  }
+  .tag-summary-empty { color: var(--muted); font-size: 0.8rem; font-style: italic; }
   .dropzone {
     border: 2px dashed var(--border); border-radius: 6px; padding: 1.5rem; text-align: center;
     cursor: pointer; color: var(--muted); font-size: 0.9rem; transition: border-color 0.15s, color 0.15s;
@@ -182,12 +221,11 @@
   }
   .map-zoom-controls {
     position: absolute; top: 0.5rem; right: 0.5rem; z-index: 2;
-    display: inline-flex; gap: 0.2rem; background: var(--bg-alt);
-    border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem;
+    display: inline-flex; gap: 0.3rem;
   }
   .map-zoom-controls button {
-    padding: 0.3rem 0.6rem; border-radius: 3px; border: 1px solid var(--accent);
-    background: none; color: var(--accent); cursor: pointer; font-size: 0.9rem; line-height: 1;
+    padding: 0.3rem 0.6rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: var(--bg-alt); color: var(--accent); cursor: pointer; font-size: 0.9rem; line-height: 1;
   }
   .country-map-viewport {
     max-width: 100%; overflow: hidden; border: 1px solid var(--border);
@@ -251,63 +289,145 @@
 </style>
 </head>
 <body>
-  <h1>In-House Motion Role Watcher</h1>
+  <h1>Job Watcher</h1>
 
-  <div class="tabs">
-    <button data-tab="glance" class="active">Glance</button>
-    <button data-tab="search">Search</button>
-    <button data-tab="leads">Leads<span id="leads-badge"></span></button>
-    <button data-tab="outreach">Outreach</button>
-    <button data-tab="setup">Setup</button>
-  </div>
-
-  <div id="tab-glance" class="tab-panel active">
-    <p class="meta">
-      Requires the local backend running on <code>127.0.0.1:8420</code>. One screen instead of three —
-      new postings, new leads, and outreach that's gone quiet.
-    </p>
+  <div id="glance-panel">
     <div class="glance-grid">
-      <div class="glance-card">
-        <div class="glance-number" id="glance-new-postings">–</div>
-        <div class="glance-label">new posting(s) since last visit</div>
-        <button data-jump-tab="search">View postings</button>
-      </div>
-      <div class="glance-card">
-        <div class="glance-number" id="glance-new-leads">–</div>
-        <div class="glance-label">new lead(s) since last visit</div>
-        <button data-jump-tab="leads">View leads</button>
-      </div>
-      <div class="glance-card">
-        <div class="glance-number" id="glance-stale-count">–</div>
-        <div class="glance-label">outreach sent, gone quiet (7+ days)</div>
-        <button data-jump-tab="outreach">View outreach</button>
-      </div>
+      <button class="glance-notif" data-jump-tab="search" title="New postings since last visit">
+        New postings<span class="glance-badge" id="glance-new-postings"></span>
+      </button>
+      <button class="glance-notif" data-jump-tab="leads" title="New leads since last visit">
+        New leads<span class="glance-badge" id="glance-new-leads"></span>
+      </button>
+      <button class="glance-notif" data-jump-tab="outreach" title="Outreach sent, gone quiet (7+ days)">
+        Stale outreach<span class="glance-badge" id="glance-stale-count"></span>
+      </button>
     </div>
     <div id="glance-stale-list"></div>
   </div>
 
-  <div id="tab-search" class="tab-panel">
-    <div class="meta" id="meta">Loading…</div>
+  <div class="tabs">
+    <button data-tab="setup" class="active">Setup</button>
+    <button data-tab="leads">Leads<span id="leads-badge"></span></button>
+    <button data-tab="outreach">Outreach</button>
+    <button data-tab="search">Search Results</button>
+  </div>
 
-    <div class="controls">
-      <input type="search" id="search" placeholder="Filter by company, title, location…">
-      <label><input type="checkbox" id="remote-only"> Remote / EU-hireable only</label>
-      <label>Contract type
-        <select id="contract-filter">
-          <option value="">All</option>
-          <option value="full-time">Full-time</option>
-          <option value="contract">Contract</option>
-          <option value="freelance">Freelance</option>
-          <option value="internship">Internship</option>
-          <option value="unknown">Unknown / unspecified</option>
-        </select>
-      </label>
+  <div id="tab-setup" class="tab-panel active">
+    <p class="meta">
+      Requires the local backend running on <code>127.0.0.1:8420</code> (see <code>backend/</code>).
+    </p>
+
+    <div class="subtabs">
+      <button data-subtab="profile" class="active">My Profile</button>
+      <button data-subtab="scope">Search Criteria Filters</button>
+      <button data-subtab="countries">Location Filters</button>
     </div>
 
-    <div id="active-container"></div>
+    <div id="subtab-profile" class="subtab-panel active">
+      <p class="meta">
+        Paste your resume, review the extracted profile, then save — saved keywords/industries feed
+        <code>data/search_profile.json</code>, which the daily fetch reads to match postings.
+      </p>
+      <label>Upload resume file</label>
+      <div id="resume-dropzone" class="dropzone">
+        <span id="dropzone-label">Drag a resume file here, or click to browse — .pdf, .docx, .txt, .md</span>
+        <span class="filename" id="dropzone-filename"></span>
+      </div>
+      <input type="file" id="resume-file-input" accept=".pdf,.docx,.txt,.md" style="display:none">
+      <div class="status" id="upload-status"></div>
 
-    <p><button id="archive-toggle">Show archived / closed postings ▾</button></p>
-    <div id="archive-container" style="display:none"></div>
+      <label for="resume-text">Resume text (uploaded text lands here, or paste directly)</label>
+      <textarea id="resume-text" placeholder="Paste resume text here…"></textarea>
+      <button id="extract-btn">Extract profile</button>
+
+      <div id="profile-review">
+        <div id="tag-summary" class="tag-summary"></div>
+
+        <label>Skills</label>
+        <div class="tag-pill-editor" id="profile-skills-tags"></div>
+
+        <label>Industries</label>
+        <div class="tag-pill-editor" id="profile-industries-tags"></div>
+
+        <label>Job-posting match keywords</label>
+        <div class="tag-pill-editor" id="profile-keywords-tags"></div>
+        <p class="meta">
+          Click a highlighted phrase below to untag it. Select any other text in your resume and
+          click "Tag selection" to add it as a keyword — or just add it directly above.
+        </p>
+        <div id="resume-keyword-view" class="resume-keyword-view"></div>
+        <button type="button" id="tag-selection-btn" style="display:none">+ Tag selected text</button>
+
+        <label>Manual tags <span class="meta-inline">(your own — untouched by re-extraction, feed matching directly)</span></label>
+        <div class="tag-pill-editor" id="profile-manual-tags"></div>
+
+        <label for="profile-summary">Summary</label>
+        <input type="text" id="profile-summary">
+        <button id="save-profile-btn">Save profile</button>
+      </div>
+      <div class="status" id="setup-status"></div>
+    </div>
+
+    <div id="subtab-scope" class="subtab-panel">
+      <div class="scope-group">
+        <h3>Active ATS sources</h3>
+        <div class="checks" id="scope-ats"></div>
+      </div>
+      <div class="scope-group">
+        <h3>Contract modes you want surfaced</h3>
+        <div class="checks" id="scope-contract-modes"></div>
+      </div>
+      <div class="scope-group">
+        <h3>Industries you're interested in</h3>
+        <p class="meta">
+          The full taxonomy from <code>DOCS/research_brief.md</code>/<code>role_search.md</code>, not
+          just the industries currently covered by <code>data/companies.json</code>. This is a
+          forward-looking preference — it doesn't filter fetches yet, it's the signal for what to
+          sweep next.
+        </p>
+        <div class="checks" id="scope-industries"></div>
+      </div>
+      <div class="scope-group">
+        <h3>Companies (disable to skip fetching without deleting the entry)</h3>
+        <div class="checks" id="scope-companies"></div>
+      </div>
+      <div class="scope-group">
+        <h3>Freelance platforms tracked</h3>
+        <ul class="freelance-list" id="freelance-list"></ul>
+      </div>
+    </div>
+
+    <div id="subtab-countries" class="subtab-panel">
+      <div class="scope-group">
+        <h3>Countries you're targeting</h3>
+        <p class="meta">
+          Click the map or the list below. Restricts the "verify location" flag in the Search Results
+          tab to just these countries — falls back to the default EU/EEA+UK+CH allowlist if nothing's
+          selected here. The map covers the whole world; matching works for any country you pick.
+        </p>
+        <div class="country-quickselect">
+          <button type="button" data-tier="nordics">Nordics</button>
+          <button type="button" data-tier="benelux-dach-ch">Benelux / DACH / CH</button>
+          <button type="button" data-tier="uk">UK</button>
+          <button type="button" data-tier="us">US</button>
+          <button type="button" data-tier="clear">Clear all</button>
+        </div>
+        <div id="country-map-viewport" class="country-map-viewport">
+          <div id="country-map-container" class="country-map"></div>
+          <span class="map-zoom-controls">
+            <button type="button" id="map-zoom-out" title="Zoom out">−</button>
+            <button type="button" id="map-zoom-reset" title="Reset zoom">Reset</button>
+            <button type="button" id="map-zoom-in" title="Zoom in">+</button>
+          </span>
+        </div>
+        <input type="search" id="country-search" placeholder="Search countries…">
+        <div id="country-list"></div>
+      </div>
+    </div>
+
+    <button id="save-scope-btn">Save scope</button>
+    <div class="status" id="scope-status"></div>
   </div>
 
   <div id="tab-leads" class="tab-panel">
@@ -350,99 +470,28 @@
     <div id="contacts-list"></div>
   </div>
 
-  <div id="tab-setup" class="tab-panel">
-    <p class="meta">
-      Requires the local backend running on <code>127.0.0.1:8420</code> (see <code>backend/</code>).
-      Paste your resume, review the extracted profile, then save — saved keywords/industries feed
-      <code>data/search_profile.json</code>, which the daily fetch reads to match postings.
-    </p>
-    <label>Upload resume file</label>
-    <div id="resume-dropzone" class="dropzone">
-      <span id="dropzone-label">Drag a resume file here, or click to browse — .pdf, .docx, .txt, .md</span>
-      <span class="filename" id="dropzone-filename"></span>
-    </div>
-    <input type="file" id="resume-file-input" accept=".pdf,.docx,.txt,.md" style="display:none">
-    <div class="status" id="upload-status"></div>
+  <div id="tab-search" class="tab-panel">
+    <div class="meta" id="meta">Loading…</div>
 
-    <label for="resume-text">Resume text (uploaded text lands here, or paste directly)</label>
-    <textarea id="resume-text" placeholder="Paste resume text here…"></textarea>
-    <button id="extract-btn">Extract profile</button>
+    <div class="controls">
+      <input type="search" id="search" placeholder="Filter by company, title, location…">
+      <label><input type="checkbox" id="remote-only"> Remote / EU-hireable only</label>
+      <label>Contract type
+        <select id="contract-filter">
+          <option value="">All</option>
+          <option value="full-time">Full-time</option>
+          <option value="contract">Contract</option>
+          <option value="freelance">Freelance</option>
+          <option value="internship">Internship</option>
+          <option value="unknown">Unknown / unspecified</option>
+        </select>
+      </label>
+    </div>
 
-    <div id="profile-review" style="display:none">
-      <label>Skills</label>
-      <div class="tag-pill-editor" id="profile-skills-tags"></div>
+    <div id="active-container"></div>
 
-      <label>Industries</label>
-      <div class="tag-pill-editor" id="profile-industries-tags"></div>
-
-      <label>Job-posting match keywords</label>
-      <div class="tag-pill-editor" id="profile-keywords-tags"></div>
-      <p class="meta">
-        Click a highlighted phrase below to untag it. Select any other text in your resume and
-        click "Tag selection" to add it as a keyword — or just add it directly above.
-      </p>
-      <div id="resume-keyword-view" class="resume-keyword-view"></div>
-      <button type="button" id="tag-selection-btn" style="display:none">+ Tag selected text</button>
-
-      <label for="profile-summary">Summary</label>
-      <input type="text" id="profile-summary">
-      <button id="save-profile-btn">Save profile</button>
-    </div>
-    <div class="status" id="setup-status"></div>
-
-    <div class="scope-group">
-      <h3>Active ATS sources</h3>
-      <div class="checks" id="scope-ats"></div>
-    </div>
-    <div class="scope-group">
-      <h3>Contract modes you want surfaced</h3>
-      <div class="checks" id="scope-contract-modes"></div>
-    </div>
-    <div class="scope-group">
-      <h3>Industries you're interested in</h3>
-      <p class="meta">
-        The full taxonomy from <code>DOCS/research_brief.md</code>/<code>role_search.md</code>, not
-        just the industries currently covered by <code>data/companies.json</code>. This is a
-        forward-looking preference — it doesn't filter fetches yet, it's the signal for what to
-        sweep next.
-      </p>
-      <div class="checks" id="scope-industries"></div>
-    </div>
-    <div class="scope-group">
-      <h3>Countries you're targeting</h3>
-      <p class="meta">
-        Click the map or the list below. Restricts the "verify location" flag in the Search tab to
-        just these countries — falls back to the default EU/EEA+UK+CH allowlist if nothing's
-        selected here. The map covers the whole world; matching works for any country you pick.
-      </p>
-      <div class="country-quickselect">
-        <button type="button" data-tier="nordics">Nordics</button>
-        <button type="button" data-tier="benelux-dach-ch">Benelux / DACH / CH</button>
-        <button type="button" data-tier="uk">UK</button>
-        <button type="button" data-tier="us">US</button>
-        <button type="button" data-tier="clear">Clear all</button>
-      </div>
-      <div id="country-map-viewport" class="country-map-viewport">
-        <div id="country-map-container" class="country-map"></div>
-        <span class="map-zoom-controls">
-          <button type="button" id="map-zoom-out" title="Zoom out">−</button>
-          <button type="button" id="map-zoom-reset" title="Reset zoom">Reset</button>
-          <button type="button" id="map-zoom-in" title="Zoom in">+</button>
-        </span>
-      </div>
-      <input type="search" id="country-search" placeholder="Search countries…">
-      <div id="country-list"></div>
-    </div>
-    <div class="scope-group">
-      <h3>Companies (disable to skip fetching without deleting the entry)</h3>
-      <div class="checks" id="scope-companies"></div>
-    </div>
-    <div class="scope-group">
-      <h3>Freelance platforms tracked</h3>
-      <ul class="freelance-list" id="freelance-list"></ul>
-    </div>
-    <button id="save-scope-btn">Save scope</button>
-    <div class="status" id="scope-status"></div>
+    <p><button id="archive-toggle">Show archived / closed postings ▾</button></p>
+    <div id="archive-container" style="display:none"></div>
   </div>
 
 <script>
@@ -460,7 +509,23 @@
     if (tabName === "search") {
       fetch(BACKEND + "/glance/seen-postings", { method: "POST" }).catch(function () {});
     }
-    if (tabName === "glance") initGlance();
+    // Glance is an always-visible header, not a tab — keep it fresh as the
+    // user navigates rather than only refreshing on its own tab click.
+    initGlance();
+  }
+
+  function activateSubtab(subtabName) {
+    document.querySelectorAll(".subtabs button").forEach(function (b) { b.classList.remove("active"); });
+    document.querySelectorAll(".subtab-panel").forEach(function (p) { p.classList.remove("active"); });
+    var btn = document.querySelector(".subtabs button[data-subtab=\"" + subtabName + "\"]");
+    if (btn) btn.classList.add("active");
+    document.getElementById("subtab-" + subtabName).classList.add("active");
+    // "Save scope" covers the scope + countries subtabs only (Profile has
+    // its own "Save profile" button) — hide it so it doesn't look like it
+    // saves the resume fields too.
+    var showSaveScope = subtabName !== "profile";
+    document.getElementById("save-scope-btn").style.display = showSaveScope ? "" : "none";
+    document.getElementById("scope-status").style.display = showSaveScope ? "" : "none";
   }
 
   function initTabs() {
@@ -470,6 +535,10 @@
     document.querySelectorAll("[data-jump-tab]").forEach(function (btn) {
       btn.addEventListener("click", function () { activateTab(btn.dataset.jumpTab); });
     });
+    document.querySelectorAll(".subtabs button[data-subtab]").forEach(function (btn) {
+      btn.addEventListener("click", function () { activateSubtab(btn.dataset.subtab); });
+    });
+    activateSubtab("profile"); // sync the "Save scope" button's initial hidden state
   }
 
   function initResumeUpload() {
@@ -642,6 +711,54 @@
     var setupStatus = document.getElementById("setup-status");
     var skillsEditor = null, industriesEditor = null, keywordsEditor = null;
 
+    function renderTagSummary() {
+      var groups = [
+        { label: "Skills", tags: skillsEditor ? skillsEditor.getTags() : [], drives: false },
+        { label: "Industries", tags: industriesEditor ? industriesEditor.getTags() : [], drives: false },
+        { label: "Keywords", tags: keywordsEditor ? keywordsEditor.getTags() : [], drives: true },
+        { label: "Manual", tags: manualTagsEditor ? manualTagsEditor.getTags() : [], drives: true }
+      ];
+      document.getElementById("tag-summary").innerHTML = groups.map(function (g) {
+        var badge = g.drives
+          ? '<span class="tag-summary-badge drives">drives matching</span>'
+          : '<span class="tag-summary-badge reference">reference only</span>';
+        var pills = g.tags.length
+          ? g.tags.map(function (t) { return '<span class="tag-pill-static">' + escapeHtml(t) + '</span>'; }).join("")
+          : '<span class="tag-summary-empty">—</span>';
+        return '<div class="tag-summary-group"><div class="tag-summary-head">' + g.label + badge + '</div>'
+          + '<div class="tag-summary-pills">' + pills + '</div></div>';
+      }).join("");
+    }
+
+    // Always-visible, independent of extraction — survives resume re-extraction untouched.
+    var manualTagsEditor = createTagPillEditor(document.getElementById("profile-manual-tags"), [], renderTagSummary);
+
+    function applyExtractedProfile(extracted, resumeText) {
+      skillsEditor = createTagPillEditor(document.getElementById("profile-skills-tags"), extracted.skills || [], renderTagSummary);
+      industriesEditor = createTagPillEditor(document.getElementById("profile-industries-tags"), extracted.industries || [], renderTagSummary);
+      var resumeKeywordView = null;
+      keywordsEditor = createTagPillEditor(document.getElementById("profile-keywords-tags"), extracted.keywords || [], function () {
+        if (resumeKeywordView) resumeKeywordView.refresh();
+        renderTagSummary();
+      });
+      resumeKeywordView = initResumeKeywordView(resumeText, keywordsEditor);
+      document.getElementById("profile-summary").value = extracted.summary || "";
+      renderTagSummary();
+    }
+
+    function loadSavedProfile() {
+      fetch(BACKEND + "/profile").then(function (r) {
+        return r.ok ? r.json() : {};
+      }).then(function (profile) {
+        if (profile.resume_text) document.getElementById("resume-text").value = profile.resume_text;
+        if (profile.extracted) applyExtractedProfile(profile.extracted, profile.resume_text || "");
+        if (profile.manual_tags && profile.manual_tags.length) manualTagsEditor.setTags(profile.manual_tags);
+        renderTagSummary();
+      }).catch(function () {
+        // Backend not running yet, or no profile saved — Setup tab just starts empty.
+      });
+    }
+
     document.getElementById("extract-btn").addEventListener("click", function () {
       var resumeText = document.getElementById("resume-text").value.trim();
       if (!resumeText) { setupStatus.textContent = "Paste your resume text first."; return; }
@@ -651,21 +768,17 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resume_text: resumeText })
       }).then(function (r) {
-        if (!r.ok) throw new Error("Backend returned " + r.status);
+        if (!r.ok) {
+          return r.json().catch(function () { return {}; }).then(function (body) {
+            throw new Error(body.detail || ("Backend returned " + r.status));
+          });
+        }
         return r.json();
       }).then(function (extracted) {
-        skillsEditor = createTagPillEditor(document.getElementById("profile-skills-tags"), extracted.skills || []);
-        industriesEditor = createTagPillEditor(document.getElementById("profile-industries-tags"), extracted.industries || []);
-        var resumeKeywordView = null;
-        keywordsEditor = createTagPillEditor(document.getElementById("profile-keywords-tags"), extracted.keywords || [], function () {
-          if (resumeKeywordView) resumeKeywordView.refresh();
-        });
-        resumeKeywordView = initResumeKeywordView(resumeText, keywordsEditor);
-        document.getElementById("profile-summary").value = extracted.summary || "";
-        document.getElementById("profile-review").style.display = "block";
+        applyExtractedProfile(extracted, resumeText);
         setupStatus.textContent = "Review the extracted profile below, edit anything wrong, then save.";
       }).catch(function (err) {
-        setupStatus.textContent = "Couldn't reach the local backend (" + err.message + "). Is it running?";
+        setupStatus.textContent = "Extraction failed: " + err.message;
       });
     });
 
@@ -681,7 +794,7 @@
       fetch(BACKEND + "/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ resume_text: resumeText, extracted: extracted })
+        body: JSON.stringify({ resume_text: resumeText, extracted: extracted, manual_tags: manualTagsEditor.getTags() })
       }).then(function (r) {
         if (!r.ok) throw new Error("Backend returned " + r.status);
         return r.json();
@@ -691,6 +804,9 @@
         setupStatus.textContent = "Couldn't save (" + err.message + ").";
       });
     });
+
+    renderTagSummary();
+    loadSavedProfile();
   }
 
   function leadCardHtml(lead) {
@@ -857,9 +973,9 @@
       if (!r.ok) throw new Error("Backend returned " + r.status);
       return r.json();
     }).then(function (g) {
-      document.getElementById("glance-new-postings").textContent = g.new_postings_count;
-      document.getElementById("glance-new-leads").textContent = g.new_leads_count;
-      document.getElementById("glance-stale-count").textContent = g.stale_outreach.length;
+      document.getElementById("glance-new-postings").textContent = g.new_postings_count > 0 ? g.new_postings_count : "";
+      document.getElementById("glance-new-leads").textContent = g.new_leads_count > 0 ? g.new_leads_count : "";
+      document.getElementById("glance-stale-count").textContent = g.stale_outreach.length > 0 ? g.stale_outreach.length : "";
 
       var staleList = document.getElementById("glance-stale-list");
       if (!g.stale_outreach.length) {

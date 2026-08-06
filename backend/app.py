@@ -48,13 +48,17 @@ class ResumeText(BaseModel):
 class ProfileSave(BaseModel):
     resume_text: str
     extracted: dict
+    manual_tags: list[str] = []
 
 
 @app.post("/profile/extract")
 def extract_profile(body: ResumeText):
     """Preview only — runs the LLM extraction but does not save. The user
     reviews/edits the result client-side before POSTing it to /profile."""
-    return llm.extract_resume_profile(body.resume_text)
+    try:
+        return llm.extract_resume_profile(body.resume_text)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"LLM extraction failed: {e}")
 
 
 @app.post("/profile/upload")
@@ -77,7 +81,7 @@ def get_profile():
 
 @app.post("/profile")
 def save_profile(body: ProfileSave):
-    db.save_profile(body.resume_text, body.extracted)
+    db.save_profile(body.resume_text, body.extracted, body.manual_tags)
     return {"status": "saved"}
 
 

@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS profile (
   id INTEGER PRIMARY KEY CHECK (id = 1),
   resume_text TEXT,
   extracted_json TEXT,
+  manual_tags_json TEXT DEFAULT '[]',
   updated_at TEXT
 );
 
@@ -125,6 +126,10 @@ def init_db():
     conn = get_connection()
     try:
         conn.executescript(SCHEMA)
+        try:
+            conn.execute("ALTER TABLE profile ADD COLUMN manual_tags_json TEXT DEFAULT '[]'")
+        except sqlite3.OperationalError:
+            pass  # column already exists (pre-existing DB file from before this field was added)
         conn.commit()
     finally:
         conn.close()
@@ -155,43 +160,61 @@ def set_setting(key, value):
 def get_profile():
     conn = get_connection()
     try:
-        row = conn.execute("SELECT resume_text, extracted_json, updated_at FROM profile WHERE id = 1").fetchone()
+        row = conn.execute(
+            "SELECT resume_text, extracted_json, manual_tags_json, updated_at FROM profile WHERE id = 1"
+        ).fetchone()
         if not row:
             return None
         return {
             "resume_text": row["resume_text"],
             "extracted": json.loads(row["extracted_json"]) if row["extracted_json"] else None,
+            "manual_tags": json.loads(row["manual_tags_json"]) if row["manual_tags_json"] else [],
             "updated_at": row["updated_at"],
         }
     finally:
         conn.close()
 
 
-def save_profile(resume_text, extracted):
+def save_profile(resume_text, extracted, manual_tags=None):
+    manual_tags = manual_tags or []
     conn = get_connection()
     try:
         conn.execute(
-            "INSERT INTO profile (id, resume_text, extracted_json, updated_at) VALUES (1, ?, ?, ?) "
+            "INSERT INTO profile (id, resume_text, extracted_json, manual_tags_json, updated_at) "
+            "VALUES (1, ?, ?, ?, ?) "
             "ON CONFLICT(id) DO UPDATE SET resume_text = excluded.resume_text, "
-            "extracted_json = excluded.extracted_json, updated_at = excluded.updated_at",
-            (resume_text, json.dumps(extracted, ensure_ascii=False), now_iso()),
+            "extracted_json = excluded.extracted_json, manual_tags_json = excluded.manual_tags_json, "
+            "updated_at = excluded.updated_at",
+            (resume_text, json.dumps(extracted, ensure_ascii=False),
+             json.dumps(manual_tags, ensure_ascii=False), now_iso()),
         )
         conn.commit()
     finally:
         conn.close()
-    export_search_profile(extracted)
+    export_search_profile(extracted, manual_tags)
 
 
-def export_search_profile(extracted):
+def export_search_profile(extracted, manual_tags=None):
     """Writes the derived keywords/industries (not raw resume text) to the
     committed data/ dir so fetch_postings.py (run by GitHub Actions, no
     access to this local DB) can read them. Deliberately excludes resume
     text/summary/skills — this repo is public; only the matching-relevant
     fields belong in it.
+
+    manual_tags are user-added (not LLM-extracted) and are unioned into the
+    exported keywords so they immediately affect posting matching without
+    requiring a resume re-extraction — case-insensitive dedup, first-seen
+    casing wins.
     """
     os.makedirs(os.path.dirname(SEARCH_PROFILE_PATH), exist_ok=True)
+    keywords = list(extracted.get("keywords", []))
+    seen_lower = {kw.lower() for kw in keywords}
+    for tag in (manual_tags or []):
+        if tag.lower() not in seen_lower:
+            keywords.append(tag)
+            seen_lower.add(tag.lower())
     payload = {
-        "keywords": extracted.get("keywords", []),
+        "keywords": keywords,
         "industries": extracted.get("industries", []),
         "updated_at": now_iso(),
     }
