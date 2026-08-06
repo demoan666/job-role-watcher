@@ -10,7 +10,8 @@
     --border: #d0d0d0;
     --muted: #666;
     --bg-alt: #f5f5f5;
-    --accent: #2a5db0;
+    --accent: #e2792a;
+    --accent-contrast: #1a1200;
     --success: #2e7d32;
     --error: #c0392b;
   }
@@ -19,7 +20,8 @@
       --border: #444;
       --muted: #aaa;
       --bg-alt: #1c1c1c;
-      --accent: #7aa2f7;
+      --accent: #f2994a;
+      --accent-contrast: #1a1200;
       --success: #6fcf73;
       --error: #e57373;
     }
@@ -45,8 +47,22 @@
   }
   .scope-group { margin-top: 1rem; }
   .scope-group h3 { font-size: 0.95rem; margin: 0 0 0.4rem; }
-  .scope-group .checks { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; font-size: 0.9rem; }
-  .scope-group .checks label { display: flex; align-items: center; gap: 0.3rem; white-space: nowrap; }
+  .scope-group .checks { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.9rem; }
+  .scope-group .checks label {
+    position: relative; display: inline-flex; align-items: center; white-space: nowrap;
+    padding: 0.2rem 0.65rem; border-radius: 999px; border: 1px solid var(--border);
+    background: none; color: var(--muted); font-size: 0.8rem; cursor: pointer;
+  }
+  /* #tab-setup prefix needed for specificity over the #tab-setup label ID
+     rule (color: var(--muted)), which otherwise wins on ID weight alone and
+     silently overrides both the hover and checked-state text colors here. */
+  #tab-setup .scope-group .checks label:hover { border-color: var(--accent); color: var(--accent); }
+  #tab-setup .scope-group .checks label:has(input:checked) {
+    background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); font-weight: 600;
+  }
+  .scope-group .checks input[type="checkbox"] {
+    position: absolute; opacity: 0; width: 0; height: 0; margin: 0;
+  }
   .freelance-list { font-size: 0.85rem; color: var(--muted); }
   .freelance-list li { margin-bottom: 0.3rem; }
   table { border-collapse: collapse; width: 100%; margin-bottom: 1.5rem; }
@@ -83,6 +99,16 @@
     cursor: pointer; font-size: 1rem; padding: 0; flex-shrink: 0;
   }
   .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .llm-usage-badge {
+    border: 1px solid var(--border); background: none; color: var(--muted); border-radius: 999px;
+    padding: 0.3rem 0.7rem; font-size: 0.8rem; cursor: default; font-family: inherit;
+  }
+  .llm-usage-detail {
+    display: flex; gap: 1.5rem; flex-wrap: wrap; padding: 0.6rem 0; font-size: 0.85rem;
+    border-bottom: 1px solid var(--border); margin-bottom: 0.3rem;
+  }
+  .llm-usage-detail .llm-usage-col strong { display: block; font-size: 1.1rem; }
+  .llm-usage-detail .llm-usage-col span { color: var(--muted); font-size: 0.75rem; }
   #glance-stale-list:not(:empty) { margin-bottom: 1.5rem; }
   .subtabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.8rem 0 1rem; border-bottom: 1px solid var(--border); }
   /* #tab-setup prefix needed for specificity over the generic #tab-setup
@@ -97,7 +123,7 @@
   .subtab-panel.active { display: block; }
   #leads-badge {
     display: inline-block; min-width: 1.1rem; padding: 0 0.3rem; margin-left: 0.3rem;
-    border-radius: 999px; background: var(--accent); color: white; font-size: 0.75rem;
+    border-radius: 999px; background: var(--accent); color: var(--accent-contrast); font-size: 0.75rem;
     text-align: center; line-height: 1.3rem;
   }
   #leads-badge:empty { display: none; }
@@ -116,7 +142,7 @@
   .lead-card .lead-tag {
     display: inline-block; font-size: 0.75rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.4rem;
   }
-  .lead-tag.opportunity { background: #2a5db022; color: var(--accent); }
+  .lead-tag.opportunity { background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); }
   .lead-tag.noise { background: transparent; color: var(--muted); }
   #tab-outreach .contact-form { display: flex; flex-direction: column; gap: 0.5rem; max-width: 500px; margin-bottom: 1.5rem; }
   #tab-outreach .contact-form input {
@@ -131,7 +157,7 @@
   .contact-card .contact-meta { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; }
   .contact-card .contact-status {
     display: inline-block; font-size: 0.75rem; padding: 0.1rem 0.4rem; border-radius: 3px;
-    background: #2a5db022; color: var(--accent); margin-left: 0.4rem;
+    background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); margin-left: 0.4rem;
   }
   .contact-card button {
     margin-top: 0.4rem; padding: 0.35rem 0.8rem; border-radius: 4px; border: 1px solid var(--accent);
@@ -139,7 +165,7 @@
   }
   .contact-card button:disabled { opacity: 0.5; cursor: default; }
   .contact-card .outreach-result { font-size: 0.85rem; margin-top: 0.4rem; white-space: pre-wrap; }
-  .glance-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .glance-grid { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
   .glance-notif {
     display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.7rem;
     border-radius: 999px; border: 1px solid var(--border); background: none; color: inherit;
@@ -148,7 +174,7 @@
   .glance-notif:hover { border-color: var(--accent); color: var(--accent); }
   .glance-notif .glance-badge {
     display: inline-block; min-width: 1.1rem; padding: 0 0.3rem;
-    border-radius: 999px; background: var(--accent); color: white; font-size: 0.75rem;
+    border-radius: 999px; background: var(--accent); color: var(--accent-contrast); font-size: 0.75rem;
     text-align: center; line-height: 1.3rem;
   }
   .glance-notif .glance-badge:empty { display: none; }
@@ -182,13 +208,13 @@
   }
   .tag-pill {
     display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.3rem 0.15rem 0.6rem;
-    border-radius: 999px; background: #2a5db022; color: var(--accent); font-size: 0.85rem;
+    border-radius: 999px; background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); font-size: 0.85rem;
   }
   .tag-pill button {
     border: none; background: none; color: inherit; cursor: pointer; font-size: 0.9rem;
     line-height: 1; padding: 0.1rem 0.3rem; border-radius: 50%;
   }
-  .tag-pill button:hover { background: #2a5db044; }
+  .tag-pill button:hover { background: color-mix(in srgb, var(--accent) 27%, transparent); }
   .tag-pill-editor input {
     border: none; outline: none; background: none; color: inherit; font-size: 0.9rem;
     flex: 1; min-width: 120px; font-family: inherit;
@@ -198,10 +224,10 @@
     line-height: 1.7; max-height: 240px; overflow-y: auto; white-space: pre-wrap;
   }
   .resume-keyword-view .kw-tagged {
-    background: #2a5db022; color: var(--accent); border-radius: 3px; padding: 0.05rem 0.15rem;
+    background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); border-radius: 3px; padding: 0.05rem 0.15rem;
     cursor: pointer;
   }
-  .resume-keyword-view .kw-tagged:hover { background: #2a5db044; }
+  .resume-keyword-view .kw-tagged:hover { background: color-mix(in srgb, var(--accent) 27%, transparent); }
   .resume-keyword-view .kw-tagged::after { content: " ×"; font-size: 0.75rem; }
   .meta-inline { color: var(--muted); font-weight: normal; font-size: 0.8rem; }
   .tag-summary {
@@ -220,7 +246,7 @@
   .tag-summary-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .tag-summary-pills .tag-pill-static {
     display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px;
-    background: #2a5db022; color: var(--accent); font-size: 0.8rem;
+    background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); font-size: 0.8rem;
   }
   .tag-summary-empty { color: var(--muted); font-size: 0.8rem; font-style: italic; }
   .modal-overlay {
@@ -336,7 +362,7 @@
   }
   #country-list .country-pill:hover { border-color: var(--accent); color: var(--accent); }
   #country-list .country-pill.selected {
-    background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600;
+    background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); font-weight: 600;
   }
   .continent-group[data-empty] { display: none; }
 </style>
@@ -356,6 +382,7 @@
           Stale outreach<span class="glance-badge" id="glance-stale-count"></span>
         </button>
       </div>
+      <button type="button" id="llm-usage-badge" class="llm-usage-badge" title="Loading LLM usage…">LLM usage: …</button>
       <button type="button" id="llm-settings-btn" class="icon-btn" title="LLM settings" aria-label="LLM settings">⚙</button>
     </div>
   </div>
@@ -373,6 +400,9 @@
         Claude Pro, or Gemini Advanced <em>subscription login</em> has no programmatic API and
         can't be used for this; you need a real API key from the provider's developer console.
       </p>
+
+      <h3>Usage</h3>
+      <div id="llm-usage-detail" class="llm-usage-detail"></div>
 
       <h3>API keys</h3>
       <div id="llm-provider-list"></div>
@@ -862,6 +892,7 @@
       }).then(function (extracted) {
         applyExtractedProfile(extracted, resumeText);
         setupStatus.textContent = "Review the extracted profile below, edit anything wrong, then save.";
+        refreshLlmUsage();
       }).catch(function (err) {
         setupStatus.classList.add("error");
         setupStatus.textContent = "Extraction failed: " + err.message;
@@ -963,6 +994,7 @@
         document.getElementById("capture-text").value = "";
         status.textContent = "Added.";
         refreshLeads();
+        refreshLlmUsage();
       }).catch(function (err) {
         status.textContent = "Couldn't add (" + err.message + ").";
       });
@@ -1013,6 +1045,7 @@
               resultEl.textContent = "Not sent: " + result.reason;
               btn.disabled = false;
             }
+            refreshLlmUsage();
           }).catch(function (err) {
             resultEl.textContent = "Failed: " + err.message;
             btn.disabled = false;
@@ -1481,6 +1514,46 @@
   }
   function escapeAttr(s) { return escapeHtml(s); }
 
+  function formatUsd(v) { return v === null ? null : "$" + v.toFixed(4); }
+
+  function refreshLlmUsage() {
+    return fetch(BACKEND + "/usage/llm").then(function (r) {
+      return r.ok ? r.json() : null;
+    }).then(function (data) {
+      if (!data) return;
+      var today = data.today, allTime = data.all_time;
+
+      var badge = document.getElementById("llm-usage-badge");
+      var todayCost = formatUsd(today.estimated_cost_usd);
+      var badgeText = !today.calls ? "LLM usage today: no calls yet"
+        : todayCost !== null ? "LLM usage today: " + todayCost + " (" + today.calls + " call" + (today.calls === 1 ? "" : "s") + ")"
+        : "LLM usage today: " + today.calls + " call" + (today.calls === 1 ? "" : "s") + ", cost unknown";
+      badge.textContent = badgeText;
+
+      var allTimeCost = formatUsd(allTime.estimated_cost_usd);
+      badge.title = "Today: " + today.input_tokens + " in / " + today.output_tokens + " out tokens across " +
+        today.calls + " call(s).\nAll-time: " + (allTimeCost !== null ? allTimeCost : "cost unknown") + " across " +
+        allTime.calls + " call(s) (" + allTime.input_tokens + " in / " + allTime.output_tokens + " out tokens)." +
+        (allTime.cost_unavailable_calls ? "\n" + allTime.cost_unavailable_calls + " call(s) used a provider/model with " +
+          "no verified pricing and aren't included in the cost total." : "");
+
+      var detailEl = document.getElementById("llm-usage-detail");
+      if (detailEl) {
+        function col(label, summary) {
+          var costStr = formatUsd(summary.estimated_cost_usd);
+          return '<div class="llm-usage-col"><strong>' + (costStr !== null ? costStr : "—") + '</strong><span>' +
+            escapeHtml(label) + ' · ' + summary.calls + ' call(s) · ' + summary.input_tokens + ' in / ' +
+            summary.output_tokens + ' out tokens' +
+            (summary.cost_unavailable_calls ? ' (' + summary.cost_unavailable_calls + ' unpriced)' : '') +
+            '</span></div>';
+        }
+        detailEl.innerHTML = col("Today", today) + col("All time", allTime);
+      }
+    }).catch(function () {
+      // Backend not running — badge just keeps its last-known text.
+    });
+  }
+
   function initLlmSettings() {
     var overlay = document.getElementById("llm-settings-overlay");
     var providerListEl = document.getElementById("llm-provider-list");
@@ -1574,6 +1647,7 @@
     document.getElementById("llm-settings-btn").addEventListener("click", function () {
       overlay.style.display = "flex";
       loadSettings();
+      refreshLlmUsage();
     });
     document.getElementById("llm-settings-close").addEventListener("click", function () {
       overlay.style.display = "none";
@@ -1664,6 +1738,7 @@
   initOutreach();
   initGlance();
   initLlmSettings();
+  refreshLlmUsage();
 
   Promise.all([
     fetch("data/postings.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),

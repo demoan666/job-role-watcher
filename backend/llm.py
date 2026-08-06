@@ -13,32 +13,41 @@ claude.ai login).
 import json
 import re
 
+import db
 from config import get_llm_settings
 
 # Curated "popular model" defaults per provider — always paired with a free-
 # text override in the UI, since this list will drift as new models ship.
+#
+# price_in/price_out are USD per 1M tokens, used only to estimate $ cost for
+# the usage tracker (backend/db.py's llm_usage table). Anthropic's prices are
+# verified against Anthropic's own current published pricing. OpenAI's and
+# Google's are deliberately left as None (not independently verified this
+# session) — the usage tracker still logs real token counts for those calls,
+# it just won't total a $ estimate for them until real prices are filled in.
 PROVIDERS = {
     "anthropic": {
         "label": "Anthropic (Claude)",
         "models": [
-            {"id": "claude-opus-4-8", "label": "Claude Opus 4.8 (most capable)"},
-            {"id": "claude-sonnet-5", "label": "Claude Sonnet 5 (balanced, default)"},
-            {"id": "claude-haiku-4-5", "label": "Claude Haiku 4.5 (fastest / cheapest)"},
+            {"id": "claude-opus-4-8", "label": "Claude Opus 4.8 (most capable)", "price_in": 5.00, "price_out": 25.00},
+            # $2/$10 is Sonnet 5's introductory pricing through 2026-08-31; reverts to $3/$15 after.
+            {"id": "claude-sonnet-5", "label": "Claude Sonnet 5 (balanced, default)", "price_in": 2.00, "price_out": 10.00},
+            {"id": "claude-haiku-4-5", "label": "Claude Haiku 4.5 (fastest / cheapest)", "price_in": 1.00, "price_out": 5.00},
         ],
     },
     "openai": {
         "label": "OpenAI (GPT)",
         "models": [
-            {"id": "gpt-5", "label": "GPT-5"},
-            {"id": "gpt-5-mini", "label": "GPT-5 mini"},
-            {"id": "gpt-4o", "label": "GPT-4o"},
+            {"id": "gpt-5", "label": "GPT-5", "price_in": None, "price_out": None},
+            {"id": "gpt-5-mini", "label": "GPT-5 mini", "price_in": None, "price_out": None},
+            {"id": "gpt-4o", "label": "GPT-4o", "price_in": None, "price_out": None},
         ],
     },
     "google": {
         "label": "Google (Gemini)",
         "models": [
-            {"id": "gemini-2.5-pro", "label": "Gemini 2.5 Pro"},
-            {"id": "gemini-2.5-flash", "label": "Gemini 2.5 Flash"},
+            {"id": "gemini-2.5-pro", "label": "Gemini 2.5 Pro", "price_in": None, "price_out": None},
+            {"id": "gemini-2.5-flash", "label": "Gemini 2.5 Flash", "price_in": None, "price_out": None},
         ],
     },
 }
@@ -79,7 +88,8 @@ def _call_anthropic(api_key, model, system_prompt, user_content, max_tokens):
         system=system_prompt,
         messages=[{"role": "user", "content": user_content}],
     )
-    return "".join(block.text for block in response.content if block.type == "text")
+    text = "".join(block.text for block in response.content if block.type == "text")
+    return text, response.usage.input_tokens, response.usage.output_tokens
 
 
 def _call_openai(api_key, model, system_prompt, user_content, max_tokens):
@@ -93,7 +103,11 @@ def _call_openai(api_key, model, system_prompt, user_content, max_tokens):
             {"role": "user", "content": user_content},
         ],
     )
-    return response.choices[0].message.content or ""
+    text = response.choices[0].message.content or ""
+    usage = response.usage
+    input_tokens = usage.prompt_tokens if usage else 0
+    output_tokens = usage.completion_tokens if usage else 0
+    return text, input_tokens, output_tokens
 
 
 def _call_google(api_key, model, system_prompt, user_content, max_tokens):
@@ -108,10 +122,24 @@ def _call_google(api_key, model, system_prompt, user_content, max_tokens):
             max_output_tokens=max_tokens,
         ),
     )
-    return response.text or ""
+    text = response.text or ""
+    usage = getattr(response, "usage_metadata", None)
+    input_tokens = getattr(usage, "prompt_token_count", 0) or 0 if usage else 0
+    output_tokens = getattr(usage, "candidates_token_count", 0) or 0 if usage else 0
+    return text, input_tokens, output_tokens
 
 
 _DISPATCH = {"anthropic": _call_anthropic, "openai": _call_openai, "google": _call_google}
+
+
+def _estimate_cost(provider, model, input_tokens, output_tokens):
+    """None when this provider/model has no verified per-token pricing in
+    PROVIDERS — see the module docstring above PROVIDERS."""
+    models = PROVIDERS.get(provider, {}).get("models", [])
+    meta = next((m for m in models if m["id"] == model), None)
+    if not meta or meta.get("price_in") is None or meta.get("price_out") is None:
+        return None
+    return (input_tokens * meta["price_in"] + output_tokens * meta["price_out"]) / 1_000_000
 
 
 def _call_json(system_prompt, user_content, task, max_tokens=1024):
@@ -132,7 +160,14 @@ def _call_json(system_prompt, user_content, task, max_tokens=1024):
         raise RuntimeError(f"Unknown LLM provider: {provider}")
 
     system_with_json_instruction = system_prompt + "\n\nRespond with a single JSON object only, no other text."
-    text = call_fn(api_key, model, system_with_json_instruction, user_content, max_tokens)
+    text, input_tokens, output_tokens = call_fn(api_key, model, system_with_json_instruction, user_content, max_tokens)
+
+    try:
+        cost = _estimate_cost(provider, model, input_tokens, output_tokens)
+        db.log_llm_usage(task, provider, model, input_tokens, output_tokens, cost)
+    except Exception:
+        pass  # usage tracking must never break the actual feature it's tracking
+
     return _extract_json(text)
 
 

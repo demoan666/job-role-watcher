@@ -123,6 +123,14 @@ def save_llm_settings_endpoint(body: LLMSettingsSave):
     return {"status": "saved"}
 
 
+@app.get("/usage/llm")
+def get_llm_usage():
+    """Real token counts (from each provider's own response) plus an
+    estimated $ cost where backend/llm.py has verified pricing for that
+    provider/model — see llm.PROVIDERS."""
+    return db.get_llm_usage_summary()
+
+
 class CompanyToggle(BaseModel):
     name: str
     enabled: bool

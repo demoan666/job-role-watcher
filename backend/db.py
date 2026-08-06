@@ -108,6 +108,17 @@ CREATE TABLE IF NOT EXISTS settings (
   key TEXT PRIMARY KEY,
   value TEXT
 );
+
+CREATE TABLE IF NOT EXISTS llm_usage (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  task TEXT NOT NULL,
+  provider TEXT NOT NULL,
+  model TEXT NOT NULL,
+  input_tokens INTEGER NOT NULL,
+  output_tokens INTEGER NOT NULL,
+  estimated_cost_usd REAL,
+  created_at TEXT NOT NULL
+);
 """
 
 
@@ -456,3 +467,50 @@ def get_glance():
 
 def mark_postings_seen():
     set_setting("postings_last_seen_at", now_iso())
+
+
+def log_llm_usage(task, provider, model, input_tokens, output_tokens, estimated_cost_usd):
+    """estimated_cost_usd is None when llm.py has no verified per-token pricing
+    for this provider/model — token counts (real, from the provider's own
+    response) are still logged so usage is visible even before pricing exists."""
+    conn = get_connection()
+    try:
+        conn.execute(
+            "INSERT INTO llm_usage (task, provider, model, input_tokens, output_tokens, "
+            "estimated_cost_usd, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (task, provider, model, input_tokens, output_tokens, estimated_cost_usd, now_iso()),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_llm_usage_summary():
+    """Returns {"today": {...}, "all_time": {...}}, each a dict with calls/
+    input_tokens/output_tokens (always real counts) and estimated_cost_usd
+    (None if every call in that window used a provider/model with no known
+    pricing — distinct from a real $0) plus cost_unavailable_calls, the
+    count of calls excluded from the cost total for that reason."""
+    conn = get_connection()
+    try:
+        def summarize(where_sql, params):
+            rows = conn.execute(
+                f"SELECT input_tokens, output_tokens, estimated_cost_usd FROM llm_usage {where_sql}",
+                params,
+            ).fetchall()
+            priced = [r for r in rows if r["estimated_cost_usd"] is not None]
+            return {
+                "calls": len(rows),
+                "input_tokens": sum(r["input_tokens"] for r in rows),
+                "output_tokens": sum(r["output_tokens"] for r in rows),
+                "estimated_cost_usd": sum(r["estimated_cost_usd"] for r in priced) if priced else None,
+                "cost_unavailable_calls": len(rows) - len(priced),
+            }
+
+        today = now_iso()[:10]
+        return {
+            "today": summarize("WHERE substr(created_at, 1, 10) = ?", (today,)),
+            "all_time": summarize("", ()),
+        }
+    finally:
+        conn.close()
