@@ -93,7 +93,14 @@ def get_all_providers():
 def _extract_json(text):
     match = re.search(r"\{.*\}", text, re.DOTALL)
     if not match:
-        raise ValueError(f"No JSON object found in LLM response: {text!r}")
+        # No closing "}" anywhere usually means the response was cut off before
+        # finishing — most often the max_tokens budget for this task was too
+        # low for how much the model had to say (raise it in the relevant
+        # task function below), not a formatting problem with the response.
+        raise ValueError(
+            "LLM response appears to have been cut off before finishing (no closing '}' found — "
+            f"likely hit the max_tokens limit). Raw response: {text!r}"
+        )
     return json.loads(match.group(0))
 
 
@@ -212,7 +219,10 @@ def extract_resume_profile(resume_text):
         "Resume:\n\n" + resume_text + "\n\n"
         'Return JSON: {"skills": [...], "industries": [...], "keywords": [...], "summary": "1-2 sentences"}'
     )
-    return _call_json(system_prompt, user_content, "extract_resume_profile")
+    # Detailed resumes can legitimately produce dozens of skills/industries/
+    # keywords — the previous 1024-token default was too tight and silently
+    # truncated the JSON mid-response (see _extract_json's truncation error).
+    return _call_json(system_prompt, user_content, "extract_resume_profile", max_tokens=4096)
 
 
 def triage_message(text, source):

@@ -285,6 +285,26 @@
   .resume-input-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
   #resume-review-block { margin-top: 0.6rem; }
   #resume-paste-ok-btn:disabled { opacity: 0.5; cursor: default; }
+  .extract-progress-wrap { margin-top: 0.9rem; max-width: 440px; }
+  .extract-progress-track { width: 100%; height: 12px; border-radius: 999px; background: var(--border); overflow: hidden; }
+  .extract-progress-fill {
+    display: block; height: 100%; width: 0%; border-radius: 999px; background: var(--accent);
+    transition: width 0.4s ease-out;
+  }
+  .extract-progress-status { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+  .extract-result {
+    margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-radius: 6px; border: 1px solid var(--border);
+    max-width: 480px; font-size: 0.85rem;
+  }
+  .extract-result.success { border-color: var(--success); }
+  .extract-result.error { border-color: var(--error); }
+  .extract-result-title { font-weight: 600; margin-bottom: 0.3rem; }
+  .extract-result.success .extract-result-title { color: var(--success); }
+  .extract-result.error .extract-result-title { color: var(--error); }
+  .extract-result-error-text {
+    font-family: monospace; font-size: 0.78rem; color: var(--muted); word-break: break-word; margin-bottom: 0.5rem;
+  }
+  .extract-result-copy-btn { font-size: 0.78rem; padding: 0.25rem 0.6rem; margin-top: 0; }
   .tag-summary {
     display: flex; flex-direction: column; gap: 0.6rem; padding: 0.8rem;
     border: 1px solid var(--border); border-radius: 6px; background: var(--bg-alt); margin-bottom: 1rem;
@@ -382,8 +402,7 @@
     box-sizing: border-box; display: block;
   }
   #country-list {
-    max-height: 420px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border);
-    border-radius: 6px; padding: 0.6rem 0.8rem;
+    max-height: 420px; overflow-y: auto; overflow-x: auto; padding: 0.6rem 0;
     /* Force continents onto a single row of columns (grid-auto-flow: column
        creates exactly one row, one column per continent-group, however many
        there are) rather than letting auto-fit collapse to fewer columns and
@@ -404,10 +423,10 @@
      button rule, which would otherwise force every pill to the same accent
      border/text regardless of selection state. */
   #country-list .country-pill {
-    display: block; width: fit-content; max-width: 100%; break-inside: avoid;
+    display: block; max-width: 100%; break-inside: avoid; box-sizing: border-box;
     margin: 0 0 0.35rem; padding: 0.2rem 0.65rem; border-radius: 999px; border: 1px solid var(--border);
     background: none; color: var(--muted); font-size: 0.8rem; font-family: inherit;
-    cursor: pointer; text-align: left; white-space: normal; line-height: 1.3;
+    cursor: pointer; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   #country-list .country-pill:hover { border-color: var(--accent); color: var(--accent); }
   #country-list .country-pill.selected {
@@ -544,8 +563,14 @@
           <div class="profile-step-body">
             <h3 class="profile-step-title">Extract profile</h3>
             <button id="extract-btn" disabled title="Upload or paste your resume above first">Extract profile</button>
-            <span class="inline-progress" id="extract-progress" style="display:none" aria-hidden="true"><span class="inline-progress-bar"></span></span>
             <span class="tooltip-icon" id="llm-tooltip-extract_resume_profile" title="Loading…">ⓘ</span>
+
+            <div id="extract-progress-wrap" class="extract-progress-wrap" style="display:none">
+              <div class="extract-progress-track"><div class="extract-progress-fill" id="extract-progress-fill"></div></div>
+              <div class="extract-progress-status" id="extract-progress-status"></div>
+            </div>
+
+            <div id="extract-result" class="extract-result" style="display:none"></div>
           </div>
         </div>
 
@@ -1044,13 +1069,36 @@
 
     document.getElementById("extract-btn").addEventListener("click", function () {
       var resumeText = document.getElementById("resume-text").value.trim();
-      if (!resumeText) { setupStatus.textContent = "Paste your resume text first."; return; }
+      if (!resumeText) return;
+
       var extractBtn = document.getElementById("extract-btn");
-      var progressEl = document.getElementById("extract-progress");
-      setupStatus.classList.remove("error");
-      setupStatus.textContent = "";
+      var progressWrap = document.getElementById("extract-progress-wrap");
+      var progressFill = document.getElementById("extract-progress-fill");
+      var progressStatus = document.getElementById("extract-progress-status");
+      var resultEl = document.getElementById("extract-result");
+
       extractBtn.disabled = true;
-      progressEl.style.display = "inline-block";
+      resultEl.style.display = "none";
+      progressWrap.style.display = "block";
+
+      // There's no real progress signal from a single non-streaming API call —
+      // these are honest elapsed-time stages, not a fabricated percentage.
+      var stages = [
+        { at: 0, pct: 15, text: "Sending resume to the LLM…" },
+        { at: 3000, pct: 40, text: "Waiting for a response…" },
+        { at: 8000, pct: 65, text: "Still working — longer resumes take more time…" },
+        { at: 18000, pct: 85, text: "This is taking a while — hang tight…" }
+      ];
+      var timers = stages.slice(1).map(function (stage) {
+        return setTimeout(function () {
+          progressFill.style.width = stage.pct + "%";
+          progressStatus.textContent = stage.text;
+        }, stage.at);
+      });
+      progressFill.style.width = stages[0].pct + "%";
+      progressStatus.textContent = stages[0].text;
+      function clearStageTimers() { timers.forEach(function (t) { clearTimeout(t); }); }
+
       fetch(BACKEND + "/profile/extract", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1063,15 +1111,39 @@
         }
         return r.json();
       }).then(function (extracted) {
+        clearStageTimers();
+        progressFill.style.width = "100%";
+        progressStatus.textContent = "Done.";
         applyExtractedProfile(extracted, resumeText);
-        setupStatus.textContent = "Review the extracted profile below, edit anything wrong, then save.";
         refreshLlmUsage();
+        var counts = (extracted.skills || []).length + " skills, " + (extracted.industries || []).length +
+          " industries, " + (extracted.keywords || []).length + " keywords";
+        resultEl.className = "extract-result success";
+        resultEl.innerHTML = '<div class="extract-result-title">Extraction succeeded</div><div>Found ' +
+          escapeHtml(counts) + ' — review below, then save.</div>';
+        resultEl.style.display = "block";
       }).catch(function (err) {
-        setupStatus.classList.add("error");
-        setupStatus.textContent = "Extraction failed: " + err.message;
+        clearStageTimers();
+        progressStatus.textContent = "Failed.";
+        var fullMsg = err.message;
+        var shortMsg = fullMsg.length > 180 ? fullMsg.slice(0, 180) + "…" : fullMsg;
+        resultEl.className = "extract-result error";
+        resultEl.innerHTML = '<div class="extract-result-title">Extraction failed</div>' +
+          '<div class="extract-result-error-text" title="' + escapeAttr(fullMsg) + '">' + escapeHtml(shortMsg) + '</div>' +
+          '<button type="button" class="extract-result-copy-btn" id="extract-copy-error-btn">Copy full error</button>';
+        resultEl.style.display = "block";
+        document.getElementById("extract-copy-error-btn").addEventListener("click", function () {
+          var btn = this;
+          navigator.clipboard.writeText(fullMsg).then(function () {
+            btn.textContent = "Copied!";
+            setTimeout(function () { btn.textContent = "Copy full error"; }, 1500);
+          }).catch(function () {
+            btn.textContent = "Couldn't copy";
+          });
+        });
       }).finally(function () {
         updateStepGating();
-        progressEl.style.display = "none";
+        setTimeout(function () { progressWrap.style.display = "none"; }, 500);
       });
     });
 
@@ -1401,6 +1473,7 @@
           pill.className = "country-pill";
           pill.dataset.code = c.code.toLowerCase();
           pill.textContent = c.name;
+          pill.title = c.name;
           pill.addEventListener("click", function () {
             pill.classList.toggle("selected");
             var el = mapContainer.querySelector("[id=\"" + c.code.toLowerCase() + "\"]");
