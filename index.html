@@ -48,21 +48,33 @@
   .scope-group { margin-top: 1rem; }
   .scope-group h3 { font-size: 0.95rem; margin: 0 0 0.4rem; }
   .scope-group .checks { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.9rem; }
-  .scope-group .checks label {
-    position: relative; display: inline-flex; align-items: center; white-space: nowrap;
-    padding: 0.2rem 0.65rem; border-radius: 999px; border: 1px solid var(--border);
-    background: none; color: var(--muted); font-size: 0.8rem; cursor: pointer;
-  }
-  /* #tab-setup prefix needed for specificity over the #tab-setup label ID
-     rule (color: var(--muted)), which otherwise wins on ID weight alone and
-     silently overrides both the hover and checked-state text colors here. */
-  #tab-setup .scope-group .checks label:hover { border-color: var(--accent); color: var(--accent); }
-  #tab-setup .scope-group .checks label:has(input:checked) {
-    background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); font-weight: 600;
-  }
   .scope-group .checks input[type="checkbox"] {
     position: absolute; opacity: 0; width: 0; height: 0; margin: 0;
   }
+  /* ── Universal capsule component ──────────────────────────────────
+     One shared shape for every selectable/removable tag or filter chip
+     in the app (tag editors, tag summary, country picker, ATS/contract
+     toggle chips) instead of each page defining its own pill CSS.
+     --capsule-accent/--capsule-accent-text default to the app accent but
+     a future variant can override them locally (e.g. .capsule.warning)
+     to give a different capsule meaning its own color without touching
+     this shared shape. #tab-setup prefix needed for specificity over the
+     #tab-setup button/label ID rules, which otherwise silently win on ID
+     weight alone regardless of how many classes this has. */
+  #tab-setup .capsule {
+    --capsule-accent: var(--accent);
+    --capsule-accent-text: var(--accent-contrast);
+    position: relative; display: inline-flex; align-items: center; white-space: nowrap;
+    padding: 0.2rem 0.7rem; border-radius: 999px; border: 1px solid var(--border);
+    background: none; color: var(--muted); font-size: 0.8rem; font-family: inherit;
+    cursor: pointer;
+  }
+  #tab-setup .capsule:hover { border-color: var(--capsule-accent); color: var(--capsule-accent); }
+  #tab-setup .capsule.selected {
+    background: var(--capsule-accent); border-color: var(--capsule-accent); color: var(--capsule-accent-text);
+    font-weight: 600;
+  }
+  #tab-setup .capsule.static { cursor: default; }
   .freelance-list { font-size: 0.85rem; color: var(--muted); }
   .freelance-list li { margin-bottom: 0.3rem; }
   table { border-collapse: collapse; width: 100%; margin-bottom: 1.5rem; }
@@ -79,6 +91,7 @@
   .flag-warn { color: #b06a2a; }
   .empty { color: var(--muted); padding: 1rem 0.3rem; }
   #archive-toggle { cursor: pointer; color: var(--accent); background: none; border: none; font-size: 0.9rem; padding: 0; }
+  .sticky-header { position: sticky; top: 0; z-index: 40; background: Canvas; }
   .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
   .tabs button {
     background: none; border: none; padding: 0.5rem 0.8rem; font-size: 0.95rem;
@@ -141,7 +154,10 @@
   .llm-usage-row-badge.in-use { background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); font-weight: 600; }
   .llm-usage-row-stats { color: var(--muted); }
   #glance-stale-list:not(:empty) { margin-bottom: 1.5rem; }
-  .subtabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.8rem 0 1rem; border-bottom: 1px solid var(--border); }
+  .subtabs {
+    display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.8rem 0 1rem; border-bottom: 1px solid var(--border);
+    position: sticky; top: var(--sticky-header-h, 0px); z-index: 30; background: Canvas;
+  }
   /* #tab-setup prefix needed for specificity over the generic #tab-setup
      button rule (ID selector), which would otherwise force every subtab
      button to that boxed accent-border look regardless of active state. */
@@ -237,19 +253,12 @@
   }
   #tab-setup .status { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
   #tab-setup .status.error { color: var(--error); font-weight: 600; }
+  .save-scope-row { margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+  .save-scope-row #save-scope-btn { margin-top: 0; }
   .tag-pill-editor {
     display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding: 0.4rem;
     border: 1px solid var(--border); border-radius: 4px; min-height: 2.2rem;
   }
-  .tag-pill {
-    display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.15rem 0.3rem 0.15rem 0.6rem;
-    border-radius: 999px; background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); font-size: 0.85rem;
-  }
-  .tag-pill button {
-    border: none; background: none; color: inherit; cursor: pointer; font-size: 0.9rem;
-    line-height: 1; padding: 0.1rem 0.3rem; border-radius: 50%;
-  }
-  .tag-pill button:hover { background: color-mix(in srgb, var(--accent) 27%, transparent); }
   .tag-pill-editor input {
     border: none; outline: none; background: none; color: inherit; font-size: 0.9rem;
     flex: 1; min-width: 120px; font-family: inherit;
@@ -285,7 +294,8 @@
   .resume-input-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
   #resume-review-block { margin-top: 0.6rem; }
   #resume-paste-ok-btn:disabled { opacity: 0.5; cursor: default; }
-  .extract-progress-wrap { margin-top: 0.9rem; max-width: 440px; }
+  .extract-row { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+  .extract-progress-wrap { flex: 1; min-width: 180px; max-width: 320px; }
   .extract-progress-track { width: 100%; height: 12px; border-radius: 999px; background: var(--border); overflow: hidden; }
   .extract-progress-fill {
     display: block; height: 100%; width: 0%; border-radius: 999px; background: var(--accent);
@@ -319,10 +329,6 @@
   .tag-summary-badge.drives { color: var(--success); background: color-mix(in srgb, var(--success) 18%, transparent); }
   .tag-summary-badge.reference { color: var(--muted); background: color-mix(in srgb, var(--muted) 18%, transparent); }
   .tag-summary-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-  .tag-summary-pills .tag-pill-static {
-    display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px;
-    background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); font-size: 0.8rem;
-  }
   .tag-summary-empty { color: var(--muted); font-size: 0.8rem; font-style: italic; }
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100;
@@ -402,13 +408,13 @@
     box-sizing: border-box; display: block;
   }
   #country-list {
-    max-height: 420px; overflow-y: auto; overflow-x: auto; padding: 0.6rem 0;
-    /* Force continents onto a single row of columns (grid-auto-flow: column
-       creates exactly one row, one column per continent-group, however many
-       there are) rather than letting auto-fit collapse to fewer columns and
-       stack continent blocks vertically on narrower viewports. */
-    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(130px, 1fr);
-    gap: 0 1.2rem; align-items: start;
+    padding: 0.6rem 0;
+    /* No max-height/overflow here on purpose — the list grows with the page
+       instead of scrolling in its own inner viewport. Continents wrap onto
+       as many rows as the viewport needs instead of forcing a single row
+       (which is what previously required horizontal scrolling). */
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem 1.2rem; align-items: start;
   }
   #country-list .country-pill[data-hidden] { display: none; }
   .continent-group { margin-bottom: 0; }
@@ -419,23 +425,17 @@
   .continent-group .checks {
     display: block; column-count: 2; column-gap: 0.8rem; row-gap: 0.3rem;
   }
-  /* #country-list prefix needed for specificity over the generic #tab-setup
-     button rule, which would otherwise force every pill to the same accent
-     border/text regardless of selection state. */
+  /* Country pills are .capsule for shape/color — this just layers on the
+     grid-specific layout (block + ellipsis truncation instead of inline). */
   #country-list .country-pill {
     display: block; max-width: 100%; break-inside: avoid; box-sizing: border-box;
-    margin: 0 0 0.35rem; padding: 0.2rem 0.65rem; border-radius: 999px; border: 1px solid var(--border);
-    background: none; color: var(--muted); font-size: 0.8rem; font-family: inherit;
-    cursor: pointer; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  #country-list .country-pill:hover { border-color: var(--accent); color: var(--accent); }
-  #country-list .country-pill.selected {
-    background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); font-weight: 600;
+    margin: 0 0 0.35rem; text-align: left; overflow: hidden; text-overflow: ellipsis;
   }
   .continent-group[data-empty] { display: none; }
 </style>
 </head>
 <body>
+  <div class="sticky-header">
   <div class="app-header">
     <h1>Job Watcher</h1>
     <div class="header-right">
@@ -456,6 +456,15 @@
       <button type="button" id="llm-settings-btn" class="icon-btn" title="LLM settings" aria-label="LLM settings">⚙</button>
     </div>
   </div>
+
+  <div class="tabs">
+    <button data-tab="setup" class="active">Setup</button>
+    <button data-tab="leads">Leads<span id="leads-badge"></span></button>
+    <button data-tab="outreach">Outreach</button>
+    <button data-tab="search">Search Results</button>
+  </div>
+  </div>
+
   <div id="glance-stale-list"></div>
 
   <div id="llm-usage-overlay" class="modal-overlay" style="display:none">
@@ -510,13 +519,6 @@
     </div>
   </div>
 
-  <div class="tabs">
-    <button data-tab="setup" class="active">Setup</button>
-    <button data-tab="leads">Leads<span id="leads-badge"></span></button>
-    <button data-tab="outreach">Outreach</button>
-    <button data-tab="search">Search Results</button>
-  </div>
-
   <div id="tab-setup" class="tab-panel active">
     <p class="meta">
       Requires the local backend running on <code>127.0.0.1:8420</code> (see <code>backend/</code>).
@@ -526,6 +528,11 @@
       <button data-subtab="profile" class="active">My Profile</button>
       <button data-subtab="scope">Search Criteria Filters</button>
       <button data-subtab="countries">Location Filters</button>
+    </div>
+
+    <div class="save-scope-row">
+      <button id="save-scope-btn">Save scope</button>
+      <div class="status" id="scope-status"></div>
     </div>
 
     <div id="subtab-profile" class="subtab-panel active">
@@ -562,12 +569,14 @@
           <div class="profile-step-marker"><span class="profile-step-num" data-step-number="2">2</span><div class="profile-step-connector"></div></div>
           <div class="profile-step-body">
             <h3 class="profile-step-title">Extract profile</h3>
-            <button id="extract-btn" disabled title="Upload or paste your resume above first">Extract profile</button>
-            <span class="tooltip-icon" id="llm-tooltip-extract_resume_profile" title="Loading…">ⓘ</span>
+            <div class="extract-row">
+              <button id="extract-btn" disabled title="Upload or paste your resume above first">Extract profile</button>
+              <span class="tooltip-icon" id="llm-tooltip-extract_resume_profile" title="Loading…">ⓘ</span>
 
-            <div id="extract-progress-wrap" class="extract-progress-wrap" style="display:none">
-              <div class="extract-progress-track"><div class="extract-progress-fill" id="extract-progress-fill"></div></div>
-              <div class="extract-progress-status" id="extract-progress-status"></div>
+              <div id="extract-progress-wrap" class="extract-progress-wrap" style="display:none">
+                <div class="extract-progress-track"><div class="extract-progress-fill" id="extract-progress-fill"></div></div>
+                <div class="extract-progress-status" id="extract-progress-status"></div>
+              </div>
             </div>
 
             <div id="extract-result" class="extract-result" style="display:none"></div>
@@ -667,9 +676,6 @@
         <div id="country-list"></div>
       </div>
     </div>
-
-    <button id="save-scope-btn">Save scope</button>
-    <div class="status" id="scope-status"></div>
   </div>
 
   <div id="tab-leads" class="tab-panel">
@@ -748,7 +754,7 @@
     el.classList.remove("step-locked", "step-active", "step-done");
     el.classList.add("step-" + stateName);
     var numEl = el.querySelector(".profile-step-num");
-    numEl.textContent = stateName === "done" ? "✓" : numEl.dataset.stepNumber;
+    numEl.textContent = numEl.dataset.stepNumber;
     var contentEl = el.querySelector(".profile-step-content");
     if (contentEl) contentEl.classList.toggle("locked", stateName === "locked");
   }
@@ -791,6 +797,19 @@
     var showSaveScope = subtabName !== "profile";
     document.getElementById("save-scope-btn").style.display = showSaveScope ? "" : "none";
     document.getElementById("scope-status").style.display = showSaveScope ? "" : "none";
+  }
+
+  function initStickyHeader() {
+    var header = document.querySelector(".sticky-header");
+    function updateHeight() {
+      document.documentElement.style.setProperty("--sticky-header-h", header.offsetHeight + "px");
+    }
+    updateHeight();
+    if (window.ResizeObserver) {
+      new ResizeObserver(updateHeight).observe(header);
+    } else {
+      window.addEventListener("resize", updateHeight);
+    }
   }
 
   function initTabs() {
@@ -884,24 +903,42 @@
   }
 
   function createTagPillEditor(container, initialTags, onChange) {
-    var tags = (initialTags || []).slice();
+    // Entries carry an "active" flag instead of being hard-deleted on click —
+    // clicking a capsule excludes/includes it from matching (same toggle
+    // convention as the country picker), pushing excluded ones to the end
+    // instead of losing them. getTags() only ever returns active entries.
+    var entries = (initialTags || []).map(function (t) { return { text: t, active: true }; });
+
+    function indexOfTag(text) {
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].text === text) return i;
+      }
+      return -1;
+    }
+
+    function getTags() {
+      return entries.filter(function (e) { return e.active; }).map(function (e) { return e.text; });
+    }
+
+    function orderedForDisplay() {
+      var active = entries.filter(function (e) { return e.active; });
+      var inactive = entries.filter(function (e) { return !e.active; });
+      return active.concat(inactive);
+    }
 
     function render() {
       container.innerHTML = "";
-      tags.forEach(function (tag, idx) {
-        var pill = document.createElement("span");
-        pill.className = "tag-pill";
-        pill.textContent = tag;
-        var removeBtn = document.createElement("button");
-        removeBtn.type = "button";
-        removeBtn.textContent = "×";
-        removeBtn.title = "Remove";
-        removeBtn.addEventListener("click", function () {
-          tags.splice(idx, 1);
+      orderedForDisplay().forEach(function (entry) {
+        var pill = document.createElement("button");
+        pill.type = "button";
+        pill.className = "capsule" + (entry.active ? " selected" : "");
+        pill.textContent = entry.text;
+        pill.title = entry.active ? "Click to exclude" : "Click to include";
+        pill.addEventListener("click", function () {
+          entry.active = !entry.active;
           render();
-          if (onChange) onChange(tags.slice());
+          if (onChange) onChange(getTags());
         });
-        pill.appendChild(removeBtn);
         container.appendChild(pill);
       });
       var input = document.createElement("input");
@@ -911,17 +948,18 @@
         if (e.key === "Enter" || e.key === ",") {
           e.preventDefault();
           var val = input.value.trim().replace(/,$/, "");
-          if (val && tags.indexOf(val) === -1) {
-            tags.push(val);
-            render();
-            if (onChange) onChange(tags.slice());
-          } else {
+          if (val) {
+            var idx = indexOfTag(val);
+            if (idx !== -1) entries[idx].active = true;
+            else entries.push({ text: val, active: true });
             input.value = "";
+            render();
+            if (onChange) onChange(getTags());
           }
-        } else if (e.key === "Backspace" && !input.value && tags.length) {
-          tags.pop();
+        } else if (e.key === "Backspace" && !input.value && entries.length) {
+          entries.pop();
           render();
-          if (onChange) onChange(tags.slice());
+          if (onChange) onChange(getTags());
         }
       });
       container.appendChild(input);
@@ -929,21 +967,29 @@
     render();
 
     return {
-      getTags: function () { return tags.slice(); },
-      setTags: function (newTags) { tags = (newTags || []).slice(); render(); },
+      getTags: getTags,
+      setTags: function (newTags) {
+        entries = (newTags || []).map(function (t) { return { text: t, active: true }; });
+        render();
+      },
       addTag: function (tag) {
-        if (tag && tags.indexOf(tag) === -1) {
-          tags.push(tag);
-          render();
-          if (onChange) onChange(tags.slice());
+        if (!tag) return;
+        var idx = indexOfTag(tag);
+        if (idx !== -1) {
+          if (entries[idx].active) return;
+          entries[idx].active = true;
+        } else {
+          entries.push({ text: tag, active: true });
         }
+        render();
+        if (onChange) onChange(getTags());
       },
       removeTag: function (tag) {
-        var idx = tags.indexOf(tag);
+        var idx = indexOfTag(tag);
         if (idx !== -1) {
-          tags.splice(idx, 1);
+          entries.splice(idx, 1);
           render();
-          if (onChange) onChange(tags.slice());
+          if (onChange) onChange(getTags());
         }
       }
     };
@@ -1024,7 +1070,7 @@
           ? '<span class="tag-summary-badge drives">drives matching</span>'
           : '<span class="tag-summary-badge reference">reference only</span>';
         var pills = g.tags.length
-          ? g.tags.map(function (t) { return '<span class="tag-pill-static">' + escapeHtml(t) + '</span>'; }).join("")
+          ? g.tags.map(function (t) { return '<span class="capsule selected static">' + escapeHtml(t) + '</span>'; }).join("")
           : '<span class="tag-summary-empty">—</span>';
         return '<div class="tag-summary-group"><div class="tag-summary-head">' + g.label + badge + '</div>'
           + '<div class="tag-summary-pills">' + pills + '</div></div>';
@@ -1378,11 +1424,15 @@
 
   function checkboxRow(container, id, value, label, checked) {
     var wrap = document.createElement("label");
+    wrap.className = "capsule" + (checked ? " selected" : "");
     var input = document.createElement("input");
     input.type = "checkbox";
     input.id = id;
     input.value = value;
     input.checked = checked;
+    input.addEventListener("change", function () {
+      wrap.classList.toggle("selected", input.checked);
+    });
     wrap.appendChild(input);
     wrap.appendChild(document.createTextNode(label));
     container.appendChild(wrap);
@@ -1470,7 +1520,7 @@
         sorted.forEach(function (c) {
           var pill = document.createElement("button");
           pill.type = "button";
-          pill.className = "country-pill";
+          pill.className = "capsule country-pill";
           pill.dataset.code = c.code.toLowerCase();
           pill.textContent = c.name;
           pill.title = c.name;
@@ -2073,6 +2123,7 @@
     render();
   });
 
+  initStickyHeader();
   initTabs();
   initSetup();
   initResumeUpload();
