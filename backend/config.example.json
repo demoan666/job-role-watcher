@@ -3,6 +3,18 @@
   "port": 8420,
   "anthropic_api_key": "sk-ant-...",
   "anthropic_model": "claude-sonnet-5",
+  "llm": {
+    "providers": {
+      "anthropic": { "api_key": "sk-ant-..." },
+      "openai": { "api_key": "sk-..." },
+      "google": { "api_key": "..." }
+    },
+    "assignments": {
+      "extract_resume_profile": { "provider": "anthropic", "model": "claude-sonnet-5" },
+      "triage_message": { "provider": "anthropic", "model": "claude-sonnet-5" },
+      "draft_cold_email": { "provider": "anthropic", "model": "claude-sonnet-5" }
+    }
+  },
   "telegram": {
     "api_id": null,
     "api_hash": "",

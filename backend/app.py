@@ -15,7 +15,7 @@ import db
 import gmail
 import llm
 import resume_parse
-from config import load_config
+from config import get_llm_settings, load_config, mask_key, save_llm_settings
 
 app = FastAPI(title="job-search backend")
 
@@ -82,6 +82,44 @@ def get_profile():
 @app.post("/profile")
 def save_profile(body: ProfileSave):
     db.save_profile(body.resume_text, body.extracted, body.manual_tags)
+    return {"status": "saved"}
+
+
+class LLMSettingsSave(BaseModel):
+    keys: dict[str, str] = {}
+    assignments: dict[str, dict] = {}
+
+
+@app.get("/settings/llm")
+def get_llm_settings_endpoint():
+    """Static provider/task metadata (labels, curated model lists, tooltip
+    descriptions) plus which providers currently have a key configured —
+    never the key itself, only a masked preview and a boolean."""
+    settings = get_llm_settings()
+    providers_out = {}
+    for provider_id, meta in llm.PROVIDERS.items():
+        api_key = (settings["providers"].get(provider_id) or {}).get("api_key") or ""
+        providers_out[provider_id] = {
+            "label": meta["label"],
+            "models": meta["models"],
+            "configured": bool(api_key),
+            "masked_key": mask_key(api_key),
+        }
+    assignments_out = {}
+    for task_id, meta in llm.TASKS.items():
+        assignment = settings["assignments"].get(task_id) or llm.DEFAULT_ASSIGNMENT
+        assignments_out[task_id] = {
+            "provider": assignment["provider"],
+            "model": assignment["model"],
+            "label": meta["label"],
+            "description": meta["description"],
+        }
+    return {"providers": providers_out, "assignments": assignments_out}
+
+
+@app.post("/settings/llm")
+def save_llm_settings_endpoint(body: LLMSettingsSave):
+    save_llm_settings(keys=body.keys, assignments=body.assignments)
     return {"status": "saved"}
 
 

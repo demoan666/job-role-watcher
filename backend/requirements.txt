@@ -1,6 +1,8 @@
 fastapi
 uvicorn[standard]
 anthropic
+openai
+google-genai
 python-dotenv
 telethon
 slack_sdk

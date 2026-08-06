@@ -12,6 +12,7 @@
     --bg-alt: #f5f5f5;
     --accent: #2a5db0;
     --success: #2e7d32;
+    --error: #c0392b;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -20,6 +21,7 @@
       --bg-alt: #1c1c1c;
       --accent: #7aa2f7;
       --success: #6fcf73;
+      --error: #e57373;
     }
   }
   body {
@@ -69,7 +71,19 @@
   .tabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-  #glance-panel { margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
+  .app-header {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border);
+  }
+  .app-header h1 { margin: 0; }
+  .header-right { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+  .icon-btn {
+    border: 1px solid var(--border); background: none; color: inherit; border-radius: 999px;
+    width: 2rem; height: 2rem; display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1rem; padding: 0; flex-shrink: 0;
+  }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+  #glance-stale-list:not(:empty) { margin-bottom: 1.5rem; }
   .subtabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.8rem 0 1rem; border-bottom: 1px solid var(--border); }
   /* #tab-setup prefix needed for specificity over the generic #tab-setup
      button rule (ID selector), which would otherwise force every subtab
@@ -149,7 +163,7 @@
   #tab-setup textarea {
     width: 100%; min-height: 160px; box-sizing: border-box; padding: 0.6rem;
     border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit;
-    font-family: inherit; font-size: 0.9rem;
+    font-family: inherit; font-size: 0.9rem; resize: none;
   }
   #tab-setup label { display: block; font-size: 0.85rem; color: var(--muted); margin: 0.9rem 0 0.2rem; }
   #tab-setup input[type="text"] {
@@ -161,6 +175,7 @@
     background: none; color: var(--accent); cursor: pointer; font-size: 0.9rem;
   }
   #tab-setup .status { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+  #tab-setup .status.error { color: var(--error); font-weight: 600; }
   .tag-pill-editor {
     display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding: 0.4rem;
     border: 1px solid var(--border); border-radius: 4px; min-height: 2.2rem;
@@ -208,6 +223,44 @@
     background: #2a5db022; color: var(--accent); font-size: 0.8rem;
   }
   .tag-summary-empty { color: var(--muted); font-size: 0.8rem; font-style: italic; }
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100;
+    display: flex; align-items: flex-start; justify-content: center; padding: 4vh 1rem; overflow-y: auto;
+  }
+  .modal-panel {
+    background: var(--bg-alt); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.2rem 1.5rem 1.5rem; max-width: 640px; width: 100%; box-sizing: border-box;
+  }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.3rem; }
+  .modal-header h2 { margin: 0; font-size: 1.1rem; }
+  .modal-panel h3 { font-size: 0.9rem; margin: 1.2rem 0 0.5rem; }
+  .llm-provider-row {
+    display: flex; align-items: center; gap: 0.7rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .llm-provider-row:last-child { border-bottom: none; }
+  .llm-provider-row label { flex: 0 0 160px; font-size: 0.85rem; }
+  .llm-provider-row input {
+    flex: 1; min-width: 180px; padding: 0.35rem 0.5rem; border: 1px solid var(--border); border-radius: 4px;
+    background: transparent; color: inherit; font-family: inherit;
+  }
+  .llm-key-status { font-size: 0.75rem; color: var(--muted); }
+  .llm-key-status.configured { color: var(--success); }
+  .llm-task-row { padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+  .llm-task-row:last-child { border-bottom: none; }
+  .llm-task-row-label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .tooltip-icon {
+    display: inline-flex; align-items: center; justify-content: center; width: 1.1rem; height: 1.1rem;
+    border-radius: 50%; border: 1px solid var(--muted); color: var(--muted); font-size: 0.7rem;
+    cursor: help; flex-shrink: 0;
+  }
+  .llm-task-selects { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .llm-task-selects select {
+    padding: 0.35rem 0.5rem; border: 1px solid var(--border); border-radius: 4px;
+    background: transparent; color: inherit; font-family: inherit;
+  }
+  .modal-panel .status { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
+  .modal-panel .status.error { color: var(--error); font-weight: 600; }
   .dropzone {
     border: 2px dashed var(--border); border-radius: 6px; padding: 1.5rem; text-align: center;
     cursor: pointer; color: var(--muted); font-size: 0.9rem; transition: border-color 0.15s, color 0.15s;
@@ -289,21 +342,47 @@
 </style>
 </head>
 <body>
-  <h1>Job Watcher</h1>
-
-  <div id="glance-panel">
-    <div class="glance-grid">
-      <button class="glance-notif" data-jump-tab="search" title="New postings since last visit">
-        New postings<span class="glance-badge" id="glance-new-postings"></span>
-      </button>
-      <button class="glance-notif" data-jump-tab="leads" title="New leads since last visit">
-        New leads<span class="glance-badge" id="glance-new-leads"></span>
-      </button>
-      <button class="glance-notif" data-jump-tab="outreach" title="Outreach sent, gone quiet (7+ days)">
-        Stale outreach<span class="glance-badge" id="glance-stale-count"></span>
-      </button>
+  <div class="app-header">
+    <h1>Job Watcher</h1>
+    <div class="header-right">
+      <div class="glance-grid">
+        <button class="glance-notif" data-jump-tab="search" title="New postings since last visit">
+          New postings<span class="glance-badge" id="glance-new-postings"></span>
+        </button>
+        <button class="glance-notif" data-jump-tab="leads" title="New leads since last visit">
+          New leads<span class="glance-badge" id="glance-new-leads"></span>
+        </button>
+        <button class="glance-notif" data-jump-tab="outreach" title="Outreach sent, gone quiet (7+ days)">
+          Stale outreach<span class="glance-badge" id="glance-stale-count"></span>
+        </button>
+      </div>
+      <button type="button" id="llm-settings-btn" class="icon-btn" title="LLM settings" aria-label="LLM settings">⚙</button>
     </div>
-    <div id="glance-stale-list"></div>
+  </div>
+  <div id="glance-stale-list"></div>
+
+  <div id="llm-settings-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h2>LLM Settings</h2>
+        <button type="button" id="llm-settings-close" class="icon-btn" aria-label="Close">×</button>
+      </div>
+      <p class="meta">
+        Add an API key for any LLM provider you want to use, then pick which model handles
+        each LLM-driven feature below. Only official API keys work here — a ChatGPT Plus,
+        Claude Pro, or Gemini Advanced <em>subscription login</em> has no programmatic API and
+        can't be used for this; you need a real API key from the provider's developer console.
+      </p>
+
+      <h3>API keys</h3>
+      <div id="llm-provider-list"></div>
+
+      <h3>Which LLM handles what</h3>
+      <div id="llm-task-list"></div>
+
+      <button type="button" id="llm-settings-save">Save LLM settings</button>
+      <div class="status" id="llm-settings-status"></div>
+    </div>
   </div>
 
   <div class="tabs">
@@ -340,6 +419,7 @@
       <label for="resume-text">Resume text (uploaded text lands here, or paste directly)</label>
       <textarea id="resume-text" placeholder="Paste resume text here…"></textarea>
       <button id="extract-btn">Extract profile</button>
+      <span class="tooltip-icon" id="llm-tooltip-extract_resume_profile" title="Loading…">ⓘ</span>
 
       <div id="profile-review">
         <div id="tag-summary" class="tag-summary"></div>
@@ -436,6 +516,7 @@
       automatically once configured in <code>backend/config.json</code> (see <code>backend/ingest/</code>);
       Discord and WhatsApp have no safe automated route, so paste anything you see below instead —
       it goes through the same triage pipeline either way.
+      <span class="tooltip-icon" id="llm-tooltip-triage_message" title="Loading…">ⓘ</span>
     </p>
     <div class="capture-form">
       <select id="capture-source">
@@ -458,6 +539,7 @@
       setup (see <code>backend/gmail.py</code>). "Send outreach" drafts an email with the LLM and
       <strong>sends it immediately</strong> — no review step. Safety nets: at most one automated
       email per contact ever, and a daily send cap (see <code>backend/config.json</code>).
+      <span class="tooltip-icon" id="llm-tooltip-draft_cold_email" title="Loading…">ⓘ</span>
     </p>
     <div class="contact-form">
       <input type="text" id="contact-company" placeholder="Company">
@@ -549,6 +631,7 @@
 
     function uploadFile(file) {
       filenameEl.textContent = file.name;
+      uploadStatus.classList.remove("error");
       uploadStatus.textContent = "Uploading & extracting text…";
       var formData = new FormData();
       formData.append("file", file);
@@ -562,6 +645,7 @@
           uploadStatus.textContent = "Extracted text from \"" + file.name + "\" — review it below, then Extract profile.";
         })
         .catch(function (err) {
+          uploadStatus.classList.add("error");
           uploadStatus.textContent = "Couldn't read that file (" + err.message + ").";
         });
     }
@@ -762,6 +846,7 @@
     document.getElementById("extract-btn").addEventListener("click", function () {
       var resumeText = document.getElementById("resume-text").value.trim();
       if (!resumeText) { setupStatus.textContent = "Paste your resume text first."; return; }
+      setupStatus.classList.remove("error");
       setupStatus.textContent = "Extracting…";
       fetch(BACKEND + "/profile/extract", {
         method: "POST",
@@ -778,6 +863,7 @@
         applyExtractedProfile(extracted, resumeText);
         setupStatus.textContent = "Review the extracted profile below, edit anything wrong, then save.";
       }).catch(function (err) {
+        setupStatus.classList.add("error");
         setupStatus.textContent = "Extraction failed: " + err.message;
       });
     });
@@ -790,6 +876,7 @@
         summary: document.getElementById("profile-summary").value.trim()
       };
       var resumeText = document.getElementById("resume-text").value.trim();
+      setupStatus.classList.remove("error");
       setupStatus.textContent = "Saving…";
       fetch(BACKEND + "/profile", {
         method: "POST",
@@ -801,6 +888,7 @@
       }).then(function () {
         setupStatus.textContent = "Saved. data/search_profile.json will pick this up on the next commit from the backend.";
       }).catch(function (err) {
+        setupStatus.classList.add("error");
         setupStatus.textContent = "Couldn't save (" + err.message + ").";
       });
     });
@@ -1393,6 +1481,140 @@
   }
   function escapeAttr(s) { return escapeHtml(s); }
 
+  function initLlmSettings() {
+    var overlay = document.getElementById("llm-settings-overlay");
+    var providerListEl = document.getElementById("llm-provider-list");
+    var taskListEl = document.getElementById("llm-task-list");
+    var statusEl = document.getElementById("llm-settings-status");
+    var latestSettings = null;
+
+    function renderTooltips() {
+      if (!latestSettings) return;
+      Object.keys(latestSettings.assignments).forEach(function (taskId) {
+        var el = document.getElementById("llm-tooltip-" + taskId);
+        if (!el) return;
+        var a = latestSettings.assignments[taskId];
+        var providerLabel = (latestSettings.providers[a.provider] || {}).label || a.provider;
+        el.title = a.description + " Currently uses: " + providerLabel + " — " + a.model + ".";
+      });
+    }
+
+    function renderProviderList() {
+      providerListEl.innerHTML = Object.keys(latestSettings.providers).map(function (providerId) {
+        var p = latestSettings.providers[providerId];
+        var statusText = p.configured ? "configured (" + p.masked_key + ")" : "not configured";
+        var statusClass = p.configured ? "llm-key-status configured" : "llm-key-status";
+        return '<div class="llm-provider-row">' +
+          '<label>' + escapeHtml(p.label) + '<br><span class="' + statusClass + '">' + escapeHtml(statusText) + '</span></label>' +
+          '<input type="password" data-provider="' + escapeAttr(providerId) + '" placeholder="' +
+            (p.configured ? "Enter a new key to replace it" : "Paste API key") + '" autocomplete="off">' +
+          '</div>';
+      }).join("");
+    }
+
+    function renderTaskList() {
+      taskListEl.innerHTML = Object.keys(latestSettings.assignments).map(function (taskId) {
+        var a = latestSettings.assignments[taskId];
+        var providerOptions = Object.keys(latestSettings.providers).map(function (providerId) {
+          var p = latestSettings.providers[providerId];
+          var selected = providerId === a.provider ? " selected" : "";
+          return '<option value="' + escapeAttr(providerId) + '"' + selected + '>' + escapeHtml(p.label) + '</option>';
+        }).join("");
+        return '<div class="llm-task-row" data-task="' + escapeAttr(taskId) + '">' +
+          '<div class="llm-task-row-label">' + escapeHtml(a.label) +
+            '<span class="tooltip-icon" title="' + escapeAttr(a.description) + '">ⓘ</span></div>' +
+          '<div class="llm-task-selects">' +
+            '<select data-role="provider">' + providerOptions + '</select>' +
+            '<select data-role="model"></select>' +
+          '</div></div>';
+      }).join("");
+
+      taskListEl.querySelectorAll(".llm-task-row").forEach(function (row) {
+        var taskId = row.dataset.task;
+        var providerSelect = row.querySelector('select[data-role="provider"]');
+        var modelSelect = row.querySelector('select[data-role="model"]');
+
+        function renderModelOptions(selectedModel) {
+          var providerId = providerSelect.value;
+          var models = (latestSettings.providers[providerId] || {}).models || [];
+          modelSelect.innerHTML = models.map(function (m) {
+            var sel = m.id === selectedModel ? " selected" : "";
+            return '<option value="' + escapeAttr(m.id) + '"' + sel + '>' + escapeHtml(m.label) + '</option>';
+          }).join("");
+          // Preserve a previously-saved model even if it's not in the curated
+          // list (e.g. hand-typed via config.json) instead of silently dropping it.
+          if (selectedModel && models.every(function (m) { return m.id !== selectedModel; })) {
+            var opt = document.createElement("option");
+            opt.value = selectedModel;
+            opt.textContent = selectedModel + " (custom)";
+            opt.selected = true;
+            modelSelect.appendChild(opt);
+          }
+        }
+
+        renderModelOptions(latestSettings.assignments[taskId].model);
+        providerSelect.addEventListener("change", function () { renderModelOptions(null); });
+      });
+    }
+
+    function loadSettings() {
+      return fetch(BACKEND + "/settings/llm").then(function (r) {
+        return r.ok ? r.json() : null;
+      }).then(function (data) {
+        if (!data) return;
+        latestSettings = data;
+        renderProviderList();
+        renderTaskList();
+        renderTooltips();
+      }).catch(function () {
+        // Backend not running — tooltips/modal just have no live data yet.
+      });
+    }
+
+    document.getElementById("llm-settings-btn").addEventListener("click", function () {
+      overlay.style.display = "flex";
+      loadSettings();
+    });
+    document.getElementById("llm-settings-close").addEventListener("click", function () {
+      overlay.style.display = "none";
+    });
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) overlay.style.display = "none";
+    });
+
+    document.getElementById("llm-settings-save").addEventListener("click", function () {
+      var keys = {};
+      providerListEl.querySelectorAll("input[data-provider]").forEach(function (input) {
+        if (input.value.trim()) keys[input.dataset.provider] = input.value.trim();
+      });
+      var assignments = {};
+      taskListEl.querySelectorAll(".llm-task-row").forEach(function (row) {
+        var taskId = row.dataset.task;
+        var providerSelect = row.querySelector('select[data-role="provider"]');
+        var modelSelect = row.querySelector('select[data-role="model"]');
+        assignments[taskId] = { provider: providerSelect.value, model: modelSelect.value };
+      });
+      statusEl.classList.remove("error");
+      statusEl.textContent = "Saving…";
+      fetch(BACKEND + "/settings/llm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ keys: keys, assignments: assignments })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        return r.json();
+      }).then(function () {
+        statusEl.textContent = "Saved.";
+        return loadSettings();
+      }).catch(function (err) {
+        statusEl.classList.add("error");
+        statusEl.textContent = "Couldn't save (" + err.message + ").";
+      });
+    });
+
+    loadSettings();
+  }
+
   function render() {
     var q = document.getElementById("search").value.trim().toLowerCase();
     var remoteOnly = document.getElementById("remote-only").checked;
@@ -1441,6 +1663,7 @@
   initLeads();
   initOutreach();
   initGlance();
+  initLlmSettings();
 
   Promise.all([
     fetch("data/postings.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),

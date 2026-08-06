@@ -1,26 +1,66 @@
-"""Thin wrapper around the Anthropic API — one function per task so prompt/
-model changes touch a single call site each. All three are stubs the later
-phases wire real callers into; each returns parsed JSON, never raw prose.
+"""Multi-provider LLM wrapper — one function per task so prompt/model changes
+touch a single call site each. Each task's provider+model is configurable at
+runtime (Setup > gear icon), stored via config.save_llm_settings. Every task
+function returns parsed JSON, never raw prose.
+
+Only official API keys are supported. A ChatGPT Plus / Claude Pro / Gemini
+Advanced *subscription login* has no programmatic API to call — there is no
+"punch in your consumer login" integration path, by design (see CLAUDE.md's
+existing decision that this app uses a real Anthropic API key, not a
+claude.ai login).
 """
 
 import json
 import re
 
-import anthropic
+from config import get_llm_settings
 
-from config import load_config
+# Curated "popular model" defaults per provider — always paired with a free-
+# text override in the UI, since this list will drift as new models ship.
+PROVIDERS = {
+    "anthropic": {
+        "label": "Anthropic (Claude)",
+        "models": [
+            {"id": "claude-opus-4-8", "label": "Claude Opus 4.8 (most capable)"},
+            {"id": "claude-sonnet-5", "label": "Claude Sonnet 5 (balanced, default)"},
+            {"id": "claude-haiku-4-5", "label": "Claude Haiku 4.5 (fastest / cheapest)"},
+        ],
+    },
+    "openai": {
+        "label": "OpenAI (GPT)",
+        "models": [
+            {"id": "gpt-5", "label": "GPT-5"},
+            {"id": "gpt-5-mini", "label": "GPT-5 mini"},
+            {"id": "gpt-4o", "label": "GPT-4o"},
+        ],
+    },
+    "google": {
+        "label": "Google (Gemini)",
+        "models": [
+            {"id": "gemini-2.5-pro", "label": "Gemini 2.5 Pro"},
+            {"id": "gemini-2.5-flash", "label": "Gemini 2.5 Flash"},
+        ],
+    },
+}
 
-_client = None
-_model = None
+TASKS = {
+    "extract_resume_profile": {
+        "label": "Extract resume profile",
+        "description": "Reads your resume text and produces skills, industries, "
+                        "job-posting keywords, and a summary.",
+    },
+    "triage_message": {
+        "label": "Triage inbound leads",
+        "description": "Reads each Telegram/Slack/manual-capture message and decides "
+                        "whether it's a real hiring opportunity worth following up on.",
+    },
+    "draft_cold_email": {
+        "label": "Draft cold outreach email",
+        "description": "Writes the subject and body of the automated email sent to a contact.",
+    },
+}
 
-
-def _get_client():
-    global _client, _model
-    if _client is None:
-        cfg = load_config()
-        _client = anthropic.Anthropic(api_key=cfg["anthropic_api_key"])
-        _model = cfg.get("anthropic_model", "claude-sonnet-5")
-    return _client, _model
+DEFAULT_ASSIGNMENT = {"provider": "anthropic", "model": "claude-sonnet-5"}
 
 
 def _extract_json(text):
@@ -30,15 +70,69 @@ def _extract_json(text):
     return json.loads(match.group(0))
 
 
-def _call_json(system_prompt, user_content, max_tokens=1024):
-    client, model = _get_client()
+def _call_anthropic(api_key, model, system_prompt, user_content, max_tokens):
+    import anthropic
+    client = anthropic.Anthropic(api_key=api_key)
     response = client.messages.create(
         model=model,
         max_tokens=max_tokens,
-        system=system_prompt + "\n\nRespond with a single JSON object only, no other text.",
+        system=system_prompt,
         messages=[{"role": "user", "content": user_content}],
     )
-    text = "".join(block.text for block in response.content if block.type == "text")
+    return "".join(block.text for block in response.content if block.type == "text")
+
+
+def _call_openai(api_key, model, system_prompt, user_content, max_tokens):
+    import openai
+    client = openai.OpenAI(api_key=api_key)
+    response = client.chat.completions.create(
+        model=model,
+        max_completion_tokens=max_tokens,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_content},
+        ],
+    )
+    return response.choices[0].message.content or ""
+
+
+def _call_google(api_key, model, system_prompt, user_content, max_tokens):
+    from google import genai
+    from google.genai import types
+    client = genai.Client(api_key=api_key)
+    response = client.models.generate_content(
+        model=model,
+        contents=user_content,
+        config=types.GenerateContentConfig(
+            system_instruction=system_prompt,
+            max_output_tokens=max_tokens,
+        ),
+    )
+    return response.text or ""
+
+
+_DISPATCH = {"anthropic": _call_anthropic, "openai": _call_openai, "google": _call_google}
+
+
+def _call_json(system_prompt, user_content, task, max_tokens=1024):
+    settings = get_llm_settings()
+    assignment = settings["assignments"].get(task) or DEFAULT_ASSIGNMENT
+    provider = assignment["provider"]
+    model = assignment["model"]
+
+    api_key = (settings["providers"].get(provider) or {}).get("api_key")
+    if not api_key:
+        provider_label = PROVIDERS.get(provider, {}).get("label", provider)
+        raise RuntimeError(
+            f"No API key configured for {provider_label}. Add one in Setup > LLM settings."
+        )
+
+    call_fn = _DISPATCH.get(provider)
+    if not call_fn:
+        raise RuntimeError(f"Unknown LLM provider: {provider}")
+
+    system_with_json_instruction = system_prompt + "\n\nRespond with a single JSON object only, no other text."
+    text = call_fn(api_key, model, system_with_json_instruction, user_content, max_tokens)
     return _extract_json(text)
 
 
@@ -54,7 +148,7 @@ def extract_resume_profile(resume_text):
         "Resume:\n\n" + resume_text + "\n\n"
         'Return JSON: {"skills": [...], "industries": [...], "keywords": [...], "summary": "1-2 sentences"}'
     )
-    return _call_json(system_prompt, user_content)
+    return _call_json(system_prompt, user_content, "extract_resume_profile")
 
 
 def triage_message(text, source):
@@ -68,7 +162,7 @@ def triage_message(text, source):
         f"Source: {source}\nMessage:\n\n{text}\n\n"
         'Return JSON: {"is_opportunity": bool, "point_of_contact": string or null, "reason": "1 sentence"}'
     )
-    return _call_json(system_prompt, user_content)
+    return _call_json(system_prompt, user_content, "triage_message")
 
 
 def draft_cold_email(contact, context):
@@ -84,4 +178,4 @@ def draft_cold_email(contact, context):
         f"Context: {json.dumps(context, ensure_ascii=False)}\n\n"
         'Return JSON: {"subject": "...", "body": "..."}'
     )
-    return _call_json(system_prompt, user_content)
+    return _call_json(system_prompt, user_content, "draft_cold_email")
