@@ -47,6 +47,7 @@
   }
   .scope-group { margin-top: 1rem; }
   .scope-group h3 { font-size: 0.95rem; margin: 0 0 0.4rem; }
+  .section-title { font-size: 0.95rem; margin: 0 0 0.6rem; display: flex; align-items: center; gap: 0.4rem; }
   .scope-group .checks { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.9rem; }
   .scope-group .checks input[type="checkbox"] {
     position: absolute; opacity: 0; width: 0; height: 0; margin: 0;
@@ -77,6 +78,17 @@
   #tab-setup .capsule.static { cursor: default; }
   .freelance-list { font-size: 0.85rem; color: var(--muted); }
   .freelance-list li { margin-bottom: 0.3rem; }
+  .save-search-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .save-search-row input[type="text"] {
+    flex: 1; min-width: 180px; padding: 0.35rem 0.6rem; border: 1px solid var(--border);
+    border-radius: 4px; background: transparent; color: inherit; font-family: inherit;
+  }
+  .saved-search-item {
+    display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+  }
+  .saved-search-item:last-child { border-bottom: none; }
+  .saved-search-item-name { flex: 1; font-weight: 600; }
   table { border-collapse: collapse; width: 100%; margin-bottom: 1.5rem; }
   caption {
     text-align: left; font-weight: 600; padding: 0.5rem 0.3rem;
@@ -91,7 +103,11 @@
   .flag-warn { color: #b06a2a; }
   .empty { color: var(--muted); padding: 1rem 0.3rem; }
   #archive-toggle { cursor: pointer; color: var(--accent); background: none; border: none; font-size: 0.9rem; padding: 0; }
-  .sticky-header { position: sticky; top: 0; z-index: 40; background: Canvas; }
+  /* transform: translateZ(0) forces its own compositor layer — without it,
+     Chrome on Windows can re-rasterize this sticky element at a slightly
+     different sub-pixel offset than the page underneath on some scroll
+     frames, reading as a faint 1px "wobble" while scrolling. */
+  .sticky-header { position: sticky; top: 0; z-index: 40; background: Canvas; transform: translateZ(0); }
   .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
   .tabs button {
     background: none; border: none; padding: 0.5rem 0.8rem; font-size: 0.95rem;
@@ -112,7 +128,6 @@
     cursor: pointer; font-size: 1rem; padding: 0; flex-shrink: 0;
   }
   .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .llm-status-btn svg { width: 1.05rem; height: 1.05rem; fill: currentColor; }
   .inline-progress {
     display: inline-block; width: 90px; height: 6px; border-radius: 999px; margin-left: 0.6rem;
     background: var(--border); overflow: hidden; vertical-align: middle;
@@ -143,6 +158,18 @@
     color: var(--muted); cursor: pointer; font-size: 0.85rem;
   }
   .usage-period-toggle button.active { background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); font-weight: 600; }
+  .backend-status-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0 1rem; }
+  .backend-status-dot {
+    display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--muted);
+    flex-shrink: 0;
+  }
+  .backend-status-dot.running { background: var(--success); }
+  .backend-status-dot.down { background: var(--error); }
+  .backend-status-row #backend-check-again-btn { margin-left: auto; }
+  .backend-start-cmd {
+    background: var(--bg-alt); border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.7rem 0.9rem; overflow-x: auto; font-size: 0.8rem; margin: 0.5rem 0 0;
+  }
   .llm-usage-row { padding: 0.55rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
   .llm-usage-row:last-child { border-bottom: none; }
   .llm-usage-row-top { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.2rem; flex-wrap: wrap; }
@@ -156,16 +183,27 @@
   #glance-stale-list:not(:empty) { margin-bottom: 1.5rem; }
   .subtabs {
     display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.8rem 0 1rem; border-bottom: 1px solid var(--border);
-    position: sticky; top: var(--sticky-header-h, 0px); z-index: 30; background: Canvas;
+    /* top sits 2px above the measured header height on purpose — a deliberate
+       overlap into .sticky-header (which paints over it, being both opaque
+       and a higher z-index) so no sub-pixel rounding gap between the two
+       independently-stuck elements can ever show scrolled content through
+       the seam. translateZ(0) matches .sticky-header's own compositor-layer
+       fix so the two don't drift a sub-pixel apart from each other on scroll. */
+    position: sticky; top: calc(var(--sticky-header-h, 0px) - 2px); z-index: 30; background: Canvas;
+    transform: translateZ(0);
   }
-  /* #tab-setup prefix needed for specificity over the generic #tab-setup
-     button rule (ID selector), which would otherwise force every subtab
-     button to that boxed accent-border look regardless of active state. */
-  #tab-setup .subtabs button {
+  /* Inside the Settings modal there's no sticky page header to offset against
+     (and the modal panel isn't a scroll container worth sticking within) —
+     cancel the sticky positioning there while keeping the same row look. */
+  #settings-overlay .subtabs { position: static; }
+  /* #tab-setup/#settings-overlay prefix needed for specificity over the
+     generic #tab-setup button ID rule, which would otherwise force every
+     subtab button to that boxed accent-border look regardless of active state. */
+  #tab-setup .subtabs button, #settings-overlay .subtabs button {
     margin-top: 0; background: none; border: none; padding: 0.4rem 0.7rem; font-size: 0.85rem;
     cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; border-radius: 0;
   }
-  #tab-setup .subtabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  #tab-setup .subtabs button.active, #settings-overlay .subtabs button.active { color: var(--accent); border-bottom-color: var(--accent); }
   .subtab-panel { display: none; }
   .subtab-panel.active { display: block; }
   #leads-badge {
@@ -253,8 +291,18 @@
   }
   #tab-setup .status { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
   #tab-setup .status.error { color: var(--error); font-weight: 600; }
-  .save-scope-row { margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
-  .save-scope-row #save-scope-btn { margin-top: 0; }
+  /* Shared by step 1's title row (My Profile) and the first <h3> row of the
+     Search Criteria/Location Filters subtabs — puts the Save/Load controls
+     (moved here by JS per active subtab, see moveProfileIoControls()) on the
+     same line as, and top-aligned with, that first line of content instead
+     of floating in their own row above it. */
+  .io-header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+  .io-header-row > h3, .io-header-row > .profile-step-title { flex: 1; min-width: 200px; }
+  .profile-io-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-left: auto; }
+  #tab-setup .compact-btn {
+    margin-top: 0; padding: 0.3rem 0.7rem; font-size: 0.8rem; border-radius: 4px;
+  }
+  #tab-setup .compact-btn:disabled { opacity: 0.4; cursor: default; }
   .tag-pill-editor {
     display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; padding: 0.4rem;
     border: 1px solid var(--border); border-radius: 4px; min-height: 2.2rem;
@@ -285,6 +333,8 @@
   .profile-step-connector { flex: 1; width: 2px; background: var(--border); min-height: 1.5rem; margin: 0.3rem 0; }
   .profile-step-body { flex: 1; padding-bottom: 1.6rem; min-width: 0; }
   .profile-step-title { font-size: 0.95rem; margin: 0.15rem 0 0.7rem; }
+  .profile-step-header-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .profile-step-header-row .profile-step-title { flex: 1; }
   .profile-step.step-active .profile-step-num { border-color: var(--accent); color: var(--accent); }
   .profile-step.step-done .profile-step-num { border-color: var(--accent); background: var(--accent); color: var(--accent-contrast); }
   .profile-step.step-done .profile-step-connector { background: var(--accent); }
@@ -294,14 +344,19 @@
   .resume-input-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
   #resume-review-block { margin-top: 0.6rem; }
   #resume-paste-ok-btn:disabled { opacity: 0.5; cursor: default; }
-  .extract-row { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
-  .extract-progress-wrap { flex: 1; min-width: 180px; max-width: 320px; }
+  /* Grid, not flex — button+icon (col 1) and the progress track (col 2) sit
+     on row 1 vertically centered together, and the status text sits on row 2
+     directly under the track (also col 2), instead of starting back at the
+     row's left edge under the button. */
+  .extract-row { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0.8rem; row-gap: 0.3rem; }
+  .extract-btn-group { display: flex; align-items: center; gap: 0.5rem; }
+  .extract-progress-wrap { min-width: 180px; max-width: 320px; }
   .extract-progress-track { width: 100%; height: 12px; border-radius: 999px; background: var(--border); overflow: hidden; }
   .extract-progress-fill {
     display: block; height: 100%; width: 0%; border-radius: 999px; background: var(--accent);
     transition: width 0.4s ease-out;
   }
-  .extract-progress-status { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+  .extract-progress-status { grid-column: 2; font-size: 0.85rem; color: var(--muted); margin: 0; }
   .extract-result {
     margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-radius: 6px; border: 1px solid var(--border);
     max-width: 480px; font-size: 0.85rem;
@@ -330,6 +385,11 @@
   .tag-summary-badge.reference { color: var(--muted); background: color-mix(in srgb, var(--muted) 18%, transparent); }
   .tag-summary-pills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .tag-summary-empty { color: var(--muted); font-size: 0.8rem; font-style: italic; }
+  .tag-summary-add-input {
+    margin-left: auto; padding: 0.25rem 0.5rem; border: 1px solid var(--border); border-radius: 4px;
+    background: transparent; color: inherit; font-family: inherit; font-size: 0.8rem;
+    min-width: 110px; max-width: 160px;
+  }
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100;
     display: flex; align-items: flex-start; justify-content: center; padding: 4vh 1rem; overflow-y: auto;
@@ -450,10 +510,7 @@
           Stale outreach<span class="glance-badge" id="glance-stale-count"></span>
         </button>
       </div>
-      <button type="button" id="llm-status-btn" class="icon-btn llm-status-btn" title="LLM usage &amp; vendors" aria-label="LLM usage and vendors">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
-      </button>
-      <button type="button" id="llm-settings-btn" class="icon-btn" title="LLM settings" aria-label="LLM settings">⚙</button>
+      <button type="button" id="llm-settings-btn" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
     </div>
   </div>
 
@@ -467,86 +524,90 @@
 
   <div id="glance-stale-list"></div>
 
-  <div id="llm-usage-overlay" class="modal-overlay" style="display:none">
+  <div id="settings-overlay" class="modal-overlay" style="display:none">
     <div class="modal-panel">
       <div class="modal-header">
-        <h2>LLM usage &amp; vendors</h2>
-        <button type="button" id="llm-usage-close" class="icon-btn" aria-label="Close">×</button>
-      </div>
-      <div class="usage-period-toggle" id="usage-period-toggle">
-        <button type="button" data-period="session" class="active">Session</button>
-        <button type="button" data-period="today">Today</button>
-        <button type="button" data-period="week">Week</button>
-      </div>
-      <div id="llm-usage-rows"></div>
-    </div>
-  </div>
-
-  <div id="llm-settings-overlay" class="modal-overlay" style="display:none">
-    <div class="modal-panel">
-      <div class="modal-header">
-        <h2>LLM Settings</h2>
-        <button type="button" id="llm-settings-close" class="icon-btn" aria-label="Close">×</button>
-      </div>
-      <p class="meta">
-        Add an API key for any LLM provider you want to use, then pick which model handles
-        each LLM-driven feature below. Only official API keys work here — a ChatGPT Plus,
-        Claude Pro, or Gemini Advanced <em>subscription login</em> has no programmatic API and
-        can't be used for this; you need a real API key from the provider's developer console.
-      </p>
-
-      <div class="modal-subhead">
-        <h3>API keys</h3>
-        <button type="button" id="add-custom-provider-btn" class="icon-btn" title="Add a custom LLM provider" aria-label="Add a custom LLM provider">+</button>
-      </div>
-      <div id="llm-provider-list"></div>
-
-      <div id="custom-provider-form" class="custom-provider-form" style="display:none">
-        <label>Label <input type="text" id="custom-provider-label" placeholder="e.g. Groq"></label>
-        <label>Base URL (OpenAI-compatible) <input type="text" id="custom-provider-base-url" placeholder="https://api.groq.com/openai/v1"></label>
-        <label>API key <input type="password" id="custom-provider-key" autocomplete="off"></label>
-        <label>Model IDs</label>
-        <div class="tag-pill-editor" id="custom-provider-models"></div>
-        <button type="button" id="custom-provider-save-btn">Add provider</button>
-        <div class="status" id="custom-provider-status"></div>
+        <h2>Settings</h2>
+        <button type="button" id="settings-close" class="icon-btn" aria-label="Close">×</button>
       </div>
 
-      <h3>Which LLM handles what</h3>
-      <div id="llm-task-list"></div>
+      <div class="subtabs" id="settings-subtabs">
+        <button type="button" data-settings-subtab="apis" class="active">LLM APIs</button>
+        <button type="button" data-settings-subtab="usage">LLM Usage</button>
+        <button type="button" data-settings-subtab="backend">Backend</button>
+      </div>
 
-      <button type="button" id="llm-settings-save">Save LLM settings</button>
-      <div class="status" id="llm-settings-status"></div>
+      <div id="settings-tab-apis" class="subtab-panel active">
+        <div class="modal-subhead">
+          <h3>API keys <span class="tooltip-icon" title="Add a key for any LLM provider you want to use, then pick which model handles each LLM-driven feature below. Only official API keys work — a ChatGPT Plus/Claude Pro/Gemini Advanced subscription login has no programmatic API.">ⓘ</span></h3>
+          <button type="button" id="add-custom-provider-btn" class="icon-btn" title="Add a custom LLM provider" aria-label="Add a custom LLM provider">+</button>
+        </div>
+        <div id="llm-provider-list"></div>
+
+        <div id="custom-provider-form" class="custom-provider-form" style="display:none">
+          <div class="modal-subhead">
+            <h3>Add a custom provider</h3>
+            <button type="button" id="custom-provider-cancel-btn" class="icon-btn" title="Cancel — don't add this provider" aria-label="Cancel">×</button>
+          </div>
+          <label>Label <input type="text" id="custom-provider-label" placeholder="e.g. Groq"></label>
+          <label>Base URL (OpenAI-compatible) <input type="text" id="custom-provider-base-url" placeholder="https://api.groq.com/openai/v1"></label>
+          <label>API key <input type="password" id="custom-provider-key" autocomplete="off"></label>
+          <label>Model IDs</label>
+          <div class="tag-pill-editor" id="custom-provider-models"></div>
+          <button type="button" id="custom-provider-save-btn">Add provider</button>
+          <div class="status" id="custom-provider-status"></div>
+        </div>
+
+        <h3>Which LLM handles what</h3>
+        <div id="llm-task-list"></div>
+
+        <button type="button" id="llm-settings-save">Save LLM settings</button>
+        <div class="status" id="llm-settings-status"></div>
+      </div>
+
+      <div id="settings-tab-usage" class="subtab-panel">
+        <div class="usage-period-toggle" id="usage-period-toggle">
+          <button type="button" data-period="session" class="active">Session</button>
+          <button type="button" data-period="today">Today</button>
+          <button type="button" data-period="week">Week</button>
+        </div>
+        <div id="llm-usage-rows"></div>
+      </div>
+
+      <div id="settings-tab-backend" class="subtab-panel">
+        <div class="backend-status-row">
+          <span class="backend-status-dot" id="backend-status-dot"></span>
+          <span id="backend-status-text">Checking…</span>
+          <span class="tooltip-icon" title="The Setup/Leads/Outreach features need this local backend on 127.0.0.1:8420. It's not a persistent service — if it's down, run the command below from the repo root.">ⓘ</span>
+          <button type="button" id="backend-check-again-btn">Check again</button>
+        </div>
+        <pre class="backend-start-cmd"><code>cd backend &amp;&amp; ../.venv/Scripts/python.exe -m uvicorn app:app --host 127.0.0.1 --port 8420</code></pre>
+      </div>
     </div>
   </div>
 
   <div id="tab-setup" class="tab-panel active">
-    <p class="meta">
-      Requires the local backend running on <code>127.0.0.1:8420</code> (see <code>backend/</code>).
-    </p>
-
     <div class="subtabs">
       <button data-subtab="profile" class="active">My Profile</button>
       <button data-subtab="scope">Search Criteria Filters</button>
       <button data-subtab="countries">Location Filters</button>
     </div>
 
-    <div class="save-scope-row">
-      <button id="save-scope-btn">Save scope</button>
-      <div class="status" id="scope-status"></div>
-    </div>
-
     <div id="subtab-profile" class="subtab-panel active">
-      <p class="meta">
-        Upload or paste your resume, extract a profile, review and tag it, then save — saved
-        keywords/industries feed <code>data/search_profile.json</code>, which the daily fetch reads
-        to match postings.
-      </p>
-
       <div class="profile-steps">
         <div class="profile-step step-active" id="profile-step-1">
           <div class="profile-step-marker"><span class="profile-step-num" data-step-number="1">1</span><div class="profile-step-connector"></div></div>
           <div class="profile-step-body">
-            <h3 class="profile-step-title">Upload or paste your resume</h3>
+            <div class="io-header-row" id="io-slot-profile">
+              <h3 class="profile-step-title">Upload or paste your resume <span class="tooltip-icon" title="Upload or paste your resume, extract a profile, review and tag it, then save — saved keywords/industries feed data/search_profile.json, which the daily fetch reads to match postings.">ⓘ</span></h3>
+              <div class="profile-io-row" id="profile-io-controls">
+                <span class="status" id="scope-status"></span>
+                <button type="button" id="save-profile-json-btn" class="compact-btn" disabled title="Save the current resume text + tags to a local JSON file, so you can reload it later without re-extracting">Save profile</button>
+                <button type="button" id="load-profile-json-btn" class="compact-btn" title="Load a previously-saved profile JSON file — skips extraction, no LLM tokens spent">Load profile</button>
+                <input type="file" id="load-profile-file-input" accept="application/json" style="display:none">
+                <span class="status" id="profile-io-status"></span>
+              </div>
+            </div>
 
             <div class="resume-input-actions">
               <button type="button" id="resume-upload-btn" title="Supported files: .pdf, .docx, .txt, .md">Upload resume</button>
@@ -570,13 +631,21 @@
           <div class="profile-step-body">
             <h3 class="profile-step-title">Extract profile</h3>
             <div class="extract-row">
-              <button id="extract-btn" disabled title="Upload or paste your resume above first">Extract profile</button>
-              <span class="tooltip-icon" id="llm-tooltip-extract_resume_profile" title="Loading…">ⓘ</span>
+              <div class="extract-btn-group">
+                <button id="extract-btn" disabled title="Upload or paste your resume above first">Extract profile</button>
+                <span class="tooltip-icon" id="llm-tooltip-extract_resume_profile" title="Loading…">ⓘ</span>
+              </div>
 
               <div id="extract-progress-wrap" class="extract-progress-wrap" style="display:none">
                 <div class="extract-progress-track"><div class="extract-progress-fill" id="extract-progress-fill"></div></div>
-                <div class="extract-progress-status" id="extract-progress-status"></div>
               </div>
+              <div class="extract-progress-status" id="extract-progress-status" style="display:none"></div>
+            </div>
+
+            <div id="resume-keyword-view-wrap" style="display:none">
+              <label>Tagged keywords in your resume <span class="tooltip-icon" title="Click a highlighted phrase to untag it. Select any other text and click &quot;Tag selection&quot; to add it as a keyword.">ⓘ</span></label>
+              <div id="resume-keyword-view" class="resume-keyword-view"></div>
+              <button type="button" id="tag-selection-btn" style="display:none">+ Tag selected text</button>
             </div>
 
             <div id="extract-result" class="extract-result" style="display:none"></div>
@@ -586,32 +655,49 @@
         <div class="profile-step step-locked" id="profile-step-3">
           <div class="profile-step-marker"><span class="profile-step-num" data-step-number="3">3</span></div>
           <div class="profile-step-body">
-            <h3 class="profile-step-title">Review, tag &amp; save</h3>
+            <div class="profile-step-header-row">
+              <h3 class="profile-step-title">Review, tag &amp; save</h3>
+              <button type="button" id="profile-update-btn" class="compact-btn" title="Save now and mark this step done — you can click this again any time after making more changes">Update</button>
+            </div>
             <div id="profile-review-content" class="profile-step-content">
-              <div id="profile-review">
-                <div id="tag-summary" class="tag-summary"></div>
+              <div id="profile-review" class="tag-summary">
 
-                <label>Skills</label>
-                <div class="tag-pill-editor" id="profile-skills-tags"></div>
+                <div class="tag-summary-group">
+                  <div class="tag-summary-head">
+                    Skills <span class="tag-summary-badge reference">reference only</span>
+                    <span class="tooltip-icon" title="May overlap with the industries you pick on Search Criteria Filters — the two lists are independent and don't sync automatically.">ⓘ</span>
+                    <input type="text" class="tag-summary-add-input" id="skills-add-input" placeholder="Add…">
+                  </div>
+                  <div class="tag-summary-pills" id="profile-skills-tags"></div>
+                </div>
 
-                <label>Industries</label>
-                <div class="tag-pill-editor" id="profile-industries-tags"></div>
+                <div class="tag-summary-group">
+                  <div class="tag-summary-head">
+                    Industries <span class="tag-summary-badge reference">reference only</span>
+                    <span class="tooltip-icon" title="May overlap with the industries you pick on Search Criteria Filters — the two lists are independent and don't sync automatically.">ⓘ</span>
+                    <input type="text" class="tag-summary-add-input" id="industries-add-input" placeholder="Add…">
+                  </div>
+                  <div class="tag-summary-pills" id="profile-industries-tags"></div>
+                </div>
 
-                <label>Job-posting match keywords</label>
-                <div class="tag-pill-editor" id="profile-keywords-tags"></div>
-                <p class="meta">
-                  Click a highlighted phrase below to untag it. Select any other text in your resume and
-                  click "Tag selection" to add it as a keyword — or just add it directly above.
-                </p>
-                <div id="resume-keyword-view" class="resume-keyword-view"></div>
-                <button type="button" id="tag-selection-btn" style="display:none">+ Tag selected text</button>
+                <div class="tag-summary-group">
+                  <div class="tag-summary-head">
+                    Keywords <span class="tag-summary-badge drives">drives matching</span>
+                    <span class="tooltip-icon" title="May overlap with the industries you pick on Search Criteria Filters — the two lists are independent and don't sync automatically.">ⓘ</span>
+                    <input type="text" class="tag-summary-add-input" id="keywords-add-input" placeholder="Add…">
+                  </div>
+                  <div class="tag-summary-pills" id="profile-keywords-tags"></div>
+                </div>
 
-                <label>Manual tags <span class="meta-inline">(your own — untouched by re-extraction, feed matching directly)</span></label>
-                <div class="tag-pill-editor" id="profile-manual-tags"></div>
+                <div class="tag-summary-group">
+                  <div class="tag-summary-head">
+                    Manual <span class="tag-summary-badge drives">drives matching</span>
+                    <span class="tooltip-icon" title="Your own tags — untouched by re-extraction, feed matching directly.">ⓘ</span>
+                    <input type="text" class="tag-summary-add-input" id="manual-add-input" placeholder="Add…">
+                  </div>
+                  <div class="tag-summary-pills" id="profile-manual-tags"></div>
+                </div>
 
-                <label for="profile-summary">Summary</label>
-                <input type="text" id="profile-summary">
-                <button id="save-profile-btn">Save profile</button>
               </div>
             </div>
           </div>
@@ -622,6 +708,16 @@
 
     <div id="subtab-scope" class="subtab-panel">
       <div class="scope-group">
+        <div class="io-header-row" id="io-slot-scope">
+          <h3>Saved searches <span class="tooltip-icon" title="Snapshot the criteria below under a name so you can switch between searches without re-checking everything by hand. Doesn't include the company toggles further down.">ⓘ</span></h3>
+        </div>
+        <div class="save-search-row">
+          <input type="text" id="save-search-name" placeholder="Name this search…">
+          <button type="button" id="save-search-btn" class="compact-btn">Save</button>
+        </div>
+        <div id="saved-search-list"></div>
+      </div>
+      <div class="scope-group">
         <h3>Active ATS sources</h3>
         <div class="checks" id="scope-ats"></div>
       </div>
@@ -630,13 +726,7 @@
         <div class="checks" id="scope-contract-modes"></div>
       </div>
       <div class="scope-group">
-        <h3>Industries you're interested in</h3>
-        <p class="meta">
-          The full taxonomy from <code>DOCS/research_brief.md</code>/<code>role_search.md</code>, not
-          just the industries currently covered by <code>data/companies.json</code>. This is a
-          forward-looking preference — it doesn't filter fetches yet, it's the signal for what to
-          sweep next.
-        </p>
+        <h3>Industries you're interested in <span class="tooltip-icon" title="The full taxonomy from research_brief.md/role_search.md, not just the industries currently covered by companies.json. A forward-looking preference — doesn't filter fetches yet, it's the signal for what to sweep next.">ⓘ</span></h3>
         <div class="checks" id="scope-industries"></div>
       </div>
       <div class="scope-group">
@@ -651,12 +741,9 @@
 
     <div id="subtab-countries" class="subtab-panel">
       <div class="scope-group">
-        <h3>Countries you're targeting</h3>
-        <p class="meta">
-          Click the map or the list below. Restricts the "verify location" flag in the Search Results
-          tab to just these countries — falls back to the default EU/EEA+UK+CH allowlist if nothing's
-          selected here. The map covers the whole world; matching works for any country you pick.
-        </p>
+        <div class="io-header-row" id="io-slot-countries">
+          <h3>Location Filter <span class="tooltip-icon" title="Click the map or the list below. Restricts the &quot;verify location&quot; flag in the Search Results tab to just these countries — falls back to the default EU/EEA+UK+CH allowlist if nothing's selected here. The map covers the whole world; matching works for any country you pick.">ⓘ</span></h3>
+        </div>
         <div class="country-quickselect">
           <button type="button" data-tier="nordics">Nordics</button>
           <button type="button" data-tier="benelux-dach-ch">Benelux / DACH / CH</button>
@@ -679,13 +766,10 @@
   </div>
 
   <div id="tab-leads" class="tab-panel">
-    <p class="meta">
-      Requires the local backend running on <code>127.0.0.1:8420</code>. Telegram and Slack feed this
-      automatically once configured in <code>backend/config.json</code> (see <code>backend/ingest/</code>);
-      Discord and WhatsApp have no safe automated route, so paste anything you see below instead —
-      it goes through the same triage pipeline either way.
+    <h3 class="section-title">Capture a lead
+      <span class="tooltip-icon" title="Needs the local backend on 127.0.0.1:8420. Telegram/Slack feed this automatically once configured; Discord/WhatsApp have no safe automated route, so paste anything you see here instead — it goes through the same triage pipeline either way.">ⓘ</span>
       <span class="tooltip-icon" id="llm-tooltip-triage_message" title="Loading…">ⓘ</span>
-    </p>
+    </h3>
     <div class="capture-form">
       <select id="capture-source">
         <option value="discord">Discord</option>
@@ -702,13 +786,10 @@
   </div>
 
   <div id="tab-outreach" class="tab-panel">
-    <p class="meta">
-      Requires the local backend running on <code>127.0.0.1:8420</code> and a one-time Gmail OAuth
-      setup (see <code>backend/gmail.py</code>). "Send outreach" drafts an email with the LLM and
-      <strong>sends it immediately</strong> — no review step. Safety nets: at most one automated
-      email per contact ever, and a daily send cap (see <code>backend/config.json</code>).
+    <h3 class="section-title">Add a contact
+      <span class="tooltip-icon" title="Needs the local backend + a one-time Gmail OAuth setup. &quot;Send outreach&quot; drafts an email with the LLM and sends it immediately — no review step. Safety nets: at most one automated email per contact ever, plus a daily send cap.">ⓘ</span>
       <span class="tooltip-icon" id="llm-tooltip-draft_cold_email" title="Loading…">ⓘ</span>
-    </p>
+    </h3>
     <div class="contact-form">
       <input type="text" id="contact-company" placeholder="Company">
       <input type="text" id="contact-name" placeholder="Contact name">
@@ -749,6 +830,11 @@
   var BACKEND = "http://127.0.0.1:8420";
   var state = { postings: [], archive: [], sortKey: "company", sortDir: 1 };
   var profileExtracted = false;
+  // Set once the user clicks "Update" on step 3 — turns its circle solid as
+  // a deliberate "I'm done reviewing this" confirmation (on top of the
+  // continuous background autosave, which has no such visual marker).
+  // Clickable repeatedly; nothing resets it back to just "active".
+  var profileUpdated = false;
 
   function setStepState(el, stateName) {
     el.classList.remove("step-locked", "step-active", "step-done");
@@ -759,15 +845,57 @@
     if (contentEl) contentEl.classList.toggle("locked", stateName === "locked");
   }
 
+  // Save/Load (top-right, shared across all three Setup subtabs) operate on
+  // different data depending on which subtab is active — this keeps their
+  // labels/tooltips/default filenames and "Save" disabled-state in sync with
+  // that. Called from updateStepGating() (profile-content changes) and from
+  // activateSubtab() (switching which subtab's data they now target).
+  function updateProfileIoUI() {
+    var saveBtn = document.getElementById("save-profile-json-btn");
+    var loadBtn = document.getElementById("load-profile-json-btn");
+    if (!saveBtn || !loadBtn) return;
+    var subtab = activeSetupSubtab();
+
+    if (subtab === "scope") {
+      saveBtn.textContent = "Save criteria";
+      loadBtn.textContent = "Load criteria";
+      saveBtn.title = "Save the current ATS sources/contract modes/industries to search-criteria-filters.json";
+      loadBtn.title = "Load a previously-saved search-criteria-filters.json";
+      saveBtn.disabled = false;
+    } else if (subtab === "countries") {
+      saveBtn.textContent = "Save locations";
+      loadBtn.textContent = "Load locations";
+      saveBtn.title = "Save the current country selection to location-filters.json";
+      loadBtn.title = "Load a previously-saved location-filters.json";
+      saveBtn.disabled = false;
+    } else {
+      saveBtn.textContent = "Save profile";
+      loadBtn.textContent = "Load profile";
+      saveBtn.title = "Save the current resume text + tags to my-profile.json, so you can reload it later without re-extracting";
+      loadBtn.title = "Load a previously-saved my-profile.json — skips extraction, no LLM tokens spent";
+      // Only makes sense once there's actually something to save — resume
+      // text or at least one tag. Reads the rendered pills directly since
+      // the tag editors themselves are private to initSetup()'s closure.
+      var hasText = document.getElementById("resume-text").value.trim().length > 0;
+      var hasTags = document.querySelectorAll(
+        "#profile-skills-tags .capsule, #profile-industries-tags .capsule, " +
+        "#profile-keywords-tags .capsule, #profile-manual-tags .capsule"
+      ).length > 0;
+      saveBtn.disabled = !hasText && !hasTags;
+    }
+  }
+
   function updateStepGating() {
     var hasText = document.getElementById("resume-text").value.trim().length > 0;
     var extractBtn = document.getElementById("extract-btn");
     extractBtn.disabled = !hasText;
     extractBtn.title = hasText ? "" : "Upload or paste your resume above first";
 
+    updateProfileIoUI();
+
     setStepState(document.getElementById("profile-step-1"), hasText ? "done" : "active");
     setStepState(document.getElementById("profile-step-2"), profileExtracted ? "done" : (hasText ? "active" : "locked"));
-    setStepState(document.getElementById("profile-step-3"), profileExtracted ? "active" : "locked");
+    setStepState(document.getElementById("profile-step-3"), !profileExtracted ? "locked" : (profileUpdated ? "done" : "active"));
   }
 
   function activateTab(tabName) {
@@ -786,23 +914,47 @@
   }
 
   function activateSubtab(subtabName) {
-    document.querySelectorAll(".subtabs button").forEach(function (b) { b.classList.remove("active"); });
-    document.querySelectorAll(".subtab-panel").forEach(function (p) { p.classList.remove("active"); });
-    var btn = document.querySelector(".subtabs button[data-subtab=\"" + subtabName + "\"]");
+    // Scoped to #tab-setup specifically — the Settings modal reuses the same
+    // .subtabs/.subtab-panel classes for its own LLM APIs/Usage/Backend tabs
+    // (via activateSettingsSubtab), and an unscoped selector here would strip
+    // "active" off those too the moment this runs once at page load, leaving
+    // the Settings modal with no tab selected until its own buttons are
+    // clicked at least once.
+    document.querySelectorAll("#tab-setup .subtabs button").forEach(function (b) { b.classList.remove("active"); });
+    document.querySelectorAll("#tab-setup .subtab-panel").forEach(function (p) { p.classList.remove("active"); });
+    var btn = document.querySelector("#tab-setup .subtabs button[data-subtab=\"" + subtabName + "\"]");
     if (btn) btn.classList.add("active");
     document.getElementById("subtab-" + subtabName).classList.add("active");
-    // "Save scope" covers the scope + countries subtabs only (Profile has
-    // its own "Save profile" button) — hide it so it doesn't look like it
-    // saves the resume fields too.
-    var showSaveScope = subtabName !== "profile";
-    document.getElementById("save-scope-btn").style.display = showSaveScope ? "" : "none";
-    document.getElementById("scope-status").style.display = showSaveScope ? "" : "none";
+    // The autosave status line covers the scope + countries subtabs only
+    // (Profile has its own status line right under its own fields) — hide it
+    // so it doesn't look like it's reporting on the resume fields too.
+    var showScopeStatus = subtabName !== "profile";
+    document.getElementById("scope-status").style.display = showScopeStatus ? "" : "none";
+    moveProfileIoControls(subtabName);
+    updateProfileIoUI();
+  }
+
+  // The Save/Load controls are a single shared element (not duplicated per
+  // subtab) so their per-subtab label/tooltip state in updateProfileIoUI()
+  // stays in one place — this just relocates that element into the active
+  // subtab's io-header-row so it sits on the same line as that subtab's
+  // first heading, top-aligned with it rather than floating in its own row.
+  function moveProfileIoControls(subtabName) {
+    var slot = document.getElementById("io-slot-" + subtabName);
+    var controls = document.getElementById("profile-io-controls");
+    if (slot && controls && controls.parentElement !== slot) slot.appendChild(controls);
   }
 
   function initStickyHeader() {
     var header = document.querySelector(".sticky-header");
     function updateHeight() {
-      document.documentElement.style.setProperty("--sticky-header-h", header.offsetHeight + "px");
+      // offsetHeight rounds to the nearest integer px; the header's actual
+      // rendered height is often fractional, so that rounding could leave the
+      // subtabs' sticky top a hair short of the header's real bottom edge —
+      // a 1px sliver of whatever's scrolled underneath peeking through right
+      // at the seam. getBoundingClientRect() + ceil() errs the other way
+      // (slight overlap, never a gap).
+      document.documentElement.style.setProperty("--sticky-header-h", Math.ceil(header.getBoundingClientRect().height) + "px");
     }
     updateHeight();
     if (window.ResizeObserver) {
@@ -822,7 +974,7 @@
     document.querySelectorAll(".subtabs button[data-subtab]").forEach(function (btn) {
       btn.addEventListener("click", function () { activateSubtab(btn.dataset.subtab); });
     });
-    activateSubtab("profile"); // sync the "Save scope" button's initial hidden state
+    activateSubtab("profile"); // sync the scope-status line's initial hidden state
   }
 
   function initResumeUpload() {
@@ -902,7 +1054,8 @@
     });
   }
 
-  function createTagPillEditor(container, initialTags, onChange) {
+  function createTagPillEditor(container, initialTags, onChange, options) {
+    var hideOwnInput = options && options.hideOwnInput;
     // Entries carry an "active" flag instead of being hard-deleted on click —
     // clicking a capsule excludes/includes it from matching (same toggle
     // convention as the country picker), pushing excluded ones to the end
@@ -941,30 +1094,41 @@
         });
         container.appendChild(pill);
       });
-      var input = document.createElement("input");
-      input.type = "text";
-      input.placeholder = "Type and press Enter…";
-      input.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === ",") {
-          e.preventDefault();
-          var val = input.value.trim().replace(/,$/, "");
-          if (val) {
-            var idx = indexOfTag(val);
-            if (idx !== -1) entries[idx].active = true;
-            else entries.push({ text: val, active: true });
-            input.value = "";
+      if (!hideOwnInput) {
+        var input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Type and press Enter…";
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === ",") {
+            e.preventDefault();
+            var val = input.value.trim().replace(/,$/, "");
+            if (val) {
+              addTag(val);
+              input.value = "";
+            }
+          } else if (e.key === "Backspace" && !input.value && entries.length) {
+            entries.pop();
             render();
             if (onChange) onChange(getTags());
           }
-        } else if (e.key === "Backspace" && !input.value && entries.length) {
-          entries.pop();
-          render();
-          if (onChange) onChange(getTags());
-        }
-      });
-      container.appendChild(input);
+        });
+        container.appendChild(input);
+      }
     }
     render();
+
+    function addTag(tag) {
+      if (!tag) return;
+      var idx = indexOfTag(tag);
+      if (idx !== -1) {
+        if (entries[idx].active) return;
+        entries[idx].active = true;
+      } else {
+        entries.push({ text: tag, active: true });
+      }
+      render();
+      if (onChange) onChange(getTags());
+    }
 
     return {
       getTags: getTags,
@@ -972,18 +1136,7 @@
         entries = (newTags || []).map(function (t) { return { text: t, active: true }; });
         render();
       },
-      addTag: function (tag) {
-        if (!tag) return;
-        var idx = indexOfTag(tag);
-        if (idx !== -1) {
-          if (entries[idx].active) return;
-          entries[idx].active = true;
-        } else {
-          entries.push({ text: tag, active: true });
-        }
-        render();
-        if (onChange) onChange(getTags());
-      },
+      addTag: addTag,
       removeTag: function (tag) {
         var idx = indexOfTag(tag);
         if (idx !== -1) {
@@ -1057,40 +1210,88 @@
   function initSetup() {
     var setupStatus = document.getElementById("setup-status");
     var skillsEditor = null, industriesEditor = null, keywordsEditor = null;
+    // No UI for this — redundant with the tags below — but keep whatever the
+    // last extraction produced so round-tripping through save/load doesn't
+    // silently drop it from the stored profile.
+    var currentProfileSummary = "";
 
-    function renderTagSummary() {
-      var groups = [
-        { label: "Skills", tags: skillsEditor ? skillsEditor.getTags() : [], drives: false },
-        { label: "Industries", tags: industriesEditor ? industriesEditor.getTags() : [], drives: false },
-        { label: "Keywords", tags: keywordsEditor ? keywordsEditor.getTags() : [], drives: true },
-        { label: "Manual", tags: manualTagsEditor ? manualTagsEditor.getTags() : [], drives: true }
-      ];
-      document.getElementById("tag-summary").innerHTML = groups.map(function (g) {
-        var badge = g.drives
-          ? '<span class="tag-summary-badge drives">drives matching</span>'
-          : '<span class="tag-summary-badge reference">reference only</span>';
-        var pills = g.tags.length
-          ? g.tags.map(function (t) { return '<span class="capsule selected static">' + escapeHtml(t) + '</span>'; }).join("")
-          : '<span class="tag-summary-empty">—</span>';
-        return '<div class="tag-summary-group"><div class="tag-summary-head">' + g.label + badge + '</div>'
-          + '<div class="tag-summary-pills">' + pills + '</div></div>';
-      }).join("");
+    // Autosave for step 3 (review/tag/save) only — extraction itself (step 2,
+    // #extract-btn) stays an explicit click since it's a paid LLM call.
+    var profileAutosaveTimer = null;
+
+    function saveProfileNow() {
+      var extracted = {
+        skills: skillsEditor ? skillsEditor.getTags() : [],
+        industries: industriesEditor ? industriesEditor.getTags() : [],
+        keywords: keywordsEditor ? keywordsEditor.getTags() : [],
+        summary: currentProfileSummary
+      };
+      var resumeText = document.getElementById("resume-text").value.trim();
+      fetch(BACKEND + "/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resume_text: resumeText, extracted: extracted, manual_tags: manualTagsEditor.getTags() })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        return r.json();
+      }).then(function () {
+        setupStatus.classList.remove("error");
+        setupStatus.textContent = "All changes saved.";
+      }).catch(function (err) {
+        setupStatus.classList.add("error");
+        setupStatus.textContent = "Couldn't save (" + err.message + "). Is the backend running?";
+      });
+    }
+
+    function scheduleProfileAutosave() {
+      setupStatus.classList.remove("error");
+      setupStatus.textContent = "Saving…";
+      clearTimeout(profileAutosaveTimer);
+      profileAutosaveTimer = setTimeout(saveProfileNow, 700);
+    }
+
+    // Fires on every real user edit (tag add/remove/toggle) — never on the
+    // programmatic setTags() calls used to populate from a saved/extracted
+    // profile, so loading existing data doesn't itself trigger a save.
+    function onTagsEdited() {
+      scheduleProfileAutosave();
+      updateStepGating();
+    }
+
+    // Wires a header-row "Add…" input (outside the pill editor's own
+    // container, per the compact layout) to an existing editor's addTag().
+    function wireHeaderAddInput(inputId, getEditor) {
+      var input = document.getElementById(inputId);
+      input.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== ",") return;
+        e.preventDefault();
+        var val = input.value.trim().replace(/,$/, "");
+        var editor = getEditor();
+        if (val && editor) {
+          editor.addTag(val);
+          input.value = "";
+        }
+      });
     }
 
     // Always-visible, independent of extraction — survives resume re-extraction untouched.
-    var manualTagsEditor = createTagPillEditor(document.getElementById("profile-manual-tags"), [], renderTagSummary);
+    var manualTagsEditor = createTagPillEditor(document.getElementById("profile-manual-tags"), [], onTagsEdited, { hideOwnInput: true });
+    wireHeaderAddInput("manual-add-input", function () { return manualTagsEditor; });
+    wireHeaderAddInput("skills-add-input", function () { return skillsEditor; });
+    wireHeaderAddInput("industries-add-input", function () { return industriesEditor; });
+    wireHeaderAddInput("keywords-add-input", function () { return keywordsEditor; });
 
     function applyExtractedProfile(extracted, resumeText) {
-      skillsEditor = createTagPillEditor(document.getElementById("profile-skills-tags"), extracted.skills || [], renderTagSummary);
-      industriesEditor = createTagPillEditor(document.getElementById("profile-industries-tags"), extracted.industries || [], renderTagSummary);
+      skillsEditor = createTagPillEditor(document.getElementById("profile-skills-tags"), extracted.skills || [], onTagsEdited, { hideOwnInput: true });
+      industriesEditor = createTagPillEditor(document.getElementById("profile-industries-tags"), extracted.industries || [], onTagsEdited, { hideOwnInput: true });
       var resumeKeywordView = null;
       keywordsEditor = createTagPillEditor(document.getElementById("profile-keywords-tags"), extracted.keywords || [], function () {
         if (resumeKeywordView) resumeKeywordView.refresh();
-        renderTagSummary();
-      });
+        onTagsEdited();
+      }, { hideOwnInput: true });
+      document.getElementById("resume-keyword-view-wrap").style.display = "";
       resumeKeywordView = initResumeKeywordView(resumeText, keywordsEditor);
-      document.getElementById("profile-summary").value = extracted.summary || "";
-      renderTagSummary();
+      currentProfileSummary = extracted.summary || "";
       profileExtracted = true;
       updateStepGating();
     }
@@ -1104,9 +1305,18 @@
           document.getElementById("resume-text-label").textContent = "Resume text (uploaded text lands here, or paste directly)";
           document.getElementById("resume-review-block").style.display = "";
         }
-        if (profile.extracted) applyExtractedProfile(profile.extracted, profile.resume_text || "");
+        // The backend always returns a non-null `extracted` object once any
+        // profile row exists — even one saved with every field empty (e.g.
+        // after a reset) — so checking truthiness alone wrongly marks steps
+        // 2/3 as done/active on a genuinely empty profile. Require actual
+        // content instead.
+        var ext = profile.extracted;
+        var hasExtractedContent = ext && (
+          (ext.skills && ext.skills.length) || (ext.industries && ext.industries.length) ||
+          (ext.keywords && ext.keywords.length) || (ext.summary && ext.summary.trim())
+        );
+        if (hasExtractedContent) applyExtractedProfile(ext, profile.resume_text || "");
         if (profile.manual_tags && profile.manual_tags.length) manualTagsEditor.setTags(profile.manual_tags);
-        renderTagSummary();
         updateStepGating();
       }).catch(function () {
         // Backend not running yet, or no profile saved — Setup tab just starts empty.
@@ -1126,6 +1336,7 @@
       extractBtn.disabled = true;
       resultEl.style.display = "none";
       progressWrap.style.display = "block";
+      progressStatus.style.display = "block";
 
       // There's no real progress signal from a single non-streaming API call —
       // these are honest elapsed-time stages, not a fabricated percentage.
@@ -1166,7 +1377,8 @@
           " industries, " + (extracted.keywords || []).length + " keywords";
         resultEl.className = "extract-result success";
         resultEl.innerHTML = '<div class="extract-result-title">Extraction succeeded</div><div>Found ' +
-          escapeHtml(counts) + ' — review below, then save.</div>';
+          escapeHtml(counts) + ' — review below, then save. Use "Save profile" afterward if you wish to ' +
+          're-use this extraction later and save tokens.</div>';
         resultEl.style.display = "block";
       }).catch(function (err) {
         clearStageTimers();
@@ -1189,36 +1401,101 @@
         });
       }).finally(function () {
         updateStepGating();
-        setTimeout(function () { progressWrap.style.display = "none"; }, 500);
+        setTimeout(function () { progressWrap.style.display = "none"; progressStatus.style.display = "none"; }, 500);
       });
     });
 
-    document.getElementById("save-profile-btn").addEventListener("click", function () {
-      var extracted = {
-        skills: skillsEditor ? skillsEditor.getTags() : [],
-        industries: industriesEditor ? industriesEditor.getTags() : [],
-        keywords: keywordsEditor ? keywordsEditor.getTags() : [],
-        summary: document.getElementById("profile-summary").value.trim()
+    // Save/Load are shared, single buttons (top-right, visible on all three
+    // Setup subtabs per activeSetupSubtab()) but operate on different data
+    // depending on which subtab is active when clicked — each subtab gets
+    // its own JSON file, defaulting to that subtab's own name.
+    document.getElementById("save-profile-json-btn").addEventListener("click", function () {
+      var subtab = activeSetupSubtab();
+      var ioStatus = document.getElementById("profile-io-status");
+
+      if (subtab === "scope") {
+        var scope = gatherScopePayload();
+        downloadJsonFile("search-criteria-filters.json", {
+          active_ats: scope.active_ats, contract_modes: scope.contract_modes, industries: scope.industries
+        });
+        ioStatus.textContent = "Saved to a local file.";
+        return;
+      }
+      if (subtab === "countries") {
+        downloadJsonFile("location-filters.json", {
+          countries: typeof getSelectedCountries === "function" ? getSelectedCountries() : []
+        });
+        ioStatus.textContent = "Saved to a local file.";
+        return;
+      }
+      downloadJsonFile("my-profile.json", {
+        resume_text: document.getElementById("resume-text").value.trim(),
+        extracted: {
+          skills: skillsEditor ? skillsEditor.getTags() : [],
+          industries: industriesEditor ? industriesEditor.getTags() : [],
+          keywords: keywordsEditor ? keywordsEditor.getTags() : [],
+          summary: currentProfileSummary
+        },
+        manual_tags: manualTagsEditor.getTags()
+      });
+      ioStatus.textContent = "Saved to a local file.";
+    });
+
+    document.getElementById("load-profile-json-btn").addEventListener("click", function () {
+      document.getElementById("load-profile-file-input").click();
+    });
+    document.getElementById("load-profile-file-input").addEventListener("change", function (e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var subtab = activeSetupSubtab();
+      var ioStatus = document.getElementById("profile-io-status");
+      var reader = new FileReader();
+      reader.onload = function () {
+        var data;
+        try {
+          data = JSON.parse(reader.result);
+        } catch (err) {
+          ioStatus.textContent = "That file isn't valid JSON.";
+          return;
+        }
+
+        if (subtab === "scope") {
+          renderAtsContractIndustries({
+            active_ats: data.active_ats || [], contract_modes: data.contract_modes || [], industries: data.industries || []
+          });
+          scheduleScopeAutosave();
+          ioStatus.textContent = "Loaded.";
+          return;
+        }
+        if (subtab === "countries") {
+          if (typeof setSelectedCountries === "function") setSelectedCountries(data.countries || []);
+          scheduleScopeAutosave();
+          ioStatus.textContent = "Loaded.";
+          return;
+        }
+
+        var resumeText = data.resume_text || "";
+        document.getElementById("resume-text").value = resumeText;
+        document.getElementById("resume-text-label").textContent = "Resume text (uploaded text lands here, or paste directly)";
+        document.getElementById("resume-review-block").style.display = "";
+        // Skips /profile/extract entirely — no LLM call, no tokens spent — then
+        // immediately persists it as the live profile like any other save.
+        applyExtractedProfile(data.extracted || { skills: [], industries: [], keywords: [], summary: "" }, resumeText);
+        manualTagsEditor.setTags(data.manual_tags || []);
+        updateStepGating();
+        ioStatus.textContent = "Loaded — no tokens spent.";
+        saveProfileNow();
       };
-      var resumeText = document.getElementById("resume-text").value.trim();
-      setupStatus.classList.remove("error");
-      setupStatus.textContent = "Saving…";
-      fetch(BACKEND + "/profile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ resume_text: resumeText, extracted: extracted, manual_tags: manualTagsEditor.getTags() })
-      }).then(function (r) {
-        if (!r.ok) throw new Error("Backend returned " + r.status);
-        return r.json();
-      }).then(function () {
-        setupStatus.textContent = "Saved. data/search_profile.json will pick this up on the next commit from the backend.";
-      }).catch(function (err) {
-        setupStatus.classList.add("error");
-        setupStatus.textContent = "Couldn't save (" + err.message + ").";
-      });
+      reader.readAsText(file);
+      e.target.value = ""; // allow re-picking the same file later
     });
 
-    renderTagSummary();
+    document.getElementById("profile-update-btn").addEventListener("click", function () {
+      profileUpdated = true;
+      updateStepGating();
+      saveProfileNow();
+    });
+
     loadSavedProfile();
   }
 
@@ -1421,6 +1698,101 @@
 
   var ALL_ATS = ["greenhouse", "lever", "smartrecruiters"];
   var ALL_CONTRACT_MODES = ["full-time", "contract", "freelance", "internship"];
+  var companyCountByCluster = {};
+
+  // Which Setup subtab is active right now — used by the shared Save/Load
+  // buttons (top-right, visible on all three subtabs) to decide which data
+  // they operate on.
+  function activeSetupSubtab() {
+    var btn = document.querySelector("#tab-setup .subtabs button.active");
+    return btn ? btn.dataset.subtab : "profile";
+  }
+
+  function downloadJsonFile(filename, dataObj) {
+    var blob = new Blob([JSON.stringify(dataObj, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  // Rebuilds just the ATS/contract-mode/industry checkboxes from a given
+  // scope object ({active_ats, contract_modes, industries}) — shared by
+  // initScope()'s initial load, "Apply" on a saved search, and "Load" on the
+  // Search Criteria Filters subtab's own JSON import, so none of them need
+  // their own parallel rendering logic. Top-level (not nested in initScope())
+  // so the Load-JSON handler can call it too. Companies/freelance sources
+  // aren't part of a criteria snapshot, so they're left alone here.
+  function renderAtsContractIndustries(scope) {
+    var atsContainer = document.getElementById("scope-ats");
+    var modesContainer = document.getElementById("scope-contract-modes");
+    var industriesContainer = document.getElementById("scope-industries");
+    atsContainer.innerHTML = "";
+    ALL_ATS.forEach(function (ats) {
+      checkboxRow(atsContainer, "ats-" + ats, ats, ats, scope.active_ats.indexOf(ats) !== -1);
+    });
+    modesContainer.innerHTML = "";
+    ALL_CONTRACT_MODES.forEach(function (mode) {
+      checkboxRow(modesContainer, "mode-" + mode, mode, mode, scope.contract_modes.indexOf(mode) !== -1);
+    });
+    industriesContainer.innerHTML = "";
+    if (!ALL_INDUSTRIES.length) {
+      industriesContainer.innerHTML = '<p class="empty">Couldn\'t load the industry list from the backend.</p>';
+      return;
+    }
+    ALL_INDUSTRIES.forEach(function (industry, idx) {
+      var count = companyCountByCluster[industry] || 0;
+      var label = industry + (count ? " (" + count + " compan" + (count === 1 ? "y" : "ies") + ")" : " — no companies yet");
+      checkboxRow(industriesContainer, "industry-" + idx, industry, label, scope.industries.indexOf(industry) !== -1);
+    });
+  }
+
+  // Autosave for the Search Criteria + Location Filters subtabs: every
+  // checkbox/country toggle below calls scheduleScopeAutosave() instead of
+  // there being a "Save scope" button. Reads the full current DOM state each
+  // time rather than depending on a specific caller's closure, since this is
+  // called from several unrelated places (checkboxRow, the country map, the
+  // country-pill list, the quickselect tier buttons, drag-select).
+  var scopeAutosaveTimer = null;
+
+  function gatherScopePayload() {
+    var activeAts = ALL_ATS.filter(function (ats) { return document.getElementById("ats-" + ats).checked; });
+    var contractModes = ALL_CONTRACT_MODES.filter(function (m) { return document.getElementById("mode-" + m).checked; });
+    var industries = ALL_INDUSTRIES.filter(function (_, idx) { return document.getElementById("industry-" + idx).checked; });
+    var companyToggles = Array.prototype.slice.call(document.querySelectorAll("#scope-companies input[type=checkbox]"))
+      .map(function (input) { return { name: input.value, enabled: input.checked }; });
+    var countries = typeof getSelectedCountries === "function" ? getSelectedCountries() : [];
+    return {
+      active_ats: activeAts, contract_modes: contractModes, companies: companyToggles,
+      industries: industries, countries: countries
+    };
+  }
+
+  function saveScopeNow() {
+    var scopeStatus = document.getElementById("scope-status");
+    return fetch(BACKEND + "/scope", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(gatherScopePayload())
+    }).then(function (r) {
+      if (!r.ok) throw new Error("Backend returned " + r.status);
+      return r.json();
+    }).then(function () {
+      scopeStatus.textContent = "All changes saved. Takes effect on the next fetch_postings.py run.";
+    }).catch(function (err) {
+      scopeStatus.textContent = "Couldn't save (" + err.message + "). Is the backend running?";
+    });
+  }
+
+  function scheduleScopeAutosave() {
+    document.getElementById("scope-status").textContent = "Saving…";
+    clearTimeout(scopeAutosaveTimer);
+    scopeAutosaveTimer = setTimeout(saveScopeNow, 400);
+  }
 
   function checkboxRow(container, id, value, label, checked) {
     var wrap = document.createElement("label");
@@ -1432,6 +1804,7 @@
     input.checked = checked;
     input.addEventListener("change", function () {
       wrap.classList.toggle("selected", input.checked);
+      scheduleScopeAutosave();
     });
     wrap.appendChild(input);
     wrap.appendChild(document.createTextNode(label));
@@ -1446,6 +1819,12 @@
     "us": ["us"],
     "clear": []
   };
+
+  // Set true for one tick right after a drag-select commits (see
+  // initMapZoom's drag-select handling) so the native "click" that fires on
+  // whichever element the mouse is over at drag-end doesn't also toggle that
+  // country a second time on top of what the drag already selected.
+  var justDraggedOnMap = false;
 
   function getSelectedCountries() {
     var mapEl = document.getElementById("country-map-container");
@@ -1478,6 +1857,8 @@
     ]).then(function (results) {
       var svgText = results[0];
       var countries = results[1] || [];
+      var countryNameByCode = {};
+      countries.forEach(function (c) { countryNameByCode[c.code.toLowerCase()] = c.name; });
 
       if (svgText) {
         mapContainer.innerHTML = svgText;
@@ -1485,10 +1866,22 @@
         // wrapping several unlabeled child paths — bind clicks on whichever
         // element actually carries the id.
         mapContainer.querySelectorAll("path[id], g[id]").forEach(function (el) {
+          // The vendored SVG only has one root-level <title> (attribution —
+          // "Simple World Map"), so hovering any path falls back to that.
+          // Giving each element its own closer <title> (must be the first
+          // child) overrides it with the actual country name instead.
+          var name = countryNameByCode[el.id.toLowerCase()];
+          if (name) {
+            var titleEl = document.createElementNS("http://www.w3.org/2000/svg", "title");
+            titleEl.textContent = name;
+            el.insertBefore(titleEl, el.firstChild);
+          }
           el.addEventListener("click", function () {
+            if (justDraggedOnMap) { justDraggedOnMap = false; return; }
             el.classList.toggle("selected");
             var pill = listContainer.querySelector(".country-pill[data-code=\"" + el.id.toLowerCase() + "\"]");
             if (pill) pill.classList.toggle("selected", el.classList.contains("selected"));
+            scheduleScopeAutosave();
           });
         });
       } else {
@@ -1528,6 +1921,7 @@
             pill.classList.toggle("selected");
             var el = mapContainer.querySelector("[id=\"" + c.code.toLowerCase() + "\"]");
             if (el) el.classList.toggle("selected", pill.classList.contains("selected"));
+            scheduleScopeAutosave();
           });
           row.appendChild(pill);
         });
@@ -1552,6 +1946,7 @@
     document.querySelectorAll(".country-quickselect button[data-tier]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         setSelectedCountries(COUNTRY_TIERS[btn.dataset.tier] || []);
+        scheduleScopeAutosave();
       });
     });
 
@@ -1643,17 +2038,144 @@
     viewport.addEventListener("auxclick", function (e) {
       if (e.button === 1) e.preventDefault();
     });
+
+    // Click-drag paint-select: left-mouse-button drag (middle-button is
+    // reserved for pan, above) selects each country the cursor passes over
+    // while the button is held — no marquee/rectangle, just a direct paint
+    // gesture. A plain click (no real drag) still falls through to each
+    // path/g element's own click-to-toggle handler, untouched.
+    var DRAG_THRESHOLD = 4;
+    var dragActive = false, dragPainting = false, dragStartX = 0, dragStartY = 0;
+    var touchedThisDrag = {};
+    var lastHitId = null;
+
+    function paintHitTest(x, y) {
+      var hit = document.elementFromPoint(x, y);
+      var countryEl = hit && hit.closest("path[id], g[id]");
+      if (!countryEl || !mapEl.contains(countryEl)) { lastHitId = null; return; }
+      if (countryEl.id === lastHitId) return; // cursor hasn't left this country yet
+      lastHitId = countryEl.id;
+      if (touchedThisDrag[countryEl.id]) return; // already painted during this drag
+      touchedThisDrag[countryEl.id] = true;
+      countryEl.classList.add("selected");
+      var pill = document.getElementById("country-list").querySelector(".country-pill[data-code=\"" + countryEl.id.toLowerCase() + "\"]");
+      if (pill) pill.classList.add("selected");
+    }
+
+    viewport.addEventListener("mousedown", function (e) {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      dragActive = true;
+      dragPainting = false;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      touchedThisDrag = {};
+      lastHitId = null;
+    });
+
+    window.addEventListener("mousemove", function (e) {
+      if (!dragActive) return;
+      if (!dragPainting) {
+        var dx = e.clientX - dragStartX, dy = e.clientY - dragStartY;
+        if (Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return;
+        dragPainting = true; // past the threshold — this is a real drag, not a click
+      }
+      paintHitTest(e.clientX, e.clientY);
+    });
+
+    window.addEventListener("mouseup", function () {
+      if (!dragActive) return;
+      dragActive = false;
+      if (!dragPainting) return; // was just a click — let the element's own click handler run
+
+      if (Object.keys(touchedThisDrag).length) {
+        justDraggedOnMap = true;
+        scheduleScopeAutosave();
+      }
+      // Whether or not a trailing "click" fires on the element under the
+      // cursor (it often doesn't, since mousedown/mouseup landed on
+      // different elements) — clear the suppression flag on the next tick
+      // so it can never get stuck "true" and eat a later, unrelated click.
+      setTimeout(function () { justDraggedOnMap = false; }, 0);
+    });
   }
 
   var ALL_INDUSTRIES = []; // populated from GET /scope/options once loaded
 
   function initScope() {
     var scopeStatus = document.getElementById("scope-status");
-    var atsContainer = document.getElementById("scope-ats");
-    var modesContainer = document.getElementById("scope-contract-modes");
-    var industriesContainer = document.getElementById("scope-industries");
     var companiesContainer = document.getElementById("scope-companies");
     var freelanceList = document.getElementById("freelance-list");
+
+    function loadSavedSearches() {
+      fetch(BACKEND + "/scope/presets").then(function (r) { return r.ok ? r.json() : { presets: [] }; })
+        .catch(function () { return { presets: [] }; })
+        .then(function (data) { renderSavedSearches(data.presets || []); });
+    }
+
+    function renderSavedSearches(presets) {
+      var listEl = document.getElementById("saved-search-list");
+      if (!presets.length) { listEl.innerHTML = '<p class="empty">No saved searches yet.</p>'; return; }
+      listEl.innerHTML = presets.map(function (p) {
+        return '<div class="saved-search-item">' +
+          '<span class="saved-search-item-name">' + escapeHtml(p.name) + '</span>' +
+          '<button type="button" class="compact-btn apply-search-btn" data-id="' + escapeAttr(p.id) + '" data-name="' + escapeAttr(p.name) + '">Apply</button>' +
+          '<button type="button" class="icon-btn delete-search-btn" data-id="' + escapeAttr(p.id) +
+            '" title="Delete this saved search" aria-label="Delete this saved search">×</button>' +
+          '</div>';
+      }).join("");
+      listEl.querySelectorAll(".apply-search-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () { applyPreset(btn.dataset.id, btn.dataset.name); });
+      });
+      listEl.querySelectorAll(".delete-search-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          fetch(BACKEND + "/scope/presets/" + encodeURIComponent(btn.dataset.id), { method: "DELETE" })
+            .then(loadSavedSearches);
+        });
+      });
+    }
+
+    function applyPreset(presetId, presetName) {
+      scopeStatus.textContent = "Applying \"" + presetName + "\"…";
+      fetch(BACKEND + "/scope/presets/" + encodeURIComponent(presetId) + "/apply", { method: "POST" })
+        .then(function (r) {
+          if (!r.ok) throw new Error("Backend returned " + r.status);
+          return r.json();
+        }).then(function (data) {
+          renderAtsContractIndustries(data.scope);
+          if (typeof setSelectedCountries === "function") setSelectedCountries(data.scope.countries || []);
+          scopeStatus.textContent = "Applied \"" + presetName + "\".";
+        }).catch(function (err) {
+          scopeStatus.textContent = "Couldn't apply (" + err.message + ").";
+        });
+    }
+
+    document.getElementById("save-search-btn").addEventListener("click", function () {
+      var nameInput = document.getElementById("save-search-name");
+      var name = nameInput.value.trim();
+      if (!name) return;
+      // Flush any pending debounced scope autosave first — presets snapshot
+      // the *saved* live scope server-side, so a stale in-flight edit
+      // shouldn't get left out of the snapshot.
+      clearTimeout(scopeAutosaveTimer);
+      saveScopeNow().then(function () {
+        return fetch(BACKEND + "/scope/presets", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name })
+        });
+      }).then(function (r) {
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (b) {
+          throw new Error(b.detail || ("Backend returned " + r.status));
+        });
+        return r.json();
+      }).then(function () {
+        nameInput.value = "";
+        loadSavedSearches();
+      }).catch(function (err) {
+        scopeStatus.textContent = "Couldn't save search (" + err.message + ").";
+      });
+    });
 
     Promise.all([
       fetch(BACKEND + "/scope").then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }),
@@ -1666,27 +2188,12 @@
       var companies = results[2] || [];
       var freelanceSources = results[3] || [];
 
-      ALL_ATS.forEach(function (ats) {
-        checkboxRow(atsContainer, "ats-" + ats, ats, ats, scope.active_ats.indexOf(ats) !== -1);
-      });
-      ALL_CONTRACT_MODES.forEach(function (mode) {
-        checkboxRow(modesContainer, "mode-" + mode, mode, mode, scope.contract_modes.indexOf(mode) !== -1);
-      });
-
-      var companyCountByCluster = {};
       companies.forEach(function (c) {
         companyCountByCluster[c.cluster] = (companyCountByCluster[c.cluster] || 0) + 1;
       });
 
       ALL_INDUSTRIES = (options && options.industries) || [];
-      ALL_INDUSTRIES.forEach(function (industry, idx) {
-        var count = companyCountByCluster[industry] || 0;
-        var label = industry + (count ? " (" + count + " compan" + (count === 1 ? "y" : "ies") + ")" : " — no companies yet");
-        checkboxRow(industriesContainer, "industry-" + idx, industry, label, scope.industries.indexOf(industry) !== -1);
-      });
-      if (!ALL_INDUSTRIES.length) {
-        industriesContainer.innerHTML = '<p class="empty">Couldn\'t load the industry list from the backend.</p>';
-      }
+      renderAtsContractIndustries(scope);
 
       companies.forEach(function (c) {
         checkboxRow(companiesContainer, "company-" + c.name, c.name, c.name + " (" + c.cluster + ")", c.enabled !== false);
@@ -1698,36 +2205,11 @@
       });
 
       initCountryMap(scope.countries || []);
+      loadSavedSearches();
 
       if (!results[0]) {
         scopeStatus.textContent = "Couldn't reach the local backend to load saved scope — showing defaults (all sources/modes active).";
       }
-    });
-
-    document.getElementById("save-scope-btn").addEventListener("click", function () {
-      var activeAts = ALL_ATS.filter(function (ats) { return document.getElementById("ats-" + ats).checked; });
-      var contractModes = ALL_CONTRACT_MODES.filter(function (m) { return document.getElementById("mode-" + m).checked; });
-      var industries = ALL_INDUSTRIES.filter(function (_, idx) { return document.getElementById("industry-" + idx).checked; });
-      var companyToggles = Array.prototype.slice.call(companiesContainer.querySelectorAll("input[type=checkbox]"))
-        .map(function (input) { return { name: input.value, enabled: input.checked }; });
-      var countries = typeof getSelectedCountries === "function" ? getSelectedCountries() : [];
-
-      scopeStatus.textContent = "Saving…";
-      fetch(BACKEND + "/scope", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          active_ats: activeAts, contract_modes: contractModes, companies: companyToggles,
-          industries: industries, countries: countries
-        })
-      }).then(function (r) {
-        if (!r.ok) throw new Error("Backend returned " + r.status);
-        return r.json();
-      }).then(function () {
-        scopeStatus.textContent = "Saved. Takes effect on the next fetch_postings.py run.";
-      }).catch(function (err) {
-        scopeStatus.textContent = "Couldn't save (" + err.message + ").";
-      });
     });
   }
 
@@ -1823,11 +2305,10 @@
   function refreshLlmUsage() { return _refreshUsageImpl(); }
 
   function initLlmSettings() {
-    var overlay = document.getElementById("llm-settings-overlay");
+    var overlay = document.getElementById("settings-overlay");
     var providerListEl = document.getElementById("llm-provider-list");
     var taskListEl = document.getElementById("llm-task-list");
     var statusEl = document.getElementById("llm-settings-status");
-    var usageOverlay = document.getElementById("llm-usage-overlay");
     var usageRowsEl = document.getElementById("llm-usage-rows");
     var latestSettings = null;
     var latestUsageData = null;
@@ -1877,16 +2358,6 @@
     }
     _refreshUsageImpl = fetchAndRenderUsage;
 
-    document.getElementById("llm-status-btn").addEventListener("click", function () {
-      usageOverlay.style.display = "flex";
-      fetchAndRenderUsage();
-    });
-    document.getElementById("llm-usage-close").addEventListener("click", function () {
-      usageOverlay.style.display = "none";
-    });
-    usageOverlay.addEventListener("click", function (e) {
-      if (e.target === usageOverlay) usageOverlay.style.display = "none";
-    });
     document.querySelectorAll("#usage-period-toggle button[data-period]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         document.querySelectorAll("#usage-period-toggle button").forEach(function (b) { b.classList.remove("active"); });
@@ -1992,11 +2463,44 @@
       });
     }
 
+    function activateSettingsSubtab(name) {
+      document.querySelectorAll("#settings-subtabs button").forEach(function (b) { b.classList.remove("active"); });
+      document.querySelectorAll("#settings-overlay .subtab-panel").forEach(function (p) { p.classList.remove("active"); });
+      var btn = document.querySelector("#settings-subtabs button[data-settings-subtab=\"" + name + "\"]");
+      if (btn) btn.classList.add("active");
+      document.getElementById("settings-tab-" + name).classList.add("active");
+    }
+    document.querySelectorAll("#settings-subtabs button[data-settings-subtab]").forEach(function (btn) {
+      btn.addEventListener("click", function () { activateSettingsSubtab(btn.dataset.settingsSubtab); });
+    });
+
+    var backendDot = document.getElementById("backend-status-dot");
+    var backendText = document.getElementById("backend-status-text");
+    function checkBackendHealth() {
+      backendDot.className = "backend-status-dot";
+      backendText.textContent = "Checking…";
+      var controller = new AbortController();
+      var timeout = setTimeout(function () { controller.abort(); }, 2500);
+      fetch(BACKEND + "/health", { signal: controller.signal }).then(function (r) {
+        clearTimeout(timeout);
+        if (!r.ok) throw new Error();
+        backendDot.className = "backend-status-dot running";
+        backendText.textContent = "Running on 127.0.0.1:8420";
+      }).catch(function () {
+        clearTimeout(timeout);
+        backendDot.className = "backend-status-dot down";
+        backendText.textContent = "Not reachable — see the command below to start it.";
+      });
+    }
+    document.getElementById("backend-check-again-btn").addEventListener("click", checkBackendHealth);
+
     document.getElementById("llm-settings-btn").addEventListener("click", function () {
       overlay.style.display = "flex";
       loadSettings();
+      fetchAndRenderUsage();
+      checkBackendHealth();
     });
-    document.getElementById("llm-settings-close").addEventListener("click", function () {
+    document.getElementById("settings-close").addEventListener("click", function () {
       overlay.style.display = "none";
     });
     overlay.addEventListener("click", function (e) {
@@ -2036,8 +2540,23 @@
     var customProviderForm = document.getElementById("custom-provider-form");
     var customProviderModelsEditor = createTagPillEditor(document.getElementById("custom-provider-models"), [], null);
 
+    function resetCustomProviderForm() {
+      document.getElementById("custom-provider-label").value = "";
+      document.getElementById("custom-provider-base-url").value = "";
+      document.getElementById("custom-provider-key").value = "";
+      customProviderModelsEditor.setTags([]);
+    }
+
     document.getElementById("add-custom-provider-btn").addEventListener("click", function () {
       customProviderForm.style.display = customProviderForm.style.display === "none" ? "flex" : "none";
+    });
+
+    document.getElementById("custom-provider-cancel-btn").addEventListener("click", function () {
+      resetCustomProviderForm();
+      var customStatusEl = document.getElementById("custom-provider-status");
+      customStatusEl.classList.remove("error");
+      customStatusEl.textContent = "";
+      customProviderForm.style.display = "none";
     });
 
     document.getElementById("custom-provider-save-btn").addEventListener("click", function () {
@@ -2068,10 +2587,7 @@
         return r.json();
       }).then(function () {
         customStatusEl.textContent = "Added — now available in the task dropdowns below.";
-        document.getElementById("custom-provider-label").value = "";
-        document.getElementById("custom-provider-base-url").value = "";
-        document.getElementById("custom-provider-key").value = "";
-        customProviderModelsEditor.setTags([]);
+        resetCustomProviderForm();
         return loadSettings();
       }).catch(function (err) {
         customStatusEl.classList.add("error");

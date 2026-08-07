@@ -8,6 +8,7 @@ need migrations — most tables just stay empty until their phase lands.
 import json
 import os
 import sqlite3
+import uuid
 from datetime import datetime, timedelta, timezone
 
 BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -286,6 +287,50 @@ def save_scope(active_ats, contract_modes, companies, industries=None, countries
         with open(COMPANIES_PATH, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2, ensure_ascii=False)
             f.write("\n")
+
+
+def list_scope_presets():
+    return json.loads(get_setting("scope_presets", "[]") or "[]")
+
+
+def save_scope_preset(name):
+    """Snapshots the currently *saved* live scope (not a client-sent payload)
+    under a new name, so there's no race with the frontend's debounced scope
+    autosave. Deliberately excludes the company enable/disable toggles — see
+    apply_scope_preset."""
+    scope = get_scope()
+    preset = {
+        "id": uuid.uuid4().hex[:8],
+        "name": name,
+        "active_ats": scope["active_ats"],
+        "contract_modes": scope["contract_modes"],
+        "industries": scope["industries"],
+        "countries": scope["countries"],
+        "created_at": now_iso(),
+    }
+    presets = list_scope_presets()
+    presets.append(preset)
+    set_setting("scope_presets", json.dumps(presets, ensure_ascii=False))
+    return preset
+
+
+def delete_scope_preset(preset_id):
+    presets = [p for p in list_scope_presets() if p["id"] != preset_id]
+    set_setting("scope_presets", json.dumps(presets, ensure_ascii=False))
+
+
+def apply_scope_preset(preset_id):
+    """Restores a saved preset as the new live scope. companies=None so
+    save_scope() leaves company enable/disable toggles exactly as they are —
+    a preset is a "search criteria" snapshot, not a fetch-infra one."""
+    preset = next((p for p in list_scope_presets() if p["id"] == preset_id), None)
+    if not preset:
+        return None
+    save_scope(
+        preset["active_ats"], preset["contract_modes"], companies=None,
+        industries=preset["industries"], countries=preset["countries"],
+    )
+    return get_scope()
 
 
 def insert_lead(source, source_channel, author, raw_text, triage):

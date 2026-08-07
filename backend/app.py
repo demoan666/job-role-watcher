@@ -220,6 +220,37 @@ def save_scope(body: ScopeSave):
     return {"status": "saved"}
 
 
+class ScopePresetSave(BaseModel):
+    name: str
+
+
+@app.get("/scope/presets")
+def list_scope_presets():
+    return {"presets": db.list_scope_presets()}
+
+
+@app.post("/scope/presets")
+def save_scope_preset(body: ScopePresetSave):
+    if not body.name.strip():
+        raise HTTPException(status_code=400, detail="Preset name is required.")
+    preset = db.save_scope_preset(body.name.strip())
+    return {"status": "saved", "preset": preset}
+
+
+@app.post("/scope/presets/{preset_id}/apply")
+def apply_scope_preset(preset_id: str):
+    scope = db.apply_scope_preset(preset_id)
+    if scope is None:
+        raise HTTPException(status_code=404, detail="Preset not found.")
+    return {"status": "applied", "scope": scope}
+
+
+@app.delete("/scope/presets/{preset_id}")
+def delete_scope_preset(preset_id: str):
+    db.delete_scope_preset(preset_id)
+    return {"status": "deleted"}
+
+
 class LeadCapture(BaseModel):
     source: str  # "discord" | "whatsapp" | "telegram" | "slack" | other free text
     source_channel: str = ""
