@@ -155,6 +155,62 @@ def save_custom_provider(provider_id, label, base_url, models, api_key=""):
     write_config(cfg)
 
 
+ENRICHMENT_PROVIDER_IDS = ["hunter", "rocketreach", "apollo", "contactout", "snov"]
+
+
+def get_enrichment_credentials():
+    """Masked view of each enrichment provider's API key — same vault-first/
+    config.json-fallback precedence as get_llm_settings, but flat (no model
+    assignments; enrichment providers aren't LLM tasks). Never returns the
+    real key, only whether one is configured + a masked preview. Read side of
+    the same enrichment:<provider_id> vault keys / enrichment.<id>_api_key
+    config.json fields providers/enrichment.py's _config_secret() already
+    reads at call time — this just gives Settings something to display."""
+    cfg = load_config()
+    enrichment_cfg = cfg.get("enrichment") or {}
+    out = {}
+    for provider_id in ENRICHMENT_PROVIDER_IDS:
+        cfg_key = f"{provider_id}_api_key"
+        if vault.is_initialized():
+            key = vault.get_secret(f"enrichment:{provider_id}") if vault.is_unlocked() else ""
+            configured = bool(key) or bool(enrichment_cfg.get(f"{cfg_key}_set"))
+        else:
+            key = enrichment_cfg.get(cfg_key) or ""
+            configured = bool(key)
+        out[provider_id] = {"configured": configured, "masked_key": mask_key(key)}
+    return out
+
+
+def save_enrichment_credentials(keys):
+    """keys: {provider_id: api_key} — a non-empty value sets/replaces that
+    provider's key, an explicitly empty string clears it, absent keys are
+    left untouched. Vault-first when initialized (requires it to be unlocked
+    to actually set a key — raises vault.VaultLockedError otherwise, same as
+    save_llm_settings); plaintext config.json otherwise. Unknown provider ids
+    are ignored rather than silently stored under an unvalidated key."""
+    cfg = load_config()
+    enrichment_cfg = dict(cfg.get("enrichment") or {})
+    use_vault = vault.is_initialized()
+    for provider_id, api_key in (keys or {}).items():
+        if provider_id not in ENRICHMENT_PROVIDER_IDS:
+            continue
+        cfg_key = f"{provider_id}_api_key"
+        if use_vault:
+            if api_key:
+                vault.set_secret(f"enrichment:{provider_id}", api_key)
+                enrichment_cfg[f"{cfg_key}_set"] = True
+            else:
+                vault.delete_secret(f"enrichment:{provider_id}")
+                enrichment_cfg[f"{cfg_key}_set"] = False
+            enrichment_cfg.pop(cfg_key, None)
+        elif api_key:
+            enrichment_cfg[cfg_key] = api_key
+        elif cfg_key in enrichment_cfg:
+            del enrichment_cfg[cfg_key]
+    cfg["enrichment"] = enrichment_cfg
+    write_config(cfg)
+
+
 def delete_custom_provider(provider_id):
     """No-op if provider_id isn't a custom entry — refuses to delete a
     built-in provider's key through this path."""

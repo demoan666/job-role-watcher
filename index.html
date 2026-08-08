@@ -205,8 +205,15 @@
   }
   /* Inside the Settings modal there's no sticky page header to offset against
      (and the modal panel isn't a scroll container worth sticking within) —
-     cancel the sticky positioning there while keeping the same row look. */
-  #settings-overlay .subtabs { position: static; }
+     cancel the sticky positioning there while keeping the same row look.
+     background: none overrides the opaque Canvas fill .subtabs needs for its
+     sticky/scroll-covering role elsewhere: Canvas is a system color that
+     doesn't track --bg-alt, so with 9 subtab buttons wrapping to two rows in
+     the modal's narrower width, the mismatched-color rectangle behind the
+     second row read as a stray dark/empty patch. The container already
+     sizes to content (flex-wrap: wrap, no fixed height) — the fix is just
+     letting the modal panel's own background show through instead. */
+  #settings-overlay .subtabs { position: static; background: none; }
   /* #tab-setup/#settings-overlay prefix needed for specificity over the
      generic #tab-setup button ID rule, which would otherwise force every
      subtab button to that boxed accent-border look regardless of active state. */
@@ -292,6 +299,14 @@
   }
   .queue-card-draft textarea { min-height: 140px; resize: vertical; }
   .queue-card-status { margin-top: 0.4rem; }
+  .queue-dry-run-badge {
+    display: inline-block; margin-left: auto; padding: 0.1rem 0.4rem; border-radius: 3px;
+    background: var(--error); color: #fff; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.03em;
+  }
+  .dry-run-banner {
+    border: 1px solid var(--error); color: var(--error); border-radius: 6px; padding: 0.6rem 0.9rem;
+    font-size: 0.85rem; margin-bottom: 0.8rem;
+  }
   .glance-grid { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
   .glance-notif {
     display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.7rem;
@@ -489,6 +504,13 @@
   }
   #settings-tab-pipeline input[type="range"] { width: 100%; max-width: 320px; margin-top: 0.3rem; accent-color: var(--accent); }
   #settings-tab-sending-profiles-settings textarea { min-height: 80px; resize: vertical; }
+  .sending-profile-form-section {
+    border-top: 1px solid var(--border); padding-top: 0.7rem; margin-top: 0.9rem;
+  }
+  .sending-profile-form-section:first-of-type { border-top: none; padding-top: 0; margin-top: 0.3rem; }
+  .sending-profile-form-section h4 {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 0.5rem;
+  }
   .settings-note { font-size: 0.78rem; color: var(--muted); font-style: italic; max-width: 460px; margin: 0.3rem 0 0.8rem; }
   .enrichment-order-row, .sending-profile-row {
     display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border);
@@ -498,6 +520,12 @@
     padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid var(--border);
     background: none; color: inherit; cursor: pointer; font-size: 0.8rem;
   }
+  .enrichment-order-row { cursor: grab; }
+  .enrichment-order-row.dragging { opacity: 0.4; }
+  .enrichment-order-row .drag-handle {
+    color: var(--muted); font-size: 1rem; line-height: 1; padding: 0.1rem 0.3rem; border-radius: 3px;
+  }
+  .enrichment-order-row .drag-handle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .sending-profile-row .sending-profile-name { flex: 1; font-size: 0.85rem; }
   .vault-checkbox-label { display: flex !important; align-items: center; gap: 0.4rem; }
   .vault-checkbox-label input { margin: 0; }
@@ -707,6 +735,11 @@
       </div>
 
       <div id="settings-tab-pipeline" class="subtab-panel">
+        <h3>Dry run mode <span class="tooltip-icon" title="Wired to GET/POST /settings/pipeline (pipeline_settings.dry_run_mode). When on, Approve in the Review Queue drafts and logs the email instead of sending it (MockEmailProvider, providers/email.py), and posting enrichment returns one placeholder contact instead of scraping/calling a paid API (MockEnrichmentProvider, providers/enrichment.py). Real job scraping and real LLM drafting stay active either way.">ⓘ</span></h3>
+        <label class="vault-checkbox-label"><input type="checkbox" id="pipeline-dry-run-mode"> Dry run — mock enrichment and sending, never touches Gmail or a paid enrichment API</label>
+        <button type="button" id="pipeline-dry-run-save-btn">Save dry run mode</button>
+        <div class="status" id="pipeline-dry-run-status"></div>
+
         <h3>Daily quota &amp; split <span class="tooltip-icon" title="Wired to GET/POST /settings/pipeline (pipeline.get_pipeline_settings / save_pipeline_settings) — feeds pipeline.get_queue()'s posting_slots/lead_slots split.">ⓘ</span></h3>
         <label>Daily quota (total items across postings + leads) <input type="number" id="pipeline-daily-quota" min="1" step="1"></label>
         <label>Postings share of quota: <span id="pipeline-split-value">50%</span>
@@ -743,6 +776,11 @@
       </div>
 
       <div id="settings-tab-enrichment-settings" class="subtab-panel">
+        <h3>Enrichment provider credentials <span class="tooltip-icon" title="Wired to GET /settings/enrichment (provider_credentials) and POST /settings/enrichment/credentials — one API key per paid provider, same vault-first/config.json-fallback storage as the LLM APIs tab. Company-page scraping needs no key.">ⓘ</span></h3>
+        <div id="enrichment-credentials-list"></div>
+        <button type="button" id="enrichment-credentials-save-btn">Save enrichment API keys</button>
+        <div class="status" id="enrichment-credentials-status"></div>
+
         <h3>Enrichment provider order <span class="tooltip-icon" title="Wired to GET /settings/enrichment (enrichment.get_provider_order) and POST /settings/enrichment/provider-order — the chain enrichment.enrich_company() walks, stopping at the first provider that returns a contact.">ⓘ</span></h3>
         <label>Editing order for
           <select id="enrichment-order-scope">
@@ -802,12 +840,31 @@
 
         <div id="sending-profile-form">
           <h3 id="sending-profile-form-heading">Add a sending profile</h3>
-          <label>Name (e.g. "Individual" or "Studio") <input type="text" id="sending-profile-name"></label>
-          <label>Resume text <textarea id="sending-profile-resume"></textarea></label>
-          <label>Portfolio URL <input type="text" id="sending-profile-portfolio"></label>
-          <label>Tone <input type="text" id="sending-profile-tone" placeholder="e.g. friendly, formal"></label>
-          <label>Signature <textarea id="sending-profile-signature"></textarea></label>
-          <label class="vault-checkbox-label"><input type="checkbox" id="sending-profile-default"> Default profile</label>
+
+          <div class="sending-profile-form-section">
+            <h4>Identity</h4>
+            <label>Name (e.g. "Individual" or "Studio") <input type="text" id="sending-profile-name"></label>
+            <label class="vault-checkbox-label"><input type="checkbox" id="sending-profile-default"> Default profile</label>
+          </div>
+
+          <div class="sending-profile-form-section">
+            <h4>Resume <span class="tooltip-icon" title="Uploading extracts text into the field below (same parser as the Setup tab's resume upload) AND keeps the actual file — the file, not the extracted text, is what's attached when a resume-delivery mode of PDF/both is selected (Settings > Pipeline).">ⓘ</span></h4>
+            <div class="resume-input-actions">
+              <button type="button" id="sending-profile-upload-btn" title="Supported files: .pdf, .docx, .txt, .md">Upload resume file</button>
+              <span class="inline-progress" id="sending-profile-upload-progress" style="display:none" aria-hidden="true"><span class="inline-progress-bar"></span></span>
+            </div>
+            <input type="file" id="sending-profile-file-input" accept=".pdf,.docx,.txt,.md" style="display:none">
+            <div class="status" id="sending-profile-upload-status"></div>
+            <label>Resume text <textarea id="sending-profile-resume"></textarea></label>
+          </div>
+
+          <div class="sending-profile-form-section">
+            <h4>Presentation</h4>
+            <label>Portfolio URL <input type="text" id="sending-profile-portfolio"></label>
+            <label>Tone <input type="text" id="sending-profile-tone" placeholder="e.g. friendly, formal"></label>
+            <label>Signature <textarea id="sending-profile-signature"></textarea></label>
+          </div>
+
           <button type="button" id="sending-profile-save-btn">Save profile</button>
           <button type="button" id="sending-profile-cancel-btn" style="display:none">Cancel edit</button>
         </div>
@@ -1048,6 +1105,7 @@
     <h3 class="section-title">Review queue
       <span class="tooltip-icon" title="Scored postings that already have a resolved contact, merged with real leads, capped by your daily quota and postings/leads split ratio (Settings > Pipeline). Approve sends immediately (same one-send-per-contact + daily-cap safety nets as Outreach); Edit lets you review/change the draft before it sends; Snooze hides an item for 3 days without rejecting it; Reject discards it (archives the posting / deletes the lead).">ⓘ</span>
     </h3>
+    <div id="queue-dry-run-banner" class="dry-run-banner" style="display:none">Dry run mode is on (Settings &gt; Pipeline) — Approve/Edit &amp; send will draft and log the email, never actually send it, and enrichment returns a placeholder contact instead of a real one.</div>
     <div id="queue-container"></div>
   </div>
 
@@ -1911,7 +1969,7 @@
     refreshContacts();
   }
 
-  function queueItemHtml(item) {
+  function queueItemHtml(item, dryRun) {
     var isPosting = item.type === "posting";
     var scoreText = isPosting && item.score != null ? Math.round(item.score * 100) + "%" : "—";
     var company = isPosting ? item.posting.company : "(no company on file)";
@@ -1929,6 +1987,7 @@
         '<span class="queue-score">' + scoreText + '</span>' +
         '<span class="queue-company">' + escapeHtml(company || "") + '</span>' +
         '<span class="queue-source">' + escapeHtml(source || "") + '</span>' +
+        (dryRun ? '<span class="queue-dry-run-badge" title="Dry run mode is on — Approve/Edit &amp; send here will draft and log the email, not actually send it">DRY RUN</span>' : '') +
       '</div>' +
       '<div class="queue-card-title">' + escapeHtml(title || "") + '</div>' +
       '<div class="queue-card-contact">' + escapeHtml(contactName) +
@@ -2066,8 +2125,12 @@
       return r.json();
     }).then(function (data) {
       var items = data.items || [];
+      var dryRun = !!data.dry_run_mode;
+      document.getElementById("queue-dry-run-banner").style.display = dryRun ? "block" : "none";
       document.getElementById("queue-badge").textContent = items.length > 0 ? items.length : "";
-      container.innerHTML = items.length ? items.map(queueItemHtml).join("") : '<p class="empty">Nothing in the queue right now.</p>';
+      container.innerHTML = items.length
+        ? items.map(function (item) { return queueItemHtml(item, dryRun); }).join("")
+        : '<p class="empty">Nothing in the queue right now.</p>';
       wireQueueActions(container);
     }).catch(function () {
       container.innerHTML = '<p class="empty">Couldn\'t reach the local backend. Is it running?</p>';
@@ -3143,6 +3206,8 @@
   }
 
   function initPipelineSettings() {
+    var dryRunCheckbox = document.getElementById("pipeline-dry-run-mode");
+    var dryRunStatus = document.getElementById("pipeline-dry-run-status");
     var quotaInput = document.getElementById("pipeline-daily-quota");
     var splitSlider = document.getElementById("pipeline-split-postings");
     var splitValueLabel = document.getElementById("pipeline-split-value");
@@ -3159,6 +3224,7 @@
 
     fetch(BACKEND + "/settings/pipeline").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
       if (!data) return;
+      dryRunCheckbox.checked = !!data.dry_run_mode;
       quotaInput.value = data.daily_quota;
       var postingsShare = Math.round((data.split_ratio.postings || 0.5) * 100);
       splitSlider.value = postingsShare;
@@ -3173,6 +3239,18 @@
       workModeHybrid.value = data.hybrid;
       workModeOnsite.value = data.onsite;
     }).catch(function () {});
+
+    document.getElementById("pipeline-dry-run-save-btn").addEventListener("click", function () {
+      dryRunStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/pipeline", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dry_run_mode: dryRunCheckbox.checked })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        dryRunStatus.textContent = "Saved.";
+        refreshQueue();
+      }).catch(function (err) { dryRunStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
 
     document.getElementById("pipeline-quota-save-btn").addEventListener("click", function () {
       quotaStatus.textContent = "Saving…";
@@ -3216,7 +3294,14 @@
     });
   }
 
+  var ENRICHMENT_PROVIDER_LABELS = {
+    hunter: "Hunter.io", rocketreach: "RocketReach", apollo: "Apollo",
+    contactout: "ContactOut", snov: "Snov/FindyMail"
+  };
+
   function initEnrichmentSettingsUI() {
+    var credentialsListEl = document.getElementById("enrichment-credentials-list");
+    var credentialsStatus = document.getElementById("enrichment-credentials-status");
     var scopeSelect = document.getElementById("enrichment-order-scope");
     var orderListEl = document.getElementById("enrichment-order-list");
     var orderStatus = document.getElementById("enrichment-order-status");
@@ -3227,26 +3312,68 @@
     var titlesEditor = createTagPillEditor(document.getElementById("decision-maker-titles-editor"), [], null);
     var currentOrder = [];
 
-    function renderOrderList() {
-      orderListEl.innerHTML = currentOrder.map(function (providerId, idx) {
-        return '<div class="enrichment-order-row">' +
-          '<span>' + (idx + 1) + '. ' + escapeHtml(providerId) + '</span>' +
-          '<button type="button" class="order-up-btn"' + (idx === 0 ? " disabled" : "") + '>↑</button>' +
-          '<button type="button" class="order-down-btn"' + (idx === currentOrder.length - 1 ? " disabled" : "") + '>↓</button>' +
+    function renderCredentialsList(credentials, implementedProviders) {
+      credentialsListEl.innerHTML = Object.keys(ENRICHMENT_PROVIDER_LABELS).map(function (providerId) {
+        var c = (credentials || {})[providerId] || { configured: false, masked_key: "" };
+        var isImplemented = (implementedProviders || []).indexOf(providerId) !== -1;
+        var statusText = c.configured ? "configured (" + c.masked_key + ")" : "not configured";
+        var statusClass = c.configured ? "llm-key-status configured" : "llm-key-status";
+        var stubNote = isImplemented ? "" :
+          ' <span class="meta-inline" title="Registered as a provider and selectable in the order below, but find_contacts() always returns empty — no real API call is wired up yet. A key here is stored but has no effect until that\'s built.">(stub — no real API call yet)</span>';
+        return '<div class="llm-provider-row">' +
+          '<label>' + escapeHtml(ENRICHMENT_PROVIDER_LABELS[providerId]) + stubNote +
+            '<br><span class="' + statusClass + '">' + escapeHtml(statusText) + '</span></label>' +
+          '<input type="password" data-provider="' + escapeAttr(providerId) + '" placeholder="' +
+            (c.configured ? "Enter a new key to replace it" : "Paste API key") + '" autocomplete="off">' +
           '</div>';
       }).join("");
-      orderListEl.querySelectorAll(".order-up-btn").forEach(function (btn, idx) {
-        btn.addEventListener("click", function () {
-          if (idx === 0) return;
-          var tmp = currentOrder[idx - 1]; currentOrder[idx - 1] = currentOrder[idx]; currentOrder[idx] = tmp;
+    }
+
+    function renderOrderList() {
+      var draggedIdx = null;
+
+      orderListEl.innerHTML = currentOrder.map(function (providerId, idx) {
+        return '<div class="enrichment-order-row" draggable="true" data-idx="' + idx + '">' +
+          '<span class="drag-handle" title="Drag to reorder, or focus and use ↑/↓" tabindex="0">⠿</span>' +
+          '<span>' + (idx + 1) + '. ' + escapeHtml(providerId) + '</span>' +
+          '</div>';
+      }).join("");
+
+      orderListEl.querySelectorAll(".enrichment-order-row").forEach(function (row) {
+        row.addEventListener("dragstart", function (e) {
+          draggedIdx = parseInt(row.dataset.idx, 10);
+          row.classList.add("dragging");
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", String(draggedIdx));
+        });
+        row.addEventListener("dragend", function () { row.classList.remove("dragging"); });
+        row.addEventListener("dragover", function (e) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = "move";
+        });
+        row.addEventListener("drop", function (e) {
+          e.preventDefault();
+          var targetIdx = parseInt(row.dataset.idx, 10);
+          if (draggedIdx === null || draggedIdx === targetIdx) return;
+          var moved = currentOrder.splice(draggedIdx, 1)[0];
+          currentOrder.splice(targetIdx, 0, moved);
           renderOrderList();
         });
       });
-      orderListEl.querySelectorAll(".order-down-btn").forEach(function (btn, idx) {
-        btn.addEventListener("click", function () {
-          if (idx === currentOrder.length - 1) return;
-          var tmp = currentOrder[idx + 1]; currentOrder[idx + 1] = currentOrder[idx]; currentOrder[idx] = tmp;
+
+      // Keyboard fallback for the drag handle (dragstart/drop have no
+      // keyboard equivalent) — focus a handle, Up/Down swaps it with its
+      // neighbor and keeps focus on the same provider's new handle.
+      orderListEl.querySelectorAll(".drag-handle").forEach(function (handle, idx) {
+        handle.addEventListener("keydown", function (e) {
+          if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+          e.preventDefault();
+          var swapWith = e.key === "ArrowUp" ? idx - 1 : idx + 1;
+          if (swapWith < 0 || swapWith >= currentOrder.length) return;
+          var tmp = currentOrder[idx]; currentOrder[idx] = currentOrder[swapWith]; currentOrder[swapWith] = tmp;
           renderOrderList();
+          var handles = orderListEl.querySelectorAll(".drag-handle");
+          if (handles[swapWith]) handles[swapWith].focus();
         });
       });
     }
@@ -3256,6 +3383,7 @@
       var available = data.available_providers || [];
       currentOrder = data.provider_order && data.provider_order.length ? data.provider_order.slice() : available.slice();
       renderOrderList();
+      renderCredentialsList(data.provider_credentials, data.implemented_providers);
       titlesEditor.setTags(data.decision_maker_titles || []);
       sizeSmall.value = (data.size_thresholds || {}).small_max || "";
       sizeLarge.value = (data.size_thresholds || {}).large_min || "";
@@ -3266,6 +3394,24 @@
         scopeSelect.appendChild(opt);
       });
     }).catch(function () {});
+
+    document.getElementById("enrichment-credentials-save-btn").addEventListener("click", function () {
+      var keys = {};
+      credentialsListEl.querySelectorAll("input[data-provider]").forEach(function (input) {
+        if (input.value.trim()) keys[input.dataset.provider] = input.value.trim();
+      });
+      credentialsStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/enrichment/credentials", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ keys: keys })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        credentialsStatus.textContent = "Saved.";
+        return fetch(BACKEND + "/settings/enrichment").then(function (r2) { return r2.ok ? r2.json() : null; });
+      }).then(function (data) {
+        if (data) renderCredentialsList(data.provider_credentials, data.implemented_providers);
+      }).catch(function (err) { credentialsStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
 
     document.getElementById("enrichment-order-save-btn").addEventListener("click", function () {
       orderStatus.textContent = "Saving…";
@@ -3384,6 +3530,11 @@
     });
   }
 
+  // Lenient on purpose — accepts bare domains (portfolio.com) as well as
+  // full URLs, since that's how people naturally type these; still catches
+  // obvious typos ("not a url", "http//missing-colon").
+  var PORTFOLIO_URL_RE = /^(https?:\/\/)?([\w-]+\.)+[a-z]{2,}(:\d+)?(\/\S*)?$/i;
+
   function initSendingProfilesUI() {
     var listEl = document.getElementById("sending-profiles-list");
     var nameInput = document.getElementById("sending-profile-name");
@@ -3396,23 +3547,63 @@
     var cancelBtn = document.getElementById("sending-profile-cancel-btn");
     var formHeading = document.getElementById("sending-profile-form-heading");
     var status = document.getElementById("sending-profile-status");
+    var fileInput = document.getElementById("sending-profile-file-input");
+    var uploadBtn = document.getElementById("sending-profile-upload-btn");
+    var uploadStatus = document.getElementById("sending-profile-upload-status");
+    var uploadProgressWrap = document.getElementById("sending-profile-upload-progress");
     var editingId = null;
+    var pendingResumeFile = null; // File object staged for upload on next save
+    var existingResumeFileName = null; // from a profile being edited, informational only
 
     function resetForm() {
       editingId = null;
+      pendingResumeFile = null;
+      existingResumeFileName = null;
       formHeading.textContent = "Add a sending profile";
       nameInput.value = ""; resumeInput.value = ""; portfolioInput.value = "";
       toneInput.value = ""; signatureInput.value = ""; defaultCheckbox.checked = false;
+      fileInput.value = "";
+      uploadStatus.classList.remove("error");
+      uploadStatus.textContent = "";
       saveBtn.textContent = "Save profile";
       cancelBtn.style.display = "none";
     }
+
+    uploadBtn.addEventListener("click", function () { fileInput.click(); });
+    fileInput.addEventListener("change", function () {
+      var file = fileInput.files[0];
+      if (!file) return;
+      pendingResumeFile = file;
+      uploadStatus.classList.remove("error");
+      uploadStatus.textContent = "Extracting text from \"" + file.name + "\"…";
+      uploadProgressWrap.style.display = "inline-block";
+
+      var formData = new FormData();
+      formData.append("file", file);
+      fetch(BACKEND + "/profile/upload", { method: "POST", body: formData }).then(function (r) {
+        return r.json().then(function (data) { return { ok: r.ok, data: data }; });
+      }).then(function (result) {
+        uploadProgressWrap.style.display = "none";
+        if (!result.ok) throw new Error(result.data.detail || "extraction failed");
+        resumeInput.value = result.data.resume_text;
+        uploadStatus.textContent = '"' + file.name + '" — text extracted below; the file itself will be ' +
+          "attached when a resume-delivery mode of PDF/both is selected (saved with the profile).";
+      }).catch(function (err) {
+        uploadProgressWrap.style.display = "none";
+        uploadStatus.classList.add("error");
+        uploadStatus.textContent = "Couldn't read that file (" + err.message + ") — the file will still be " +
+          "attached as-is on save, but the text field below won't be pre-filled from it.";
+      });
+    });
 
     function refreshList() {
       fetch(BACKEND + "/sending-profiles").then(function (r) { return r.ok ? r.json() : []; }).then(function (profiles) {
         listEl.innerHTML = profiles.length ? profiles.map(function (p) {
           return '<div class="sending-profile-row" data-id="' + p.id + '">' +
             '<span class="sending-profile-name">' + escapeHtml(p.name) +
-            (p.is_default ? ' <span class="meta-inline">(default)</span>' : '') + '</span>' +
+            (p.is_default ? ' <span class="meta-inline">(default)</span>' : '') +
+            (p.resume_file_name ? ' <span class="meta-inline" title="Attached in PDF/both resume-delivery mode">📎 ' + escapeHtml(p.resume_file_name) + '</span>' : '') +
+            '</span>' +
             '<button type="button" class="sending-profile-edit-btn">Edit</button>' +
             '<button type="button" class="sending-profile-delete-btn">Delete</button>' +
             '</div>';
@@ -3423,11 +3614,17 @@
             var id = btn.closest(".sending-profile-row").dataset.id;
             var profile = profiles.find(function (p) { return String(p.id) === id; });
             if (!profile) return;
+            resetForm();
             editingId = profile.id;
+            existingResumeFileName = profile.resume_file_name || null;
             formHeading.textContent = 'Edit "' + profile.name + '"';
             nameInput.value = profile.name; resumeInput.value = profile.resume_text || "";
             portfolioInput.value = profile.portfolio_url || ""; toneInput.value = profile.tone || "";
             signatureInput.value = profile.signature || ""; defaultCheckbox.checked = !!profile.is_default;
+            if (existingResumeFileName) {
+              uploadStatus.textContent = "Current file on record: \"" + existingResumeFileName +
+                "\" — upload a new one to replace it.";
+            }
             saveBtn.textContent = "Update profile";
             cancelBtn.style.display = "inline-block";
           });
@@ -3444,25 +3641,48 @@
     }
 
     saveBtn.addEventListener("click", function () {
-      if (!nameInput.value.trim()) { status.textContent = "Name is required."; return; }
+      status.classList.remove("error");
+      if (!nameInput.value.trim()) { status.classList.add("error"); status.textContent = "Name is required."; return; }
+      var portfolio = portfolioInput.value.trim();
+      if (portfolio && !PORTFOLIO_URL_RE.test(portfolio)) {
+        status.classList.add("error");
+        status.textContent = 'Portfolio URL doesn\'t look valid (e.g. "https://portfolio.com" or "portfolio.com").';
+        return;
+      }
+      var resumeIsEmpty = !resumeInput.value.trim() && !pendingResumeFile && !existingResumeFileName;
+
       status.textContent = "Saving…";
       var payload = {
-        name: nameInput.value.trim(), resume_text: resumeInput.value, portfolio_url: portfolioInput.value,
+        name: nameInput.value.trim(), resume_text: resumeInput.value, portfolio_url: portfolio,
         tone: toneInput.value, signature: signatureInput.value, is_default: defaultCheckbox.checked
       };
       var req = editingId
         ? fetch(BACKEND + "/sending-profiles/" + editingId, {
             method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
-          })
+          }).then(function (r) { return r.ok ? { id: editingId } : Promise.reject(new Error("Backend returned " + r.status)); })
         : fetch(BACKEND + "/sending-profiles", {
             method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
+          }).then(function (r) {
+            if (!r.ok) throw new Error("Backend returned " + r.status);
+            return r.json();
           });
-      req.then(function (r) {
-        if (!r.ok) throw new Error("Backend returned " + r.status);
-        status.textContent = "Saved.";
+
+      req.then(function (result) {
+        if (!pendingResumeFile) return result;
+        var formData = new FormData();
+        formData.append("file", pendingResumeFile);
+        return fetch(BACKEND + "/sending-profiles/" + result.id + "/resume-file", { method: "POST", body: formData })
+          .then(function (r) { if (!r.ok) throw new Error("resume file upload failed (" + r.status + ")"); return result; });
+      }).then(function () {
+        status.textContent = resumeIsEmpty
+          ? "Saved — note: no resume on file for this profile yet, so outreach drafts using it will have no resume context."
+          : "Saved.";
         resetForm();
         refreshList();
-      }).catch(function (err) { status.textContent = "Couldn't save (" + err.message + ")."; });
+      }).catch(function (err) {
+        status.classList.add("error");
+        status.textContent = "Couldn't save (" + err.message + ").";
+      });
     });
 
     cancelBtn.addEventListener("click", resetForm);

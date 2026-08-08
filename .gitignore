@@ -10,3 +10,4 @@ backend/client_secret.json.migrated-to-vault.bak
 backend/token.json
 backend/vault.dat
 backend/backups/
+backend/resumes/

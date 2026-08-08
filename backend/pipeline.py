@@ -18,16 +18,22 @@ def get_pipeline_settings():
     resume_delivery = json.loads(delivery_raw) if delivery_raw else {
         "cold_intro": "html", "job_application": "pdf",
     }
-    return {"daily_quota": quota, "split_ratio": split, "resume_delivery": resume_delivery}
+    dry_run_mode = db.get_setting("dry_run_mode", "false") == "true"
+    return {
+        "daily_quota": quota, "split_ratio": split, "resume_delivery": resume_delivery,
+        "dry_run_mode": dry_run_mode,
+    }
 
 
-def save_pipeline_settings(daily_quota=None, split_ratio=None, resume_delivery=None):
+def save_pipeline_settings(daily_quota=None, split_ratio=None, resume_delivery=None, dry_run_mode=None):
     if daily_quota is not None:
         db.set_setting("pipeline_daily_quota", str(daily_quota))
     if split_ratio is not None:
         db.set_setting("pipeline_split_ratio", json.dumps(split_ratio, ensure_ascii=False))
     if resume_delivery is not None:
         db.set_setting("pipeline_resume_delivery", json.dumps(resume_delivery, ensure_ascii=False))
+    if dry_run_mode is not None:
+        db.set_setting("dry_run_mode", "true" if dry_run_mode else "false")
 
 
 def select_sending_profile(item_type, is_freelance_shaped=False):

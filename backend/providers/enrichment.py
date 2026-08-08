@@ -148,13 +148,30 @@ class _UnimplementedEnrichmentProvider(EnrichmentProvider):
         return []
 
 
+class MockEnrichmentProvider(EnrichmentProvider):
+    """Dry-run stand-in (Settings > Pipeline > "Dry run mode"). Returns one
+    placeholder named contact, zero network calls. backend/enrichment.py's
+    enrich_company() forces the chain down to just this provider whenever
+    dry_run_mode is on, regardless of the configured provider order — not a
+    selectable entry in the normal ordering UI (see DEFAULT_ORDER, which
+    deliberately omits it)."""
+    id = "mock"
+
+    def find_contacts(self, company_name, company_domain, role_hint=None):
+        return [{
+            "name": "Dry Run Contact", "role": "Hiring Manager",
+            "email": "dry-run@example.invalid", "source": self.id,
+        }]
+
+
 ROCKETREACH = _UnimplementedEnrichmentProvider("rocketreach", "RocketReach")
 APOLLO = _UnimplementedEnrichmentProvider("apollo", "Apollo")
 CONTACTOUT = _UnimplementedEnrichmentProvider("contactout", "ContactOut")
 SNOV = _UnimplementedEnrichmentProvider("snov", "Snov/FindyMail")
+MOCK = MockEnrichmentProvider()
 
 REGISTRY = {
-    p.id: p for p in [CompanyPageScraperProvider(), HunterProvider(), ROCKETREACH, APOLLO, CONTACTOUT, SNOV]
+    p.id: p for p in [CompanyPageScraperProvider(), HunterProvider(), ROCKETREACH, APOLLO, CONTACTOUT, SNOV, MOCK]
 }
 DEFAULT_ORDER = ["company_page_scraper", "hunter", "rocketreach", "apollo", "contactout", "snov"]
 

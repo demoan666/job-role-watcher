@@ -32,6 +32,10 @@
     "daily_send_cap": 20
   },
   "enrichment": {
-    "hunter_api_key": ""
+    "hunter_api_key": "",
+    "rocketreach_api_key": "",
+    "apollo_api_key": "",
+    "contactout_api_key": "",
+    "snov_api_key": ""
   }
 }

@@ -88,10 +88,15 @@ def enrich_company(company_name, company_url, industry=None, company_size=None):
     provider that returns at least one contact (keeps paid-API usage to a
     minimum — decision #7's "free first" framing). Returns a list of
     {"name", "role", "email", "source", "tier"} — every tier included,
-    nothing filtered out here (decision #5)."""
+    nothing filtered out here (decision #5).
+
+    When "Dry run mode" (Settings > Pipeline) is on, the configured chain is
+    bypassed entirely in favor of providers.enrichment.MockEnrichmentProvider
+    — no team-page scrape, no paid API call, regardless of what's ordered/
+    keyed elsewhere."""
     domain = domain_from_url(company_url)
     decision_maker_titles = get_decision_maker_titles()
-    order = get_provider_order(industry)
+    order = ["mock"] if db.get_setting("dry_run_mode", "false") == "true" else get_provider_order(industry)
 
     for provider_id in order:
         provider = enrichment_providers.get_provider(provider_id)

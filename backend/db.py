@@ -207,6 +207,12 @@ def init_db():
             # this pass — nothing else previously modeled a snooze concept.
             "ALTER TABLE postings ADD COLUMN snoozed_until TEXT",
             "ALTER TABLE leads ADD COLUMN snoozed_until TEXT",
+            # The actual uploaded resume file (PDF/docx/etc, not just its
+            # extracted text) for a sending profile — "PDF attachment"
+            # resume-delivery mode (decision #21) can send this real file
+            # instead of resume_pdf.render_resume_pdf()'s from-text fallback.
+            "ALTER TABLE sending_profiles ADD COLUMN resume_file_path TEXT",
+            "ALTER TABLE sending_profiles ADD COLUMN resume_file_name TEXT",
         ]:
             try:
                 conn.execute(stmt)
@@ -860,6 +866,18 @@ def update_sending_profile(profile_id, **fields):
         conn.execute(
             f"UPDATE sending_profiles SET {set_clause}, updated_at = ? WHERE id = ?",
             params + [now_iso(), profile_id],
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def set_sending_profile_resume_file(profile_id, file_path, file_name):
+    conn = get_connection()
+    try:
+        conn.execute(
+            "UPDATE sending_profiles SET resume_file_path = ?, resume_file_name = ?, updated_at = ? WHERE id = ?",
+            (file_path, file_name, now_iso(), profile_id),
         )
         conn.commit()
     finally:

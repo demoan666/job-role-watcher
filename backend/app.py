@@ -15,7 +15,6 @@ import re
 
 import db
 import enrichment
-import gmail
 import llm
 import notify_telegram
 import pipeline
@@ -26,14 +25,17 @@ import retention
 import scheduler
 import scoring
 import vault
+from providers import email as email_providers
 from providers import enrichment as enrichment_providers
 from providers import group_discovery as group_discovery_providers
 from config import (
     delete_custom_provider,
+    get_enrichment_credentials,
     get_llm_settings,
     load_config,
     mask_key,
     save_custom_provider,
+    save_enrichment_credentials,
     save_llm_settings,
 )
 
@@ -489,7 +491,7 @@ def _draft_for_contact(contact, context_note):
     )
     if sending_profile and sending_profile.get("signature"):
         draft["body"] = draft["body"].rstrip() + "\n\n" + sending_profile["signature"]
-    return draft, resume_text, is_job_application
+    return draft, resume_text, is_job_application, sending_profile
 
 
 @app.post("/contacts/{contact_id}/draft-preview")
@@ -505,7 +507,7 @@ def draft_outreach_preview(contact_id: int, body: OutreachRequest):
     if not contact:
         raise HTTPException(status_code=404, detail="contact not found")
     try:
-        draft, _, _ = _draft_for_contact(contact, body.context_note)
+        draft, _, _, _ = _draft_for_contact(contact, body.context_note)
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"drafting failed: {e}")
     return draft
@@ -544,40 +546,59 @@ def send_outreach(contact_id: int, body: OutreachRequest):
 
     if body.subject and body.body:
         draft = {"subject": body.subject, "body": body.body}
-        resume_text, _, is_job_application, _ = _resolve_send_context(contact, body.context_note)
+        resume_text, _, is_job_application, sending_profile = _resolve_send_context(contact, body.context_note)
     else:
         try:
-            draft, resume_text, is_job_application = _draft_for_contact(contact, body.context_note)
+            draft, resume_text, is_job_application, sending_profile = _draft_for_contact(contact, body.context_note)
         except Exception as e:
             return {"status": "failed", "reason": f"drafting failed: {e}"}
 
-    if db.get_setting("dry_run_mode", "false") == "true":
-        # Plan Phase 7, flagged as "recommended, not yet confirmed" (Open
-        # Risk #6): simulates the full pipeline without an actual send —
-        # deliberately does NOT call insert_sent_email/update_contact_status,
+    dry_run = pipeline_settings["dry_run_mode"]
+    email_provider = email_providers.get_provider("mock" if dry_run else "gmail")
+
+    if dry_run:
+        # Plan Phase 7 (Open Risk #6), now backed by providers.email's
+        # MockEmailProvider — logs the would-send content, no network call,
+        # and deliberately does NOT call insert_sent_email/update_contact_status,
         # so a dry run never consumes the one-send-per-contact guarantee.
+        email_provider.send(None, contact["email"], draft["subject"], draft["body"])
         return {"status": "dry_run", "subject": draft["subject"], "body": draft["body"]}
 
     delivery_key = "job_application" if is_job_application else "cold_intro"
     delivery_mode = pipeline_settings["resume_delivery"].get(delivery_key, "html")
     attachment_path = None
+    attachment_name = None
+    generated_attachment = False
     try:
-        if delivery_mode in ("pdf", "both") and resume_text:
-            attachment_path = resume_pdf.render_resume_pdf(resume_text)
+        if delivery_mode in ("pdf", "both"):
+            uploaded_path = (sending_profile or {}).get("resume_file_path")
+            if uploaded_path and os.path.exists(uploaded_path):
+                # The real file uploaded via Settings > Sending Profiles —
+                # preferred over the fpdf2-rendered-from-text fallback below
+                # since it's the candidate's actual resume, not a plain-text
+                # reflow of it.
+                attachment_path = uploaded_path
+                attachment_name = sending_profile.get("resume_file_name")
+            elif resume_text:
+                attachment_path = resume_pdf.render_resume_pdf(resume_text)
+                generated_attachment = True
 
         client_secret_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             gmail_cfg.get("client_secret_path", "client_secret.json"),
         )
         try:
-            gmail.send_email(
+            email_provider.send(
                 client_secret_path, contact["email"], draft["subject"], draft["body"],
-                attachment_path=attachment_path,
+                attachment_path=attachment_path, attachment_name=attachment_name,
             )
         except Exception as e:
             return {"status": "failed", "reason": f"send failed: {e}"}
     finally:
-        if attachment_path and os.path.exists(attachment_path):
+        # Only the fpdf2 temp file gets cleaned up here — a real uploaded
+        # resume (attachment_path pointing into RESUMES_DIR) is a persisted
+        # asset the sending profile owns, not a per-send temp file.
+        if generated_attachment and attachment_path and os.path.exists(attachment_path):
             os.remove(attachment_path)
 
     db.insert_sent_email(contact_id, body.lead_id, draft["subject"], draft["body"])
@@ -613,8 +634,36 @@ def update_sending_profile(profile_id: int, body: SendingProfileSave):
     return {"status": "saved"}
 
 
+RESUMES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resumes")
+
+
+@app.post("/sending-profiles/{profile_id}/resume-file")
+async def upload_sending_profile_resume(profile_id: int, file: UploadFile):
+    """Stores the actual uploaded resume file (PDF/docx/etc — not just its
+    extracted text) for this sending profile, in backend/resumes/ (gitignored,
+    like the other per-install generated/secret directories). send_outreach
+    attaches this real file for "PDF attachment" resume-delivery mode
+    (decision #21) instead of resume_pdf.render_resume_pdf()'s
+    from-text-only fallback, when one's been uploaded. Overwrites any
+    previous file for this profile — one resume file per profile, not a
+    history."""
+    if not db.get_sending_profile(profile_id):
+        raise HTTPException(status_code=404, detail="sending profile not found")
+    ext = os.path.splitext(file.filename or "")[1]
+    os.makedirs(RESUMES_DIR, exist_ok=True)
+    dest_path = os.path.join(RESUMES_DIR, f"profile_{profile_id}{ext}")
+    content = await file.read()
+    with open(dest_path, "wb") as f:
+        f.write(content)
+    db.set_sending_profile_resume_file(profile_id, dest_path, file.filename)
+    return {"status": "saved", "resume_file_name": file.filename}
+
+
 @app.delete("/sending-profiles/{profile_id}")
 def delete_sending_profile(profile_id: int):
+    profile = db.get_sending_profile(profile_id)
+    if profile and profile.get("resume_file_path") and os.path.exists(profile["resume_file_path"]):
+        os.remove(profile["resume_file_path"])
     db.delete_sending_profile(profile_id)
     return {"status": "deleted"}
 
@@ -623,6 +672,7 @@ class PipelineSettingsSave(BaseModel):
     daily_quota: int | None = None
     split_ratio: dict[str, float] | None = None
     resume_delivery: dict[str, str] | None = None
+    dry_run_mode: bool | None = None
 
 
 @app.get("/settings/pipeline")
@@ -633,7 +683,8 @@ def get_pipeline_settings():
 @app.post("/settings/pipeline")
 def save_pipeline_settings(body: PipelineSettingsSave):
     pipeline.save_pipeline_settings(
-        daily_quota=body.daily_quota, split_ratio=body.split_ratio, resume_delivery=body.resume_delivery
+        daily_quota=body.daily_quota, split_ratio=body.split_ratio, resume_delivery=body.resume_delivery,
+        dry_run_mode=body.dry_run_mode,
     )
     return {"status": "saved"}
 
@@ -643,8 +694,11 @@ def get_queue():
     """Unified review queue (Phase 3, plan §2: postings and leads "share one
     contact-resolution step, one send engine, and one ledger") — scored
     postings that already have a resolved contact, merged with real leads,
-    capped by the daily quota and postings/leads split ratio."""
-    return {"items": pipeline.get_queue()}
+    capped by the daily quota and postings/leads split ratio. dry_run_mode is
+    surfaced alongside the items so the frontend can badge the whole queue —
+    nothing about which items are IN the queue changes in dry-run, only what
+    happens if you approve one (see send_outreach/enrich_posting)."""
+    return {"items": pipeline.get_queue(), "dry_run_mode": pipeline.get_pipeline_settings()["dry_run_mode"]}
 
 
 @app.get("/sent-emails")
@@ -793,8 +847,27 @@ def get_enrichment_settings():
         "decision_maker_titles": enrichment.get_decision_maker_titles(),
         "size_thresholds": enrichment.get_size_thresholds(),
         "provider_order": enrichment.get_provider_order(),
-        "available_providers": list(enrichment_providers.REGISTRY.keys()),
+        # MockEnrichmentProvider ("mock") is deliberately excluded — it's
+        # forced by dry_run_mode (enrichment.enrich_company), never a normal
+        # chain member a user orders/selects here.
+        "available_providers": [p for p in enrichment_providers.REGISTRY if p != enrichment_providers.MOCK.id],
+        "provider_credentials": get_enrichment_credentials(),
+        # Which registered providers have a real find_contacts() behind them
+        # today vs. _UnimplementedEnrichmentProvider's always-[] stub —
+        # entering a key for a stub provider is harmless (it's just stored)
+        # but won't change enrichment results until a real subclass exists.
+        "implemented_providers": ["company_page_scraper", "hunter"],
     }
+
+
+class EnrichmentCredentialsSave(BaseModel):
+    keys: dict[str, str] = {}
+
+
+@app.post("/settings/enrichment/credentials")
+def save_enrichment_credentials_endpoint(body: EnrichmentCredentialsSave):
+    save_enrichment_credentials(body.keys)
+    return {"status": "saved"}
 
 
 @app.post("/settings/enrichment/decision-maker-titles")
