@@ -12,6 +12,8 @@ Setup (one-time, by the user, not this code):
 import base64
 import json
 import os
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from google.auth.transport.requests import Request
@@ -69,10 +71,26 @@ def _get_credentials(client_secret_path):
     return creds
 
 
-def send_email(client_secret_path, to, subject, body):
+def send_email(client_secret_path, to, subject, body, attachment_path=None, attachment_name=None):
+    """attachment_path (decision #21's PDF resume-delivery mode): when given,
+    sends a multipart message with the file attached instead of a plain
+    MIMEText — otherwise behaves exactly as before (HTML-in-body-only mode
+    stays the default, no attachment)."""
     creds = _get_credentials(client_secret_path)
     service = build("gmail", "v1", credentials=creds)
-    message = MIMEText(body)
+
+    if attachment_path:
+        message = MIMEMultipart()
+        message.attach(MIMEText(body))
+        with open(attachment_path, "rb") as f:
+            part = MIMEApplication(f.read(), _subtype="pdf")
+        part.add_header(
+            "Content-Disposition", "attachment",
+            filename=attachment_name or os.path.basename(attachment_path),
+        )
+        message.attach(part)
+    else:
+        message = MIMEText(body)
     message["to"] = to
     message["subject"] = subject
     raw = base64.urlsafe_b64encode(message.as_bytes()).decode("utf-8")

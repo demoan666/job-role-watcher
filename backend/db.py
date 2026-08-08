@@ -124,6 +124,18 @@ CREATE TABLE IF NOT EXISTS llm_usage (
   created_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS sending_profiles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  resume_text TEXT,
+  portfolio_url TEXT,
+  tone TEXT,
+  signature TEXT,
+  is_default INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS postings (
   id TEXT PRIMARY KEY,
   company TEXT NOT NULL,
@@ -711,6 +723,83 @@ def get_postings():
         active = [_posting_row_to_dict(r) for r in rows if r["status"] == "active"]
         closed = [_posting_row_to_dict(r) for r in rows if r["status"] == "closed"]
         return {"active": active, "archive": closed}
+    finally:
+        conn.close()
+
+
+def list_sending_profiles():
+    conn = get_connection()
+    try:
+        rows = conn.execute("SELECT * FROM sending_profiles ORDER BY is_default DESC, name").fetchall()
+        return [dict(r, is_default=bool(r["is_default"])) for r in rows]
+    finally:
+        conn.close()
+
+
+def get_sending_profile(profile_id):
+    conn = get_connection()
+    try:
+        row = conn.execute("SELECT * FROM sending_profiles WHERE id = ?", (profile_id,)).fetchone()
+        return dict(row, is_default=bool(row["is_default"])) if row else None
+    finally:
+        conn.close()
+
+
+def create_sending_profile(name, resume_text, portfolio_url, tone, signature, is_default=False):
+    conn = get_connection()
+    try:
+        ts = now_iso()
+        if is_default:
+            conn.execute("UPDATE sending_profiles SET is_default = 0")
+        conn.execute(
+            "INSERT INTO sending_profiles (name, resume_text, portfolio_url, tone, signature, "
+            "is_default, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (name, resume_text, portfolio_url, tone, signature, int(is_default), ts, ts),
+        )
+        conn.commit()
+        return conn.execute("SELECT last_insert_rowid() AS id").fetchone()["id"]
+    finally:
+        conn.close()
+
+
+def update_sending_profile(profile_id, **fields):
+    allowed = {"name", "resume_text", "portfolio_url", "tone", "signature", "is_default"}
+    updates = {k: v for k, v in fields.items() if k in allowed and v is not None}
+    if not updates:
+        return
+    conn = get_connection()
+    try:
+        if updates.get("is_default"):
+            conn.execute("UPDATE sending_profiles SET is_default = 0")
+        set_clause = ", ".join(f"{k} = ?" for k in updates)
+        params = [int(v) if k == "is_default" else v for k, v in updates.items()]
+        conn.execute(
+            f"UPDATE sending_profiles SET {set_clause}, updated_at = ? WHERE id = ?",
+            params + [now_iso(), profile_id],
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def delete_sending_profile(profile_id):
+    conn = get_connection()
+    try:
+        conn.execute("DELETE FROM sending_profiles WHERE id = ?", (profile_id,))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_contacts_for_posting(posting_id):
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            "SELECT * FROM contacts WHERE posting_id = ? ORDER BY "
+            "CASE tier WHEN 'named_decision_maker' THEN 0 WHEN 'named_junior' THEN 1 ELSE 2 END",
+            (posting_id,),
+        ).fetchall()
+        return [dict(r) for r in rows]
     finally:
         conn.close()
 

@@ -17,7 +17,9 @@ import db
 import enrichment
 import gmail
 import llm
+import pipeline
 import resume_parse
+import resume_pdf
 import scoring
 import vault
 from providers import enrichment as enrichment_providers
@@ -393,7 +395,15 @@ def set_contact_status(contact_id: int, body: ContactStatus):
 def send_outreach(contact_id: int, body: OutreachRequest):
     """Fully automated draft + send — no review step, per the user's explicit
     choice. Safety nets stay in place regardless: one automated email per
-    contact ever (has_sent_to_contact), and a daily send cap."""
+    contact ever (has_sent_to_contact), and a daily send cap — now the lower
+    of the legacy per-integration gmail cap and the pipeline-wide daily quota
+    (decision #15), since both a job-application and a cold-outreach send
+    now go through this same path (plan §2: "both terminate in the same
+    action"). Generalized for Phase 3: picks a sending-profile alias
+    (decision #23) when any have been configured, and honors the configured
+    resume-delivery mode (HTML body / PDF attachment / both — decision
+    #21), falling back to the pre-Phase-3 behavior (single legacy profile,
+    HTML-only) when no sending profiles exist yet."""
     contact = db.get_contact(contact_id)
     if not contact:
         raise HTTPException(status_code=404, detail="contact not found")
@@ -402,32 +412,124 @@ def send_outreach(contact_id: int, body: OutreachRequest):
 
     cfg = load_config()
     gmail_cfg = cfg.get("gmail") or {}
-    cap = gmail_cfg.get("daily_send_cap", 20)
+    gmail_cap = gmail_cfg.get("daily_send_cap", 20)
+    pipeline_settings = pipeline.get_pipeline_settings()
+    cap = min(gmail_cap, pipeline_settings["daily_quota"])
     if db.count_sent_today() >= cap:
         return {"status": "skipped", "reason": f"daily send cap ({cap}) reached"}
 
-    profile = db.get_profile()
-    extracted = (profile or {}).get("extracted") or {}
-    context = {"resume_summary": extracted.get("summary", ""), "context_note": body.context_note}
+    is_job_application = bool(contact.get("posting_id"))
+    item_type = "posting" if is_job_application else "lead"
+    sending_profile = pipeline.select_sending_profile(item_type)
+
+    if sending_profile:
+        resume_text = sending_profile.get("resume_text") or ""
+        context = {
+            "resume_summary": resume_text[:2000], "context_note": body.context_note,
+            "tone": sending_profile.get("tone"), "portfolio_url": sending_profile.get("portfolio_url"),
+        }
+    else:
+        profile = db.get_profile()
+        extracted = (profile or {}).get("extracted") or {}
+        resume_text = (profile or {}).get("resume_text") or ""
+        context = {"resume_summary": extracted.get("summary", ""), "context_note": body.context_note}
+
     try:
         draft = llm.draft_cold_email(
             {"company": contact["company"], "name": contact["name"], "role": contact["role"]}, context
         )
     except Exception as e:
         return {"status": "failed", "reason": f"drafting failed: {e}"}
+    if sending_profile and sending_profile.get("signature"):
+        draft["body"] = draft["body"].rstrip() + "\n\n" + sending_profile["signature"]
 
-    client_secret_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)),
-        gmail_cfg.get("client_secret_path", "client_secret.json"),
-    )
+    delivery_key = "job_application" if is_job_application else "cold_intro"
+    delivery_mode = pipeline_settings["resume_delivery"].get(delivery_key, "html")
+    attachment_path = None
     try:
-        gmail.send_email(client_secret_path, contact["email"], draft["subject"], draft["body"])
-    except Exception as e:
-        return {"status": "failed", "reason": f"send failed: {e}"}
+        if delivery_mode in ("pdf", "both") and resume_text:
+            attachment_path = resume_pdf.render_resume_pdf(resume_text)
+
+        client_secret_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            gmail_cfg.get("client_secret_path", "client_secret.json"),
+        )
+        try:
+            gmail.send_email(
+                client_secret_path, contact["email"], draft["subject"], draft["body"],
+                attachment_path=attachment_path,
+            )
+        except Exception as e:
+            return {"status": "failed", "reason": f"send failed: {e}"}
+    finally:
+        if attachment_path and os.path.exists(attachment_path):
+            os.remove(attachment_path)
 
     db.insert_sent_email(contact_id, body.lead_id, draft["subject"], draft["body"])
     db.update_contact_status(contact_id, "sent")
     return {"status": "sent", "subject": draft["subject"], "body": draft["body"]}
+
+
+class SendingProfileSave(BaseModel):
+    name: str
+    resume_text: str = ""
+    portfolio_url: str = ""
+    tone: str = ""
+    signature: str = ""
+    is_default: bool = False
+
+
+@app.get("/sending-profiles")
+def list_sending_profiles():
+    return db.list_sending_profiles()
+
+
+@app.post("/sending-profiles")
+def create_sending_profile(body: SendingProfileSave):
+    profile_id = db.create_sending_profile(
+        body.name, body.resume_text, body.portfolio_url, body.tone, body.signature, body.is_default
+    )
+    return {"id": profile_id}
+
+
+@app.patch("/sending-profiles/{profile_id}")
+def update_sending_profile(profile_id: int, body: SendingProfileSave):
+    db.update_sending_profile(profile_id, **body.model_dump())
+    return {"status": "saved"}
+
+
+@app.delete("/sending-profiles/{profile_id}")
+def delete_sending_profile(profile_id: int):
+    db.delete_sending_profile(profile_id)
+    return {"status": "deleted"}
+
+
+class PipelineSettingsSave(BaseModel):
+    daily_quota: int | None = None
+    split_ratio: dict[str, float] | None = None
+    resume_delivery: dict[str, str] | None = None
+
+
+@app.get("/settings/pipeline")
+def get_pipeline_settings():
+    return pipeline.get_pipeline_settings()
+
+
+@app.post("/settings/pipeline")
+def save_pipeline_settings(body: PipelineSettingsSave):
+    pipeline.save_pipeline_settings(
+        daily_quota=body.daily_quota, split_ratio=body.split_ratio, resume_delivery=body.resume_delivery
+    )
+    return {"status": "saved"}
+
+
+@app.get("/queue")
+def get_queue():
+    """Unified review queue (Phase 3, plan §2: postings and leads "share one
+    contact-resolution step, one send engine, and one ledger") — scored
+    postings that already have a resolved contact, merged with real leads,
+    capped by the daily quota and postings/leads split ratio."""
+    return {"items": pipeline.get_queue()}
 
 
 @app.get("/sent-emails")
