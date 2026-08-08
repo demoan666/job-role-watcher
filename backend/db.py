@@ -200,6 +200,13 @@ def init_db():
             "ALTER TABLE contacts ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0",
             "ALTER TABLE leads ADD COLUMN archived INTEGER NOT NULL DEFAULT 0",
             "ALTER TABLE leads ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0",
+            # snoozed_until (Review Queue's "snooze" action): an ISO timestamp
+            # a posting/lead is hidden from pipeline.get_queue() until, per
+            # decision #17 ("snooze doesn't burn a quota slot"). Explicit,
+            # minimal exception to the "wire existing routes only" scope for
+            # this pass — nothing else previously modeled a snooze concept.
+            "ALTER TABLE postings ADD COLUMN snoozed_until TEXT",
+            "ALTER TABLE leads ADD COLUMN snoozed_until TEXT",
         ]:
             try:
                 conn.execute(stmt)
@@ -947,13 +954,15 @@ def delete_contact(contact_id):
         conn.close()
 
 
-def update_lead(lead_id, archived=None, pinned=None):
+def update_lead(lead_id, archived=None, pinned=None, snoozed_until=None):
     conn = get_connection()
     try:
         if archived is not None:
             conn.execute("UPDATE leads SET archived = ? WHERE id = ?", (int(archived), lead_id))
         if pinned is not None:
             conn.execute("UPDATE leads SET pinned = ? WHERE id = ?", (int(pinned), lead_id))
+        if snoozed_until is not None:
+            conn.execute("UPDATE leads SET snoozed_until = ? WHERE id = ?", (snoozed_until, lead_id))
         conn.commit()
     finally:
         conn.close()
@@ -994,7 +1003,7 @@ def get_posting(posting_id):
         conn.close()
 
 
-def update_posting(posting_id, archived=None, pinned=None):
+def update_posting(posting_id, archived=None, pinned=None, snoozed_until=None):
     conn = get_connection()
     try:
         row = conn.execute("SELECT id FROM postings WHERE id = ?", (posting_id,)).fetchone()
@@ -1004,6 +1013,8 @@ def update_posting(posting_id, archived=None, pinned=None):
             conn.execute("UPDATE postings SET archived = ? WHERE id = ?", (int(archived), posting_id))
         if pinned is not None:
             conn.execute("UPDATE postings SET pinned = ? WHERE id = ?", (int(pinned), posting_id))
+        if snoozed_until is not None:
+            conn.execute("UPDATE postings SET snoozed_until = ? WHERE id = ?", (snoozed_until, posting_id))
         conn.commit()
         updated = conn.execute("SELECT * FROM postings WHERE id = ?", (posting_id,)).fetchone()
         return _posting_row_to_dict(updated)

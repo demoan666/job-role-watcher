@@ -17,6 +17,7 @@ import db
 import enrichment
 import gmail
 import llm
+import notify_telegram
 import pipeline
 import reply_check
 import resume_parse
@@ -363,11 +364,14 @@ def mark_leads_seen():
 class LeadRetention(BaseModel):
     archived: bool | None = None
     pinned: bool | None = None
+    # Review Queue's "snooze" action (decision #17) — ISO timestamp to hide
+    # this lead from GET /queue until; "" clears an existing snooze.
+    snoozed_until: str | None = None
 
 
 @app.patch("/leads/{lead_id}/retention")
 def set_lead_retention(lead_id: int, body: LeadRetention):
-    db.update_lead(lead_id, archived=body.archived, pinned=body.pinned)
+    db.update_lead(lead_id, archived=body.archived, pinned=body.pinned, snoozed_until=body.snoozed_until)
     return {"status": "ok"}
 
 
@@ -400,6 +404,12 @@ class ContactStatus(BaseModel):
 class OutreachRequest(BaseModel):
     lead_id: int | None = None
     context_note: str = ""
+    # Pre-drafted subject/body (Review Queue's "edit before send" action —
+    # see draft_outreach_preview below): when both are given, send_outreach
+    # skips its own LLM draft call entirely and sends exactly this text,
+    # so an edit made after previewing is never silently overwritten.
+    subject: str | None = None
+    body: str | None = None
 
 
 @app.post("/contacts")
@@ -448,6 +458,59 @@ def bulk_delete_contacts(body: BulkIds):
     return {"status": "deleted", "count": len(body.ids)}
 
 
+def _resolve_send_context(contact, context_note):
+    """Shared by send_outreach and draft_outreach_preview so a preview and
+    the actual send always compute resume_text/delivery-mode the same way.
+    Returns (resume_text, context, is_job_application, sending_profile)."""
+    is_job_application = bool(contact.get("posting_id"))
+    item_type = "posting" if is_job_application else "lead"
+    sending_profile = pipeline.select_sending_profile(item_type)
+
+    if sending_profile:
+        resume_text = sending_profile.get("resume_text") or ""
+        context = {
+            "resume_summary": resume_text[:2000], "context_note": context_note,
+            "tone": sending_profile.get("tone"), "portfolio_url": sending_profile.get("portfolio_url"),
+        }
+    else:
+        profile = db.get_profile()
+        extracted = (profile or {}).get("extracted") or {}
+        resume_text = (profile or {}).get("resume_text") or ""
+        context = {"resume_summary": extracted.get("summary", ""), "context_note": context_note}
+    return resume_text, context, is_job_application, sending_profile
+
+
+def _draft_for_contact(contact, context_note):
+    """Runs the LLM draft + signature append — the part of send_outreach
+    that draft_outreach_preview also needs, without sending anything."""
+    resume_text, context, is_job_application, sending_profile = _resolve_send_context(contact, context_note)
+    draft = llm.draft_cold_email(
+        {"company": contact["company"], "name": contact["name"], "role": contact["role"]}, context
+    )
+    if sending_profile and sending_profile.get("signature"):
+        draft["body"] = draft["body"].rstrip() + "\n\n" + sending_profile["signature"]
+    return draft, resume_text, is_job_application
+
+
+@app.post("/contacts/{contact_id}/draft-preview")
+def draft_outreach_preview(contact_id: int, body: OutreachRequest):
+    """Review Queue's "edit message before send" action (plan decision #17)
+    — added as an explicit, minimal exception to this pass's "wire existing
+    routes only" scope, since no route previously separated drafting from
+    sending. Runs the same LLM draft (and costs the same tokens) send_outreach
+    would, but never sends or touches sent_emails/contact status — the
+    frontend shows the result in an editable textarea, then POSTs the
+    (possibly edited) subject/body back to /contacts/{id}/outreach."""
+    contact = db.get_contact(contact_id)
+    if not contact:
+        raise HTTPException(status_code=404, detail="contact not found")
+    try:
+        draft, _, _ = _draft_for_contact(contact, body.context_note)
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"drafting failed: {e}")
+    return draft
+
+
 @app.post("/contacts/{contact_id}/outreach")
 def send_outreach(contact_id: int, body: OutreachRequest):
     """Fully automated draft + send — no review step, per the user's explicit
@@ -460,7 +523,11 @@ def send_outreach(contact_id: int, body: OutreachRequest):
     (decision #23) when any have been configured, and honors the configured
     resume-delivery mode (HTML body / PDF attachment / both — decision
     #21), falling back to the pre-Phase-3 behavior (single legacy profile,
-    HTML-only) when no sending profiles exist yet."""
+    HTML-only) when no sending profiles exist yet.
+
+    body.subject/body.body (Review Queue's "edit before send"): when both
+    are given, this skips its own draft call entirely and sends exactly
+    that text — see draft_outreach_preview above."""
     contact = db.get_contact(contact_id)
     if not contact:
         raise HTTPException(status_code=404, detail="contact not found")
@@ -475,30 +542,14 @@ def send_outreach(contact_id: int, body: OutreachRequest):
     if db.count_sent_today() >= cap:
         return {"status": "skipped", "reason": f"daily send cap ({cap}) reached"}
 
-    is_job_application = bool(contact.get("posting_id"))
-    item_type = "posting" if is_job_application else "lead"
-    sending_profile = pipeline.select_sending_profile(item_type)
-
-    if sending_profile:
-        resume_text = sending_profile.get("resume_text") or ""
-        context = {
-            "resume_summary": resume_text[:2000], "context_note": body.context_note,
-            "tone": sending_profile.get("tone"), "portfolio_url": sending_profile.get("portfolio_url"),
-        }
+    if body.subject and body.body:
+        draft = {"subject": body.subject, "body": body.body}
+        resume_text, _, is_job_application, _ = _resolve_send_context(contact, body.context_note)
     else:
-        profile = db.get_profile()
-        extracted = (profile or {}).get("extracted") or {}
-        resume_text = (profile or {}).get("resume_text") or ""
-        context = {"resume_summary": extracted.get("summary", ""), "context_note": body.context_note}
-
-    try:
-        draft = llm.draft_cold_email(
-            {"company": contact["company"], "name": contact["name"], "role": contact["role"]}, context
-        )
-    except Exception as e:
-        return {"status": "failed", "reason": f"drafting failed: {e}"}
-    if sending_profile and sending_profile.get("signature"):
-        draft["body"] = draft["body"].rstrip() + "\n\n" + sending_profile["signature"]
+        try:
+            draft, resume_text, is_job_application = _draft_for_contact(contact, body.context_note)
+        except Exception as e:
+            return {"status": "failed", "reason": f"drafting failed: {e}"}
 
     if db.get_setting("dry_run_mode", "false") == "true":
         # Plan Phase 7, flagged as "recommended, not yet confirmed" (Open
@@ -604,6 +655,9 @@ def list_sent_emails():
 class PostingUpdate(BaseModel):
     archived: bool | None = None
     pinned: bool | None = None
+    # Review Queue's "snooze" action (decision #17) — ISO timestamp to hide
+    # this posting from GET /queue until; "" clears an existing snooze.
+    snoozed_until: str | None = None
 
 
 @app.get("/postings")
@@ -627,7 +681,7 @@ def sync_postings():
 
 @app.patch("/postings/{posting_id}")
 def update_posting(posting_id: str, body: PostingUpdate):
-    updated = db.update_posting(posting_id, archived=body.archived, pinned=body.pinned)
+    updated = db.update_posting(posting_id, archived=body.archived, pinned=body.pinned, snoozed_until=body.snoozed_until)
     if updated is None:
         raise HTTPException(status_code=404, detail="posting not found")
     return updated
@@ -796,6 +850,25 @@ def save_scheduler_settings(body: SchedulerSettings):
 @app.post("/scheduler/run-now")
 def run_scheduler_now():
     return scheduler.run_daily_batch()
+
+
+class NotificationSettings(BaseModel):
+    telegram_chat: str
+
+
+@app.get("/settings/notifications")
+def get_notification_settings():
+    """Decision #27's notification target — previously config.json-only
+    (telegram.notify_chat), given a real settings field per this pass's
+    explicit ask. See notify_telegram.get_notify_target for the
+    DB-setting-first/config.json-fallback precedence."""
+    return {"telegram_chat": notify_telegram.get_notify_target()}
+
+
+@app.post("/settings/notifications")
+def save_notification_settings(body: NotificationSettings):
+    notify_telegram.save_notify_target(body.telegram_chat.strip())
+    return {"status": "saved"}
 
 
 @app.post("/reply-check/run")

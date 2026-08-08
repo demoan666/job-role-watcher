@@ -265,6 +265,33 @@
   }
   .contact-card button:disabled { opacity: 0.5; cursor: default; }
   .contact-card .outreach-result { font-size: 0.85rem; margin-top: 0.4rem; white-space: pre-wrap; }
+  .queue-card { border: 1px solid var(--border); border-radius: 6px; padding: 0.7rem 0.9rem; margin-bottom: 0.6rem; }
+  .queue-card-top { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; flex-wrap: wrap; }
+  .queue-score {
+    display: inline-block; min-width: 2.6rem; text-align: center; padding: 0.1rem 0.4rem; border-radius: 3px;
+    background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); font-weight: 600;
+  }
+  .queue-company { font-weight: 600; }
+  .queue-source { color: var(--muted); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.03em; }
+  .queue-card-title { font-size: 0.9rem; margin: 0.35rem 0; }
+  .queue-card-contact { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .queue-tier {
+    display: inline-block; font-size: 0.72rem; padding: 0.05rem 0.35rem; border-radius: 3px;
+    border: 1px solid var(--border); margin-left: 0.3rem; text-transform: capitalize;
+  }
+  .queue-card-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .queue-card-actions button {
+    padding: 0.35rem 0.8rem; border-radius: 4px; border: 1px solid var(--accent);
+    background: none; color: var(--accent); cursor: pointer; font-size: 0.85rem;
+  }
+  .queue-card-actions button:disabled { opacity: 0.5; cursor: default; }
+  .queue-card-draft { margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .queue-card-draft input, .queue-card-draft textarea {
+    padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: 4px;
+    background: transparent; color: inherit; font-family: inherit;
+  }
+  .queue-card-draft textarea { min-height: 140px; resize: vertical; }
+  .queue-card-status { margin-top: 0.4rem; }
   .glance-grid { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
   .glance-notif {
     display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.7rem;
@@ -438,14 +465,40 @@
     background: var(--bg-alt); color: inherit; font-family: inherit; accent-color: var(--accent);
   }
   .vault-status-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-size: 0.9rem; }
-  #settings-tab-security label {
+  #settings-tab-security label,
+  #settings-tab-pipeline label,
+  #settings-tab-enrichment-settings label,
+  #settings-tab-automation label,
+  #settings-tab-retention-settings label,
+  #settings-tab-sending-profiles-settings label {
     display: block; font-size: 0.85rem; margin: 0.5rem 0 0.9rem;
   }
-  #settings-tab-security input[type="password"] {
+  #settings-tab-security input[type="password"],
+  #settings-tab-pipeline input[type="text"], #settings-tab-pipeline input[type="number"],
+  #settings-tab-enrichment-settings input[type="text"], #settings-tab-enrichment-settings input[type="number"],
+  #settings-tab-automation input[type="text"], #settings-tab-automation input[type="number"],
+  #settings-tab-retention-settings input[type="number"],
+  #settings-tab-sending-profiles-settings input[type="text"], #settings-tab-sending-profiles-settings textarea {
     display: block; width: 100%; max-width: 320px; margin-top: 0.3rem; padding: 0.35rem 0.5rem;
     border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit; font-family: inherit;
     box-sizing: border-box;
   }
+  #settings-tab-pipeline select, #settings-tab-automation select {
+    display: block; width: 100%; max-width: 320px; margin-top: 0.3rem; padding: 0.35rem 0.5rem;
+    border: 1px solid var(--border); border-radius: 4px; background: var(--bg-alt); color: inherit; font-family: inherit;
+  }
+  #settings-tab-pipeline input[type="range"] { width: 100%; max-width: 320px; margin-top: 0.3rem; accent-color: var(--accent); }
+  #settings-tab-sending-profiles-settings textarea { min-height: 80px; resize: vertical; }
+  .settings-note { font-size: 0.78rem; color: var(--muted); font-style: italic; max-width: 460px; margin: 0.3rem 0 0.8rem; }
+  .enrichment-order-row, .sending-profile-row {
+    display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+  }
+  .enrichment-order-row:last-child, .sending-profile-row:last-child { border-bottom: none; }
+  .enrichment-order-row button, .sending-profile-row button {
+    padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid var(--border);
+    background: none; color: inherit; cursor: pointer; font-size: 0.8rem;
+  }
+  .sending-profile-row .sending-profile-name { flex: 1; font-size: 0.85rem; }
   .vault-checkbox-label { display: flex !important; align-items: center; gap: 0.4rem; }
   .vault-checkbox-label input { margin: 0; }
   .vault-warning { font-size: 0.78rem; color: var(--muted); font-style: italic; max-width: 420px; }
@@ -548,6 +601,7 @@
     <button data-tab="setup" class="active">Setup</button>
     <button data-tab="leads">Leads<span id="leads-badge"></span></button>
     <button data-tab="outreach">Outreach</button>
+    <button data-tab="queue">Review Queue<span id="queue-badge"></span></button>
     <button data-tab="search">Search Results</button>
   </div>
   </div>
@@ -566,6 +620,11 @@
         <button type="button" data-settings-subtab="usage">LLM Usage</button>
         <button type="button" data-settings-subtab="backend">Backend</button>
         <button type="button" data-settings-subtab="security">Security</button>
+        <button type="button" data-settings-subtab="pipeline">Pipeline</button>
+        <button type="button" data-settings-subtab="enrichment-settings">Enrichment</button>
+        <button type="button" data-settings-subtab="automation">Automation</button>
+        <button type="button" data-settings-subtab="retention-settings">Retention</button>
+        <button type="button" data-settings-subtab="sending-profiles-settings">Sending Profiles</button>
       </div>
 
       <div id="settings-tab-apis" class="subtab-panel active">
@@ -645,6 +704,114 @@
         </div>
 
         <div class="status" id="vault-settings-status"></div>
+      </div>
+
+      <div id="settings-tab-pipeline" class="subtab-panel">
+        <h3>Daily quota &amp; split <span class="tooltip-icon" title="Wired to GET/POST /settings/pipeline (pipeline.get_pipeline_settings / save_pipeline_settings) — feeds pipeline.get_queue()'s posting_slots/lead_slots split.">ⓘ</span></h3>
+        <label>Daily quota (total items across postings + leads) <input type="number" id="pipeline-daily-quota" min="1" step="1"></label>
+        <label>Postings share of quota: <span id="pipeline-split-value">50%</span>
+          <input type="range" id="pipeline-split-postings" min="0" max="100" step="5">
+        </label>
+        <p class="settings-note">The rest of the quota goes to leads — only the postings share is actually read by the backend (pipeline.py's split_ratio["postings"]).</p>
+        <button type="button" id="pipeline-quota-save-btn">Save quota &amp; split</button>
+        <div class="status" id="pipeline-quota-status"></div>
+
+        <h3>Work-mode priority <span class="tooltip-icon" title="Wired to GET/POST /scoring/work-mode-weights (scoring.get_work_mode_weights / save_work_mode_weights) — feeds the posting score's work_mode component. Values are relative weights, normalized server-side, not required to sum to any particular total.">ⓘ</span></h3>
+        <label>Remote <input type="number" id="work-mode-remote" min="0" step="0.1"></label>
+        <label>Hybrid <input type="number" id="work-mode-hybrid" min="0" step="0.1"></label>
+        <label>Onsite <input type="number" id="work-mode-onsite" min="0" step="0.1"></label>
+        <button type="button" id="work-mode-save-btn">Save work-mode weights</button>
+        <div class="status" id="work-mode-status"></div>
+
+        <h3>Resume-delivery defaults <span class="tooltip-icon" title="Wired to GET/POST /settings/pipeline (pipeline_resume_delivery) — read by app.py's send_outreach to decide HTML-body-only vs PDF-attached vs both.">ⓘ</span></h3>
+        <label>Cold intros
+          <select id="resume-delivery-cold-intro">
+            <option value="html">HTML body only</option>
+            <option value="pdf">PDF attachment only</option>
+            <option value="both">Both</option>
+          </select>
+        </label>
+        <label>Job applications
+          <select id="resume-delivery-job-application">
+            <option value="html">HTML body only</option>
+            <option value="pdf">PDF attachment only</option>
+            <option value="both">Both</option>
+          </select>
+        </label>
+        <button type="button" id="resume-delivery-save-btn">Save resume-delivery defaults</button>
+        <div class="status" id="resume-delivery-status"></div>
+      </div>
+
+      <div id="settings-tab-enrichment-settings" class="subtab-panel">
+        <h3>Enrichment provider order <span class="tooltip-icon" title="Wired to GET /settings/enrichment (enrichment.get_provider_order) and POST /settings/enrichment/provider-order — the chain enrichment.enrich_company() walks, stopping at the first provider that returns a contact.">ⓘ</span></h3>
+        <label>Editing order for
+          <select id="enrichment-order-scope">
+            <option value="">Global default</option>
+          </select>
+        </label>
+        <div id="enrichment-order-list"></div>
+        <p class="settings-note">Reordering here always starts from the global default — GET /settings/enrichment doesn't expose a per-industry read yet, so switching the scope above won't show that industry's own saved order, only let you save a new one for it.</p>
+        <button type="button" id="enrichment-order-save-btn">Save provider order</button>
+        <div class="status" id="enrichment-order-status"></div>
+
+        <h3>Decision-maker titles <span class="tooltip-icon" title="Wired to GET /settings/enrichment and POST /settings/enrichment/decision-maker-titles — enrichment.label_tier() matches a contact's role text against this list to tag named_decision_maker.">ⓘ</span></h3>
+        <div class="tag-pill-editor" id="decision-maker-titles-editor"></div>
+        <button type="button" id="decision-maker-titles-save-btn">Save title list</button>
+        <div class="status" id="decision-maker-titles-status"></div>
+
+        <h3>Company-size thresholds <span class="tooltip-icon" title="Wired to GET /settings/enrichment and POST /settings/enrichment/size-thresholds — stored but not yet read by the actual tiering logic (enrichment.label_tier() is title-match-only today; see the audit report).">ⓘ</span></h3>
+        <label>Small company max headcount <input type="number" id="size-threshold-small" min="1" step="1"></label>
+        <label>Large company min headcount <input type="number" id="size-threshold-large" min="1" step="1"></label>
+        <button type="button" id="size-thresholds-save-btn">Save size thresholds</button>
+        <div class="status" id="size-thresholds-status"></div>
+      </div>
+
+      <div id="settings-tab-automation" class="subtab-panel">
+        <h3>Run cadence <span class="tooltip-icon" title="Wired to GET/POST /settings/scheduler (scheduler.get_cadence_settings / save_cadence_settings / is_enabled / set_enabled). Disabled by default — enabling it runs real enrichment scrapes and sends a real Telegram message on a timer.">ⓘ</span></h3>
+        <label class="vault-checkbox-label"><input type="checkbox" id="scheduler-enabled"> Enable the scheduled daily batch</label>
+        <label>Frequency
+          <select id="scheduler-mode">
+            <option value="daily">Once a day</option>
+            <option value="times_per_day">N times per day</option>
+            <option value="every_n_days">Every N days</option>
+          </select>
+        </label>
+        <label id="scheduler-times-row">Times per day <input type="number" id="scheduler-times-per-day" min="1" step="1"></label>
+        <label id="scheduler-every-n-row">Every N days <input type="number" id="scheduler-every-n-days" min="1" step="1"></label>
+        <p class="settings-note" id="scheduler-last-run">Last run: —</p>
+        <button type="button" id="scheduler-save-btn">Save cadence</button>
+        <div class="status" id="scheduler-status"></div>
+
+        <h3>Notification target <span class="tooltip-icon" title="Wired to the new GET/POST /settings/notifications route (notify_telegram.get_notify_target / save_notify_target) — previously config.json-only (telegram.notify_chat), given a real settings field this pass.">ⓘ</span></h3>
+        <label>Telegram chat (username, or &quot;me&quot; for Saved Messages) <input type="text" id="notify-telegram-chat" placeholder="me"></label>
+        <button type="button" id="notify-target-save-btn">Save notification target</button>
+        <div class="status" id="notify-target-status"></div>
+      </div>
+
+      <div id="settings-tab-retention-settings" class="subtab-panel">
+        <h3>Retention <span class="tooltip-icon" title="Wired to GET/POST /settings/retention (retention.get_retention_days / save_retention_days) — read by retention.sweep()'s archive/delete cutoffs.">ⓘ</span></h3>
+        <label>Auto-delete after (days) <input type="number" id="retention-days" min="1" step="1"></label>
+        <p class="settings-note">A posting is archived once closed for this long, then permanently deleted after twice that long — pinned items are never touched by either step. Pin/unpin an item from its card in the Review Queue tab.</p>
+        <button type="button" id="retention-days-save-btn">Save retention period</button>
+        <div class="status" id="retention-days-status"></div>
+      </div>
+
+      <div id="settings-tab-sending-profiles-settings" class="subtab-panel">
+        <h3>Sending profiles / aliases <span class="tooltip-icon" title="Wired to GET/POST/PATCH/DELETE /sending-profiles (db.list_sending_profiles / create_sending_profile / update_sending_profile / delete_sending_profile) — pipeline.select_sending_profile() auto-picks between these per item (Individual default, Studio for freelance-shaped leads).">ⓘ</span></h3>
+        <div id="sending-profiles-list"></div>
+
+        <div id="sending-profile-form">
+          <h3 id="sending-profile-form-heading">Add a sending profile</h3>
+          <label>Name (e.g. "Individual" or "Studio") <input type="text" id="sending-profile-name"></label>
+          <label>Resume text <textarea id="sending-profile-resume"></textarea></label>
+          <label>Portfolio URL <input type="text" id="sending-profile-portfolio"></label>
+          <label>Tone <input type="text" id="sending-profile-tone" placeholder="e.g. friendly, formal"></label>
+          <label>Signature <textarea id="sending-profile-signature"></textarea></label>
+          <label class="vault-checkbox-label"><input type="checkbox" id="sending-profile-default"> Default profile</label>
+          <button type="button" id="sending-profile-save-btn">Save profile</button>
+          <button type="button" id="sending-profile-cancel-btn" style="display:none">Cancel edit</button>
+        </div>
+        <div class="status" id="sending-profile-status"></div>
       </div>
     </div>
   </div>
@@ -877,6 +1044,13 @@
     <div id="contacts-list"></div>
   </div>
 
+  <div id="tab-queue" class="tab-panel">
+    <h3 class="section-title">Review queue
+      <span class="tooltip-icon" title="Scored postings that already have a resolved contact, merged with real leads, capped by your daily quota and postings/leads split ratio (Settings > Pipeline). Approve sends immediately (same one-send-per-contact + daily-cap safety nets as Outreach); Edit lets you review/change the draft before it sends; Snooze hides an item for 3 days without rejecting it; Reject discards it (archives the posting / deletes the lead).">ⓘ</span>
+    </h3>
+    <div id="queue-container"></div>
+  </div>
+
   <div id="tab-search" class="tab-panel">
     <div class="meta" id="meta">Loading…</div>
 
@@ -981,6 +1155,7 @@
     if (btn) btn.classList.add("active");
     document.getElementById("tab-" + tabName).classList.add("active");
     if (tabName === "leads") onLeadsTabOpened();
+    if (tabName === "queue") refreshQueue();
     if (tabName === "search") {
       fetch(BACKEND + "/glance/seen-postings", { method: "POST" }).catch(function () {});
     }
@@ -1734,6 +1909,173 @@
       });
     });
     refreshContacts();
+  }
+
+  function queueItemHtml(item) {
+    var isPosting = item.type === "posting";
+    var scoreText = isPosting && item.score != null ? Math.round(item.score * 100) + "%" : "—";
+    var company = isPosting ? item.posting.company : "(no company on file)";
+    var title = isPosting ? item.posting.title : (item.lead.source_channel || item.lead.raw_text.slice(0, 80));
+    var source = isPosting ? item.posting.ats : item.lead.source;
+    var contactName = isPosting ? (item.contact.name || "(no name)") : (item.lead.point_of_contact || "(no contact linked yet)");
+    var tier = isPosting ? (item.contact.tier || "") : "";
+    var itemId = isPosting ? item.posting.id : String(item.lead.id);
+    var canAct = isPosting; // lead items have no linked contact yet — see plan decision #17's queue audit note
+    var isPinned = isPosting && item.posting.pinned;
+
+    return '<div class="queue-card" data-item-type="' + item.type + '" data-item-id="' + escapeAttr(itemId) + '"' +
+      (isPosting ? ' data-contact-id="' + item.contact.id + '"' : ' data-lead-id="' + item.lead.id + '"') + '>' +
+      '<div class="queue-card-top">' +
+        '<span class="queue-score">' + scoreText + '</span>' +
+        '<span class="queue-company">' + escapeHtml(company || "") + '</span>' +
+        '<span class="queue-source">' + escapeHtml(source || "") + '</span>' +
+      '</div>' +
+      '<div class="queue-card-title">' + escapeHtml(title || "") + '</div>' +
+      '<div class="queue-card-contact">' + escapeHtml(contactName) +
+        (tier ? '<span class="queue-tier">' + escapeHtml(tier.replace(/_/g, " ")) + '</span>' : '') + '</div>' +
+      '<div class="queue-card-actions">' +
+        '<button class="queue-approve-btn"' + (canAct ? '' : ' disabled title="No contact linked yet — add one in the Outreach tab first"') + '>Approve</button>' +
+        '<button class="queue-edit-btn"' + (canAct ? '' : ' disabled title="No contact linked yet"') + '>Edit &amp; send</button>' +
+        '<button class="queue-snooze-btn">Snooze 3 days</button>' +
+        '<button class="queue-reject-btn">Reject</button>' +
+        (isPosting ? '<button class="queue-pin-btn" data-pinned="' + (isPinned ? "1" : "0") + '" title="Pin — retention.sweep() never archives/deletes a pinned posting">' +
+          (isPinned ? "Unpin" : "Pin (keep forever)") + '</button>' : '') +
+      '</div>' +
+      '<div class="queue-card-draft" style="display:none"></div>' +
+      '<div class="status queue-card-status"></div>' +
+      '</div>';
+  }
+
+  function wireQueueActions(container) {
+    container.querySelectorAll(".queue-card").forEach(function (card) {
+      var type = card.dataset.itemType;
+      var contactId = card.dataset.contactId;
+      var leadId = card.dataset.leadId;
+      var postingId = type === "posting" ? card.dataset.itemId : null;
+      var statusEl = card.querySelector(".queue-card-status");
+      var draftEl = card.querySelector(".queue-card-draft");
+
+      function setStatus(text, isError) {
+        statusEl.classList.toggle("error", !!isError);
+        statusEl.textContent = text;
+      }
+
+      function sendNow(overrideSubject, overrideBody) {
+        setStatus("Sending…");
+        var payload = overrideSubject && overrideBody ? { subject: overrideSubject, body: overrideBody } : {};
+        return fetch(BACKEND + "/contacts/" + contactId + "/outreach", {
+          method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
+        }).then(function (r) { return r.json(); }).then(function (result) {
+          if (result.status === "sent") {
+            setStatus("Sent: \"" + result.subject + "\"");
+            card.querySelectorAll(".queue-approve-btn, .queue-edit-btn").forEach(function (b) { b.disabled = true; });
+            draftEl.style.display = "none";
+          } else {
+            setStatus("Not sent: " + (result.reason || result.status), true);
+          }
+          refreshLlmUsage();
+        }).catch(function (err) { setStatus("Failed: " + err.message, true); });
+      }
+
+      var approveBtn = card.querySelector(".queue-approve-btn");
+      if (approveBtn && !approveBtn.disabled) {
+        approveBtn.addEventListener("click", function () { sendNow(); });
+      }
+
+      var editBtn = card.querySelector(".queue-edit-btn");
+      if (editBtn && !editBtn.disabled) {
+        editBtn.addEventListener("click", function () {
+          setStatus("Drafting…");
+          fetch(BACKEND + "/contacts/" + contactId + "/draft-preview", {
+            method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({})
+          }).then(function (r) {
+            if (!r.ok) return r.json().catch(function () { return {}; }).then(function (b) {
+              throw new Error(b.detail || ("Backend returned " + r.status));
+            });
+            return r.json();
+          }).then(function (draft) {
+            setStatus("");
+            draftEl.style.display = "flex";
+            draftEl.innerHTML =
+              '<input type="text" class="queue-draft-subject" value="' + escapeAttr(draft.subject) + '">' +
+              '<textarea class="queue-draft-body">' + escapeHtml(draft.body) + '</textarea>' +
+              '<div class="queue-card-actions">' +
+              '<button class="queue-send-edited-btn">Send this</button>' +
+              '<button class="queue-cancel-edit-btn">Cancel</button>' +
+              '</div>';
+            draftEl.querySelector(".queue-send-edited-btn").addEventListener("click", function () {
+              sendNow(draftEl.querySelector(".queue-draft-subject").value, draftEl.querySelector(".queue-draft-body").value);
+            });
+            draftEl.querySelector(".queue-cancel-edit-btn").addEventListener("click", function () {
+              draftEl.style.display = "none";
+              draftEl.innerHTML = "";
+            });
+          }).catch(function (err) { setStatus("Couldn't draft: " + err.message, true); });
+        });
+      }
+
+      card.querySelector(".queue-snooze-btn").addEventListener("click", function () {
+        var until = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
+        var url = type === "posting"
+          ? BACKEND + "/postings/" + encodeURIComponent(postingId)
+          : BACKEND + "/leads/" + leadId + "/retention";
+        fetch(url, {
+          method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ snoozed_until: until })
+        }).then(function (r) {
+          if (!r.ok) throw new Error("Backend returned " + r.status);
+          card.remove();
+          document.getElementById("queue-badge").textContent =
+            document.querySelectorAll("#queue-container .queue-card").length || "";
+        }).catch(function (err) { setStatus("Couldn't snooze: " + err.message, true); });
+      });
+
+      card.querySelector(".queue-reject-btn").addEventListener("click", function () {
+        var req = type === "posting"
+          ? fetch(BACKEND + "/postings/" + encodeURIComponent(postingId), {
+              method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ archived: true })
+            })
+          : fetch(BACKEND + "/leads/" + leadId, { method: "DELETE" });
+        req.then(function (r) {
+          if (!r.ok) throw new Error("Backend returned " + r.status);
+          card.remove();
+          document.getElementById("queue-badge").textContent =
+            document.querySelectorAll("#queue-container .queue-card").length || "";
+        }).catch(function (err) { setStatus("Couldn't reject: " + err.message, true); });
+      });
+
+      var pinBtn = card.querySelector(".queue-pin-btn");
+      if (pinBtn) {
+        pinBtn.addEventListener("click", function () {
+          var nowPinned = pinBtn.dataset.pinned !== "1";
+          fetch(BACKEND + "/postings/" + encodeURIComponent(postingId), {
+            method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pinned: nowPinned })
+          }).then(function (r) {
+            if (!r.ok) throw new Error("Backend returned " + r.status);
+            pinBtn.dataset.pinned = nowPinned ? "1" : "0";
+            pinBtn.textContent = nowPinned ? "Unpin" : "Pin (keep forever)";
+          }).catch(function (err) { setStatus("Couldn't pin: " + err.message, true); });
+        });
+      }
+    });
+  }
+
+  function refreshQueue() {
+    var container = document.getElementById("queue-container");
+    fetch(BACKEND + "/queue").then(function (r) {
+      if (!r.ok) throw new Error("Backend returned " + r.status);
+      return r.json();
+    }).then(function (data) {
+      var items = data.items || [];
+      document.getElementById("queue-badge").textContent = items.length > 0 ? items.length : "";
+      container.innerHTML = items.length ? items.map(queueItemHtml).join("") : '<p class="empty">Nothing in the queue right now.</p>';
+      wireQueueActions(container);
+    }).catch(function () {
+      container.innerHTML = '<p class="empty">Couldn\'t reach the local backend. Is it running?</p>';
+    });
+  }
+
+  function initQueue() {
+    refreshQueue();
   }
 
   function initGlance() {
@@ -2800,6 +3142,333 @@
     refreshVaultStatus();
   }
 
+  function initPipelineSettings() {
+    var quotaInput = document.getElementById("pipeline-daily-quota");
+    var splitSlider = document.getElementById("pipeline-split-postings");
+    var splitValueLabel = document.getElementById("pipeline-split-value");
+    var quotaStatus = document.getElementById("pipeline-quota-status");
+    var workModeRemote = document.getElementById("work-mode-remote");
+    var workModeHybrid = document.getElementById("work-mode-hybrid");
+    var workModeOnsite = document.getElementById("work-mode-onsite");
+    var workModeStatus = document.getElementById("work-mode-status");
+    var deliveryCold = document.getElementById("resume-delivery-cold-intro");
+    var deliveryJob = document.getElementById("resume-delivery-job-application");
+    var deliveryStatus = document.getElementById("resume-delivery-status");
+
+    splitSlider.addEventListener("input", function () { splitValueLabel.textContent = splitSlider.value + "%"; });
+
+    fetch(BACKEND + "/settings/pipeline").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (!data) return;
+      quotaInput.value = data.daily_quota;
+      var postingsShare = Math.round((data.split_ratio.postings || 0.5) * 100);
+      splitSlider.value = postingsShare;
+      splitValueLabel.textContent = postingsShare + "%";
+      deliveryCold.value = (data.resume_delivery || {}).cold_intro || "html";
+      deliveryJob.value = (data.resume_delivery || {}).job_application || "pdf";
+    }).catch(function () {});
+
+    fetch(BACKEND + "/scoring/work-mode-weights").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (!data) return;
+      workModeRemote.value = data.remote;
+      workModeHybrid.value = data.hybrid;
+      workModeOnsite.value = data.onsite;
+    }).catch(function () {});
+
+    document.getElementById("pipeline-quota-save-btn").addEventListener("click", function () {
+      quotaStatus.textContent = "Saving…";
+      var postingsShare = parseInt(splitSlider.value, 10) / 100;
+      fetch(BACKEND + "/settings/pipeline", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          daily_quota: parseInt(quotaInput.value, 10) || 10,
+          split_ratio: { postings: postingsShare, leads: 1 - postingsShare }
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        quotaStatus.textContent = "Saved.";
+      }).catch(function (err) { quotaStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+
+    document.getElementById("work-mode-save-btn").addEventListener("click", function () {
+      workModeStatus.textContent = "Saving…";
+      fetch(BACKEND + "/scoring/work-mode-weights", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          remote: parseFloat(workModeRemote.value) || 0,
+          hybrid: parseFloat(workModeHybrid.value) || 0,
+          onsite: parseFloat(workModeOnsite.value) || 0
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        workModeStatus.textContent = "Saved.";
+      }).catch(function (err) { workModeStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+
+    document.getElementById("resume-delivery-save-btn").addEventListener("click", function () {
+      deliveryStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/pipeline", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resume_delivery: { cold_intro: deliveryCold.value, job_application: deliveryJob.value } })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        deliveryStatus.textContent = "Saved.";
+      }).catch(function (err) { deliveryStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+  }
+
+  function initEnrichmentSettingsUI() {
+    var scopeSelect = document.getElementById("enrichment-order-scope");
+    var orderListEl = document.getElementById("enrichment-order-list");
+    var orderStatus = document.getElementById("enrichment-order-status");
+    var titlesStatus = document.getElementById("decision-maker-titles-status");
+    var sizeSmall = document.getElementById("size-threshold-small");
+    var sizeLarge = document.getElementById("size-threshold-large");
+    var sizeStatus = document.getElementById("size-thresholds-status");
+    var titlesEditor = createTagPillEditor(document.getElementById("decision-maker-titles-editor"), [], null);
+    var currentOrder = [];
+
+    function renderOrderList() {
+      orderListEl.innerHTML = currentOrder.map(function (providerId, idx) {
+        return '<div class="enrichment-order-row">' +
+          '<span>' + (idx + 1) + '. ' + escapeHtml(providerId) + '</span>' +
+          '<button type="button" class="order-up-btn"' + (idx === 0 ? " disabled" : "") + '>↑</button>' +
+          '<button type="button" class="order-down-btn"' + (idx === currentOrder.length - 1 ? " disabled" : "") + '>↓</button>' +
+          '</div>';
+      }).join("");
+      orderListEl.querySelectorAll(".order-up-btn").forEach(function (btn, idx) {
+        btn.addEventListener("click", function () {
+          if (idx === 0) return;
+          var tmp = currentOrder[idx - 1]; currentOrder[idx - 1] = currentOrder[idx]; currentOrder[idx] = tmp;
+          renderOrderList();
+        });
+      });
+      orderListEl.querySelectorAll(".order-down-btn").forEach(function (btn, idx) {
+        btn.addEventListener("click", function () {
+          if (idx === currentOrder.length - 1) return;
+          var tmp = currentOrder[idx + 1]; currentOrder[idx + 1] = currentOrder[idx]; currentOrder[idx] = tmp;
+          renderOrderList();
+        });
+      });
+    }
+
+    fetch(BACKEND + "/settings/enrichment").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (!data) return;
+      var available = data.available_providers || [];
+      currentOrder = data.provider_order && data.provider_order.length ? data.provider_order.slice() : available.slice();
+      renderOrderList();
+      titlesEditor.setTags(data.decision_maker_titles || []);
+      sizeSmall.value = (data.size_thresholds || {}).small_max || "";
+      sizeLarge.value = (data.size_thresholds || {}).large_min || "";
+
+      ALL_INDUSTRIES.forEach(function (industry) {
+        var opt = document.createElement("option");
+        opt.value = industry; opt.textContent = industry;
+        scopeSelect.appendChild(opt);
+      });
+    }).catch(function () {});
+
+    document.getElementById("enrichment-order-save-btn").addEventListener("click", function () {
+      orderStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/enrichment/provider-order", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order: currentOrder, industry: scopeSelect.value || null })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        orderStatus.textContent = "Saved for " + (scopeSelect.value || "the global default") + ".";
+      }).catch(function (err) { orderStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+
+    document.getElementById("decision-maker-titles-save-btn").addEventListener("click", function () {
+      titlesStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/enrichment/decision-maker-titles", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ titles: titlesEditor.getTags() })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        titlesStatus.textContent = "Saved.";
+      }).catch(function (err) { titlesStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+
+    document.getElementById("size-thresholds-save-btn").addEventListener("click", function () {
+      sizeStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/enrichment/size-thresholds", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ small_max: parseInt(sizeSmall.value, 10) || 50, large_min: parseInt(sizeLarge.value, 10) || 250 })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        sizeStatus.textContent = "Saved.";
+      }).catch(function (err) { sizeStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+  }
+
+  function initAutomationSettings() {
+    var enabledCheckbox = document.getElementById("scheduler-enabled");
+    var modeSelect = document.getElementById("scheduler-mode");
+    var timesInput = document.getElementById("scheduler-times-per-day");
+    var everyNInput = document.getElementById("scheduler-every-n-days");
+    var timesRow = document.getElementById("scheduler-times-row");
+    var everyNRow = document.getElementById("scheduler-every-n-row");
+    var lastRunEl = document.getElementById("scheduler-last-run");
+    var schedulerStatus = document.getElementById("scheduler-status");
+    var notifyChatInput = document.getElementById("notify-telegram-chat");
+    var notifyStatus = document.getElementById("notify-target-status");
+
+    function updateModeRowVisibility() {
+      timesRow.style.display = modeSelect.value === "times_per_day" ? "block" : "none";
+      everyNRow.style.display = modeSelect.value === "every_n_days" ? "block" : "none";
+    }
+    modeSelect.addEventListener("change", updateModeRowVisibility);
+
+    function loadSchedulerSettings() {
+      return fetch(BACKEND + "/settings/scheduler").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+        if (!data) return;
+        enabledCheckbox.checked = !!data.enabled;
+        modeSelect.value = data.mode || "daily";
+        timesInput.value = data.times_per_day || 1;
+        everyNInput.value = data.every_n_days || 1;
+        lastRunEl.textContent = "Last run: " + (data.last_run_at || "never");
+        updateModeRowVisibility();
+      }).catch(function () {});
+    }
+
+    fetch(BACKEND + "/settings/notifications").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (data) notifyChatInput.value = data.telegram_chat || "";
+    }).catch(function () {});
+
+    document.getElementById("scheduler-save-btn").addEventListener("click", function () {
+      schedulerStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/scheduler", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          enabled: enabledCheckbox.checked, mode: modeSelect.value,
+          times_per_day: parseInt(timesInput.value, 10) || 1, every_n_days: parseInt(everyNInput.value, 10) || 1
+        })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        schedulerStatus.textContent = "Saved.";
+        return loadSchedulerSettings();
+      }).catch(function (err) { schedulerStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+
+    document.getElementById("notify-target-save-btn").addEventListener("click", function () {
+      notifyStatus.textContent = "Saving…";
+      fetch(BACKEND + "/settings/notifications", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ telegram_chat: notifyChatInput.value.trim() || "me" })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        notifyStatus.textContent = "Saved.";
+      }).catch(function (err) { notifyStatus.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+
+    loadSchedulerSettings();
+  }
+
+  function initRetentionSettingsUI() {
+    var daysInput = document.getElementById("retention-days");
+    var status = document.getElementById("retention-days-status");
+
+    fetch(BACKEND + "/settings/retention").then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+      if (data) daysInput.value = data.retention_days;
+    }).catch(function () {});
+
+    document.getElementById("retention-days-save-btn").addEventListener("click", function () {
+      status.textContent = "Saving…";
+      fetch(BACKEND + "/settings/retention", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ retention_days: parseInt(daysInput.value, 10) || 30 })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        status.textContent = "Saved.";
+      }).catch(function (err) { status.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+  }
+
+  function initSendingProfilesUI() {
+    var listEl = document.getElementById("sending-profiles-list");
+    var nameInput = document.getElementById("sending-profile-name");
+    var resumeInput = document.getElementById("sending-profile-resume");
+    var portfolioInput = document.getElementById("sending-profile-portfolio");
+    var toneInput = document.getElementById("sending-profile-tone");
+    var signatureInput = document.getElementById("sending-profile-signature");
+    var defaultCheckbox = document.getElementById("sending-profile-default");
+    var saveBtn = document.getElementById("sending-profile-save-btn");
+    var cancelBtn = document.getElementById("sending-profile-cancel-btn");
+    var formHeading = document.getElementById("sending-profile-form-heading");
+    var status = document.getElementById("sending-profile-status");
+    var editingId = null;
+
+    function resetForm() {
+      editingId = null;
+      formHeading.textContent = "Add a sending profile";
+      nameInput.value = ""; resumeInput.value = ""; portfolioInput.value = "";
+      toneInput.value = ""; signatureInput.value = ""; defaultCheckbox.checked = false;
+      saveBtn.textContent = "Save profile";
+      cancelBtn.style.display = "none";
+    }
+
+    function refreshList() {
+      fetch(BACKEND + "/sending-profiles").then(function (r) { return r.ok ? r.json() : []; }).then(function (profiles) {
+        listEl.innerHTML = profiles.length ? profiles.map(function (p) {
+          return '<div class="sending-profile-row" data-id="' + p.id + '">' +
+            '<span class="sending-profile-name">' + escapeHtml(p.name) +
+            (p.is_default ? ' <span class="meta-inline">(default)</span>' : '') + '</span>' +
+            '<button type="button" class="sending-profile-edit-btn">Edit</button>' +
+            '<button type="button" class="sending-profile-delete-btn">Delete</button>' +
+            '</div>';
+        }).join("") : '<p class="empty">No sending profiles yet — outreach/applications use the single Setup profile until at least one exists.</p>';
+
+        listEl.querySelectorAll(".sending-profile-edit-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var id = btn.closest(".sending-profile-row").dataset.id;
+            var profile = profiles.find(function (p) { return String(p.id) === id; });
+            if (!profile) return;
+            editingId = profile.id;
+            formHeading.textContent = 'Edit "' + profile.name + '"';
+            nameInput.value = profile.name; resumeInput.value = profile.resume_text || "";
+            portfolioInput.value = profile.portfolio_url || ""; toneInput.value = profile.tone || "";
+            signatureInput.value = profile.signature || ""; defaultCheckbox.checked = !!profile.is_default;
+            saveBtn.textContent = "Update profile";
+            cancelBtn.style.display = "inline-block";
+          });
+        });
+        listEl.querySelectorAll(".sending-profile-delete-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var id = btn.closest(".sending-profile-row").dataset.id;
+            fetch(BACKEND + "/sending-profiles/" + id, { method: "DELETE" }).then(refreshList);
+          });
+        });
+      }).catch(function () {
+        listEl.innerHTML = '<p class="empty">Couldn\'t reach the local backend. Is it running?</p>';
+      });
+    }
+
+    saveBtn.addEventListener("click", function () {
+      if (!nameInput.value.trim()) { status.textContent = "Name is required."; return; }
+      status.textContent = "Saving…";
+      var payload = {
+        name: nameInput.value.trim(), resume_text: resumeInput.value, portfolio_url: portfolioInput.value,
+        tone: toneInput.value, signature: signatureInput.value, is_default: defaultCheckbox.checked
+      };
+      var req = editingId
+        ? fetch(BACKEND + "/sending-profiles/" + editingId, {
+            method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
+          })
+        : fetch(BACKEND + "/sending-profiles", {
+            method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload)
+          });
+      req.then(function (r) {
+        if (!r.ok) throw new Error("Backend returned " + r.status);
+        status.textContent = "Saved.";
+        resetForm();
+        refreshList();
+      }).catch(function (err) { status.textContent = "Couldn't save (" + err.message + ")."; });
+    });
+
+    cancelBtn.addEventListener("click", resetForm);
+    refreshList();
+  }
+
   function render() {
     var q = document.getElementById("search").value.trim().toLowerCase();
     var remoteOnly = document.getElementById("remote-only").checked;
@@ -2848,9 +3517,15 @@
   initScope();
   initLeads();
   initOutreach();
+  initQueue();
   initGlance();
   initLlmSettings();
   initVault();
+  initPipelineSettings();
+  initEnrichmentSettingsUI();
+  initAutomationSettings();
+  initRetentionSettingsUI();
+  initSendingProfilesUI();
   refreshLlmUsage();
 
   // Backend-first (live, scored — Phase 1 of the master plan), falling back

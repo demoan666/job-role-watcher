@@ -48,6 +48,15 @@ def select_sending_profile(item_type, is_freelance_shaped=False):
     return next((p for p in profiles if p["is_default"]), profiles[0])
 
 
+def _not_snoozed(record):
+    """Review Queue's "snooze" action (decision #17) — a snoozed_until in
+    the future hides the item from the queue without touching archived
+    (Search Results / the postings list are unaffected — see
+    backend/db.py's schema note on this column)."""
+    snoozed_until = record.get("snoozed_until")
+    return not snoozed_until or snoozed_until <= db.now_iso()
+
+
 def get_queue(limit=None):
     """Merges top-scored active postings that already have a resolved
     contact with leads flagged as real opportunities, applying the daily
@@ -62,6 +71,8 @@ def get_queue(limit=None):
 
     posting_items = []
     for posting in db.get_postings()["active"]:
+        if not _not_snoozed(posting):
+            continue
         contacts = db.get_contacts_for_posting(posting["id"])
         if not contacts:
             continue
@@ -73,7 +84,7 @@ def get_queue(limit=None):
 
     lead_items = [
         {"type": "lead", "lead": lead, "score": None}
-        for lead in db.get_leads() if lead.get("is_opportunity")
+        for lead in db.get_leads() if lead.get("is_opportunity") and _not_snoozed(lead)
     ]
 
     return (posting_items[:posting_slots] + lead_items[:lead_slots])[:limit] if limit else \
