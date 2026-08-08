@@ -96,6 +96,8 @@ CREATE TABLE IF NOT EXISTS leads (
   is_opportunity INTEGER,
   point_of_contact TEXT,
   triage_json TEXT,
+  archived INTEGER NOT NULL DEFAULT 0,
+  pinned INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL
 );
 
@@ -122,6 +124,18 @@ CREATE TABLE IF NOT EXISTS llm_usage (
   output_tokens INTEGER NOT NULL,
   estimated_cost_usd REAL,
   created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS discovered_channels (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  url TEXT NOT NULL,
+  description TEXT,
+  source TEXT NOT NULL,
+  keyword TEXT,
+  status TEXT NOT NULL DEFAULT 'new',
+  discovered_at TEXT NOT NULL,
+  UNIQUE(url)
 );
 
 CREATE TABLE IF NOT EXISTS sending_profiles (
@@ -182,6 +196,10 @@ def init_db():
         for stmt in [
             "ALTER TABLE contacts ADD COLUMN tier TEXT",
             "ALTER TABLE contacts ADD COLUMN posting_id TEXT REFERENCES postings(id)",
+            "ALTER TABLE contacts ADD COLUMN archived INTEGER NOT NULL DEFAULT 0",
+            "ALTER TABLE contacts ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0",
+            "ALTER TABLE leads ADD COLUMN archived INTEGER NOT NULL DEFAULT 0",
+            "ALTER TABLE leads ADD COLUMN pinned INTEGER NOT NULL DEFAULT 0",
         ]:
             try:
                 conn.execute(stmt)
@@ -577,6 +595,26 @@ def mark_postings_seen():
     set_setting("postings_last_seen_at", now_iso())
 
 
+def get_monthly_llm_cost():
+    """Sum of estimated_cost_usd for calls in the current calendar month —
+    None-priced calls (see log_llm_usage's docstring) are excluded from the
+    sum, same convention as get_llm_usage_summary. Backs the optional
+    monthly spend cap (plan Phase 7, flagged as "recommended, not yet
+    confirmed" — default cap is 0/disabled so this is a no-op until a user
+    explicitly sets one)."""
+    conn = get_connection()
+    try:
+        month = now_iso()[:7]
+        rows = conn.execute(
+            "SELECT estimated_cost_usd FROM llm_usage WHERE substr(created_at, 1, 7) = ? "
+            "AND estimated_cost_usd IS NOT NULL",
+            (month,),
+        ).fetchall()
+        return sum(r["estimated_cost_usd"] for r in rows)
+    finally:
+        conn.close()
+
+
 def log_llm_usage(task, provider, model, input_tokens, output_tokens, estimated_cost_usd):
     """estimated_cost_usd is None when llm.py has no verified per-token pricing
     for this provider/model — token counts (real, from the provider's own
@@ -727,6 +765,45 @@ def get_postings():
         conn.close()
 
 
+def insert_discovered_channels(channels):
+    """Idempotent on url (UNIQUE constraint) — re-running a scan over the
+    same keyword just no-ops on channels already known, per decision #9's
+    "discovery only" framing: this never joins anything, it only accumulates
+    a review list. Returns how many were newly inserted."""
+    conn = get_connection()
+    try:
+        inserted = 0
+        for ch in channels:
+            cur = conn.execute(
+                "INSERT OR IGNORE INTO discovered_channels (name, url, description, source, keyword, "
+                "status, discovered_at) VALUES (?, ?, ?, ?, ?, 'new', ?)",
+                (ch.get("name"), ch.get("url"), ch.get("description"), ch.get("source"), ch.get("keyword"), now_iso()),
+            )
+            inserted += cur.rowcount
+        conn.commit()
+        return inserted
+    finally:
+        conn.close()
+
+
+def get_discovered_channels():
+    conn = get_connection()
+    try:
+        rows = conn.execute("SELECT * FROM discovered_channels ORDER BY discovered_at DESC").fetchall()
+        return [dict(r) for r in rows]
+    finally:
+        conn.close()
+
+
+def update_discovered_channel_status(channel_id, status):
+    conn = get_connection()
+    try:
+        conn.execute("UPDATE discovered_channels SET status = ? WHERE id = ?", (status, channel_id))
+        conn.commit()
+    finally:
+        conn.close()
+
+
 def list_sending_profiles():
     conn = get_connection()
     try:
@@ -800,6 +877,110 @@ def get_contacts_for_posting(posting_id):
             (posting_id,),
         ).fetchall()
         return [dict(r) for r in rows]
+    finally:
+        conn.close()
+
+
+def archive_expired_postings(cutoff_date):
+    """Auto-archives closed (no longer live) postings whose closed_date is
+    older than cutoff_date, skipping anything pinned (decision #29: a pin
+    always wins over auto-archival) or already archived. Returns the count
+    archived."""
+    conn = get_connection()
+    try:
+        cur = conn.execute(
+            "UPDATE postings SET archived = 1 WHERE status = 'closed' AND archived = 0 "
+            "AND pinned = 0 AND closed_date IS NOT NULL AND closed_date < ?",
+            (cutoff_date,),
+        )
+        conn.commit()
+        return cur.rowcount
+    finally:
+        conn.close()
+
+
+def delete_expired_archived_postings(delete_cutoff_date):
+    """Second, longer grace period (decision #29's "auto-delete" half) —
+    only rows already archived AND closed before delete_cutoff_date
+    (further back than the archive cutoff) are actually removed. A pin
+    still wins even after archival."""
+    conn = get_connection()
+    try:
+        cur = conn.execute(
+            "DELETE FROM postings WHERE archived = 1 AND pinned = 0 "
+            "AND closed_date IS NOT NULL AND closed_date < ?",
+            (delete_cutoff_date,),
+        )
+        conn.commit()
+        return cur.rowcount
+    finally:
+        conn.close()
+
+
+def delete_posting(posting_id):
+    conn = get_connection()
+    try:
+        conn.execute("DELETE FROM postings WHERE id = ?", (posting_id,))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def update_contact(contact_id, archived=None, pinned=None):
+    conn = get_connection()
+    try:
+        if archived is not None:
+            conn.execute("UPDATE contacts SET archived = ? WHERE id = ?", (int(archived), contact_id))
+        if pinned is not None:
+            conn.execute("UPDATE contacts SET pinned = ? WHERE id = ?", (int(pinned), contact_id))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def delete_contact(contact_id):
+    conn = get_connection()
+    try:
+        conn.execute("DELETE FROM contacts WHERE id = ?", (contact_id,))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def update_lead(lead_id, archived=None, pinned=None):
+    conn = get_connection()
+    try:
+        if archived is not None:
+            conn.execute("UPDATE leads SET archived = ? WHERE id = ?", (int(archived), lead_id))
+        if pinned is not None:
+            conn.execute("UPDATE leads SET pinned = ? WHERE id = ?", (int(pinned), lead_id))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def delete_lead(lead_id):
+    conn = get_connection()
+    try:
+        conn.execute("DELETE FROM leads WHERE id = ?", (lead_id,))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def export_all_data():
+    """Full JSON export (decision #29's "export-to-file") — everything the
+    user might want a copy of before a retention sweep runs, or just as a
+    backup independent of backend/backup.py's raw DB-file copy."""
+    conn = get_connection()
+    try:
+        return {
+            "exported_at": now_iso(),
+            "postings": [dict(r) for r in conn.execute("SELECT * FROM postings").fetchall()],
+            "contacts": [dict(r) for r in conn.execute("SELECT * FROM contacts").fetchall()],
+            "leads": [dict(r) for r in conn.execute("SELECT * FROM leads").fetchall()],
+            "sent_emails": [dict(r) for r in conn.execute("SELECT * FROM sent_emails").fetchall()],
+        }
     finally:
         conn.close()
 

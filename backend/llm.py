@@ -68,6 +68,11 @@ TASKS = {
         "label": "Draft cold outreach email",
         "description": "Writes the subject and body of the automated email sent to a contact.",
     },
+    "classify_sentiment": {
+        "label": "Classify reply sentiment",
+        "description": "Reads a reply to a cold outreach email and flags a negative/opt-out "
+                        "response for automatic suppression (decision #20).",
+    },
 }
 
 DEFAULT_ASSIGNMENT = {"provider": "anthropic", "model": "claude-sonnet-5"}
@@ -170,7 +175,25 @@ def _estimate_cost(provider, model, input_tokens, output_tokens):
     return (input_tokens * meta["price_in"] + output_tokens * meta["price_out"]) / 1_000_000
 
 
+def get_monthly_spend_cap():
+    """0/None means disabled (default) — the plan flags this as
+    "recommended, not yet confirmed" (Open Risk #6), so it never silently
+    blocks anything until a user explicitly sets a cap > 0 in Settings."""
+    raw = db.get_setting("monthly_spend_cap_usd")
+    return float(raw) if raw else 0
+
+
+def save_monthly_spend_cap(cap_usd):
+    db.set_setting("monthly_spend_cap_usd", str(cap_usd))
+
+
 def _call_json(system_prompt, user_content, task, max_tokens=1024):
+    cap = get_monthly_spend_cap()
+    if cap > 0 and db.get_monthly_llm_cost() >= cap:
+        raise RuntimeError(
+            f"Monthly LLM spend cap (${cap:.2f}) reached — raise it in Settings to keep using LLM features this month."
+        )
+
     settings = get_llm_settings()
     assignment = settings["assignments"].get(task) or DEFAULT_ASSIGNMENT
     provider = assignment["provider"]
@@ -240,6 +263,24 @@ def triage_message(text, source):
         'Return JSON: {"is_opportunity": bool, "point_of_contact": string or null, "reason": "1 sentence"}'
     )
     return _call_json(system_prompt, user_content, "triage_message")
+
+
+def classify_sentiment(reply_text):
+    """Returns {"sentiment": "positive"|"neutral"|"negative", "reason": "..."}.
+    "negative" drives auto-suppression (decision #20) — kept deliberately
+    narrow (explicit opt-out/unsubscribe/hostile) so a merely lukewarm or
+    ambiguous reply never silently suppresses a real contact."""
+    system_prompt = (
+        "You classify a reply to a cold outreach job-search email. 'negative' means an explicit "
+        "opt-out, unsubscribe request, or a clearly hostile/annoyed response — be conservative, "
+        "only use this for unambiguous cases. 'positive' means genuine interest or a concrete next "
+        "step. 'neutral' covers everything else (auto-reply, out-of-office, unclear, noncommittal)."
+    )
+    user_content = (
+        f"Reply:\n\n{reply_text}\n\n"
+        'Return JSON: {"sentiment": "positive"|"neutral"|"negative", "reason": "1 sentence"}'
+    )
+    return _call_json(system_prompt, user_content, "classify_sentiment")
 
 
 def draft_cold_email(contact, context):

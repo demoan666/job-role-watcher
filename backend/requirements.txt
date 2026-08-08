@@ -12,3 +12,8 @@ google-auth-oauthlib
 pypdf
 python-docx
 python-multipart
+cryptography
+apscheduler
+fpdf2
+beautifulsoup4
+requests

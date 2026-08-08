@@ -144,17 +144,58 @@ auto-sent cold-email CRM. Key decisions (confirmed with the user, not casual sco
 ```
 backend/
   app.py            — FastAPI app (127.0.0.1 only), all endpoints
-  db.py             — SQLite schema + access (profile, contacts, leads, sent_emails, settings);
-                      also holds ALL_INDUSTRIES (the 29-cluster taxonomy, verbatim from
-                      role_search.md — keep in sync by hand if that file's clusters change)
-  llm.py            — Anthropic wrapper: extract_resume_profile / triage_message / draft_cold_email
-  gmail.py           — Gmail OAuth (installed-app flow, gmail.send scope only) + send
+  db.py             — SQLite schema + access (profile, contacts, leads, sent_emails, settings,
+                      postings, sending_profiles, discovered_channels); also holds ALL_INDUSTRIES
+                      (the 29-cluster taxonomy, verbatim from role_search.md — keep in sync by
+                      hand if that file's clusters change)
+  llm.py            — multi-provider wrapper: extract_resume_profile / triage_message /
+                      draft_cold_email / classify_sentiment; monthly spend cap (0 = disabled)
+  vault.py          — opt-in master-password credential vault (PBKDF2+Fernet), encrypts LLM keys
+                      + the Gmail client secret once a user sets a password via Setup > Security.
+                      NOT auto-initialized — until then, config.json plaintext keeps working
+                      exactly as before (see config.py's vault-first/plaintext-fallback reads)
+  scoring.py        — rule-based weighted posting scorer (keyword/industry/work-mode/recency)
+  enrichment.py     — contact-resolution orchestrator: walks providers/enrichment.py's chain,
+                      labels tier (named_decision_maker / named_junior / generic_inbox)
+  pipeline.py        — unified queue (scored postings w/ contacts + real leads), sending-profile
+                      alias auto-selection, daily quota / split-ratio / resume-delivery settings
+  resume_pdf.py      — fpdf2 plain-text-to-PDF for the "PDF attachment" resume-delivery mode
+  scheduler.py       — APScheduler daily-batch job (sync+score+enrich+reply-check+notify);
+                      disabled by default (scheduler_enabled setting) — opt-in via Setup
+  notify_telegram.py — sends batch-ready/failure notifications via the user's own Telegram
+                      session (reuses ingest/telegram.py's session file, "me"/Saved Messages
+                      by default)
+  reply_check.py     — narrow gmail.readonly reply-check per sent thread, sentiment-based
+                      auto-suppression (manual re-approach = PATCH /contacts/{id}/status)
+  retention.py       — auto-archive/auto-delete sweep for closed postings (pins always win)
+  backup.py          — nightly app.db + vault.dat backup into backend/backups/ (gitignored),
+                      mitigating the Drive-sync corruption risk noted below
+  providers/          — provider ABCs matching llm.py's dispatch shape (job_source, enrichment,
+                      email, group_discovery); see "Provider categories" note below
+  gmail.py           — Gmail OAuth (installed-app flow; gmail.send + gmail.readonly scopes) + send
+                      (with optional PDF attachment) + check_replies
   resume_parse.py   — extension-dispatch text extraction for uploaded resumes (.txt/.md/.pdf/.docx;
                       legacy .doc rejected — no clean pure-Python parser for it)
   ingest/
     telegram.py     — standalone script, posts to /leads/capture
     slack.py        — standalone script, polls + posts to /leads/capture
   config.example.json — template; copy to config.json (gitignored) and fill in real secrets
+```
+
+Provider categories (`backend/providers/`, plan §4) — same ABC-plus-implementations shape as
+`llm.py`'s dispatch, so a new source/vendor is additive, never a rewrite of a call site:
+- `job_source.py` — Greenhouse/Lever/SmartRecruiters, wrapping `scripts/fetch_postings.py`'s
+  existing fetchers (that script itself is untouched, still stdlib-only, still GH-Actions-driven).
+- `enrichment.py` — `CompanyPageScraperProvider` (real, free, tried first — but sequentially
+  checks up to 6 team-page-style paths per company with a 10s timeout each, so a full chain over
+  several companies with no hits can take tens of seconds; this is what makes `/postings/{id}/enrich`
+  and the scheduler's per-run enrichment step slow, not a bug) and `HunterProvider` (real API,
+  needs a key). RocketReach/Apollo/ContactOut/Snov are registered but unimplemented placeholders
+  (`_UnimplementedEnrichmentProvider`, returns `[]`) — no accounts/keys existed to build against.
+- `email.py` — wraps `gmail.py`.
+- `group_discovery.py` — `TelegramDirectoryProvider`/`DiscordDirectoryProvider` scrape t.me /
+  Disboard's public pages; selectors are best-effort, not verified against live markup this
+  session — expect a touch-up the first time either is actually run.
 data/
   search_profile.json — resume-derived keywords/industries only (no raw resume text — repo is public)
   search_scope.json   — Setup tab toggles: active_ats, contract_modes, industries (forward-looking
@@ -226,6 +267,25 @@ Then open `index.html` (locally or via the live GitHub Pages URL — CORS is wid
 backend only ever binds to localhost, so the only thing that can reach it is the user's own
 browser on the same machine). Telegram/Slack ingestion run as separate long-lived processes:
 `python backend/ingest/telegram.py` / `python backend/ingest/slack.py`.
+
+## Master plan execution status (`DOCS/job-watcher-master-plan.md`)
+
+Phases 0-7 of the master plan have real, working backend code behind them (verified via direct
+HTTP round-trips against the running backend, not just unit-level checks) — but the frontend was
+deliberately NOT built out to match every new setting; most of what's below is API/curl-reachable
+only. Building the corresponding Setup-tab UI (a data-table-scale review queue, sending-profile
+CRUD forms, enrichment/scheduler/retention settings panels, group-discovery review list) is the
+next real chunk of work, not a small polish pass — treat it as its own phase, not a quick add-on.
+
+Also not built (needs real external accounts/decisions this session had neither the credentials
+nor the standing to make unilaterally): Google Workspace domain sending (still personal Gmail
+OAuth — decision #11's DNS/warm-up work needs the user to actually register a domain), RocketReach/
+Apollo/ContactOut/Snov enrichment (placeholders only, see above), and the credential vault is
+built but **not activated** — it stays opt-in via Setup > Security precisely because this repo's
+own `config.json` already had real working keys in it going in, and auto-enabling encryption
+behind a password of my choosing would have locked the user out of their own setup. Same reasoning
+for the scheduler (`scheduler_enabled` defaults false) — it runs real scrapes and sends a real
+Telegram message on a timer, so it needs an explicit opt-in, not just a backend restart.
 
 ## Known gaps / things to revisit
 

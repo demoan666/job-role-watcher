@@ -101,13 +101,19 @@ def check_replies(client_secret_path, subject, sent_after_epoch_seconds):
     """Narrow reply-check for one sent thread (plan decision #19): searches
     only for messages whose subject matches (Gmail auto-prefixes replies
     with "Re: ", so we match on the bare subject as a substring) received
-    after the original send time — never a full-inbox scan. Returns True if
-    at least one matching message exists that isn't the original sent one.
-    Requires gmail.readonly consent (see READ_SCOPE) — raises the same way
-    send_email does if that hasn't been granted yet (fails closed, caller
-    treats an exception as "couldn't check, leave status as-is")."""
+    after the original send time — never a full-inbox scan. Returns None if
+    no reply exists yet, or {"message_id", "snippet"} for the most recent
+    match — the snippet is what backend/reply_check.py feeds to sentiment
+    classification. Requires gmail.readonly consent (see READ_SCOPE) —
+    raises the same way send_email does if that hasn't been granted yet
+    (fails closed, caller treats an exception as "couldn't check, leave
+    status as-is")."""
     creds = _get_credentials(client_secret_path)
     service = build("gmail", "v1", credentials=creds)
     query = f'subject:"{subject}" after:{int(sent_after_epoch_seconds)} -in:sent'
     result = service.users().messages().list(userId="me", q=query, maxResults=5).execute()
-    return bool(result.get("messages"))
+    messages = result.get("messages") or []
+    if not messages:
+        return None
+    detail = service.users().messages().get(userId="me", id=messages[0]["id"], format="metadata").execute()
+    return {"message_id": messages[0]["id"], "snippet": detail.get("snippet", "")}

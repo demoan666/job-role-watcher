@@ -18,11 +18,15 @@ import enrichment
 import gmail
 import llm
 import pipeline
+import reply_check
 import resume_parse
 import resume_pdf
+import retention
+import scheduler
 import scoring
 import vault
 from providers import enrichment as enrichment_providers
+from providers import group_discovery as group_discovery_providers
 from config import (
     delete_custom_provider,
     get_llm_settings,
@@ -53,6 +57,8 @@ def on_startup():
         db.sync_postings_from_json()
     except Exception:
         pass  # data/postings.json may not exist yet on a fresh checkout — not fatal
+    if scheduler.is_enabled():
+        scheduler.start()
 
 
 @app.get("/health")
@@ -354,6 +360,30 @@ def mark_leads_seen():
     return {"status": "ok"}
 
 
+class LeadRetention(BaseModel):
+    archived: bool | None = None
+    pinned: bool | None = None
+
+
+@app.patch("/leads/{lead_id}/retention")
+def set_lead_retention(lead_id: int, body: LeadRetention):
+    db.update_lead(lead_id, archived=body.archived, pinned=body.pinned)
+    return {"status": "ok"}
+
+
+@app.delete("/leads/{lead_id}")
+def delete_lead(lead_id: int):
+    db.delete_lead(lead_id)
+    return {"status": "deleted"}
+
+
+@app.post("/leads/bulk-delete")
+def bulk_delete_leads(body: BulkIds):
+    for lead_id in body.ids:
+        db.delete_lead(int(lead_id))
+    return {"status": "deleted", "count": len(body.ids)}
+
+
 class ContactCreate(BaseModel):
     company: str = ""
     name: str = ""
@@ -387,8 +417,35 @@ def list_contacts():
 
 @app.patch("/contacts/{contact_id}/status")
 def set_contact_status(contact_id: int, body: ContactStatus):
+    """Also the manual "re-approach" action for a suppressed contact
+    (decision #20) — set status back to not_contacted, no separate
+    endpoint needed."""
     db.update_contact_status(contact_id, body.status)
     return {"status": "ok"}
+
+
+class ContactRetention(BaseModel):
+    archived: bool | None = None
+    pinned: bool | None = None
+
+
+@app.patch("/contacts/{contact_id}/retention")
+def set_contact_retention(contact_id: int, body: ContactRetention):
+    db.update_contact(contact_id, archived=body.archived, pinned=body.pinned)
+    return {"status": "ok"}
+
+
+@app.delete("/contacts/{contact_id}")
+def delete_contact(contact_id: int):
+    db.delete_contact(contact_id)
+    return {"status": "deleted"}
+
+
+@app.post("/contacts/bulk-delete")
+def bulk_delete_contacts(body: BulkIds):
+    for contact_id in body.ids:
+        db.delete_contact(int(contact_id))
+    return {"status": "deleted", "count": len(body.ids)}
 
 
 @app.post("/contacts/{contact_id}/outreach")
@@ -442,6 +499,13 @@ def send_outreach(contact_id: int, body: OutreachRequest):
         return {"status": "failed", "reason": f"drafting failed: {e}"}
     if sending_profile and sending_profile.get("signature"):
         draft["body"] = draft["body"].rstrip() + "\n\n" + sending_profile["signature"]
+
+    if db.get_setting("dry_run_mode", "false") == "true":
+        # Plan Phase 7, flagged as "recommended, not yet confirmed" (Open
+        # Risk #6): simulates the full pipeline without an actual send —
+        # deliberately does NOT call insert_sent_email/update_contact_status,
+        # so a dry run never consumes the one-send-per-contact guarantee.
+        return {"status": "dry_run", "subject": draft["subject"], "body": draft["body"]}
 
     delivery_key = "job_application" if is_job_application else "cold_intro"
     delivery_mode = pipeline_settings["resume_delivery"].get(delivery_key, "html")
@@ -569,6 +633,48 @@ def update_posting(posting_id: str, body: PostingUpdate):
     return updated
 
 
+@app.delete("/postings/{posting_id}")
+def delete_posting(posting_id: str):
+    db.delete_posting(posting_id)
+    return {"status": "deleted"}
+
+
+class BulkIds(BaseModel):
+    ids: list[str]
+
+
+@app.post("/postings/bulk-delete")
+def bulk_delete_postings(body: BulkIds):
+    for posting_id in body.ids:
+        db.delete_posting(posting_id)
+    return {"status": "deleted", "count": len(body.ids)}
+
+
+class RetentionSettings(BaseModel):
+    retention_days: int
+
+
+@app.get("/settings/retention")
+def get_retention_settings():
+    return {"retention_days": retention.get_retention_days()}
+
+
+@app.post("/settings/retention")
+def save_retention_settings(body: RetentionSettings):
+    retention.save_retention_days(body.retention_days)
+    return {"status": "saved"}
+
+
+@app.post("/retention/sweep")
+def run_retention_sweep():
+    return retention.sweep()
+
+
+@app.get("/export")
+def export_data():
+    return db.export_all_data()
+
+
 class WorkModeWeights(BaseModel):
     remote: float = 0.6
     hybrid: float = 0.3
@@ -653,6 +759,95 @@ def save_size_thresholds(body: SizeThresholds):
 def save_provider_order(body: EnrichmentProviderOrder):
     enrichment.save_provider_order(body.order, industry=body.industry)
     return {"status": "saved"}
+
+
+class SchedulerSettings(BaseModel):
+    enabled: bool
+    mode: str = "daily"
+    times_per_day: int = 1
+    every_n_days: int = 1
+
+
+@app.get("/settings/scheduler")
+def get_scheduler_settings():
+    return {
+        "enabled": scheduler.is_enabled(),
+        **scheduler.get_cadence_settings(),
+        "last_run_at": db.get_setting("scheduler_last_run_at"),
+    }
+
+
+@app.post("/settings/scheduler")
+def save_scheduler_settings(body: SchedulerSettings):
+    """Toggling this on runs real enrichment scrapes and sends a real
+    Telegram message on a timer (see scheduler.py's module docstring) —
+    it's opt-in via this route, never auto-started just because the backend
+    booted, unless a previous session already enabled it."""
+    scheduler.set_enabled(body.enabled)
+    scheduler.save_cadence_settings(body.mode, body.times_per_day, body.every_n_days)
+    if body.enabled:
+        scheduler.start()
+        scheduler.reschedule()
+    else:
+        scheduler.stop()
+    return {"status": "saved"}
+
+
+@app.post("/scheduler/run-now")
+def run_scheduler_now():
+    return scheduler.run_daily_batch()
+
+
+@app.post("/reply-check/run")
+def run_reply_check():
+    """Manual trigger for Phase 5's reply loop (decision #19) — also run as
+    part of the scheduled daily batch when the scheduler is enabled (see
+    scheduler.run_daily_batch)."""
+    return reply_check.check_all_replies()
+
+
+class GroupDiscoveryScan(BaseModel):
+    keyword: str
+    providers: list[str] = ["telegram_directory", "discord_directory"]
+
+
+@app.post("/group-discovery/scan")
+def scan_group_discovery(body: GroupDiscoveryScan):
+    """Discovery only (decision #9) — never joins anything. Results are
+    stored for manual review; the WhatsApp/Slack quick-capture box in the
+    Leads tab remains the only path for those two (no public directory
+    exists for either)."""
+    if not body.keyword.strip():
+        raise HTTPException(status_code=400, detail="keyword is required")
+    found = []
+    for provider_id in body.providers:
+        provider = group_discovery_providers.get_provider(provider_id)
+        if not provider:
+            continue
+        try:
+            results = provider.search(body.keyword.strip())
+        except Exception:
+            results = []
+        for r in results:
+            r["keyword"] = body.keyword.strip()
+        found.extend(results)
+    inserted = db.insert_discovered_channels(found)
+    return {"found": len(found), "inserted": inserted}
+
+
+@app.get("/group-discovery/channels")
+def list_discovered_channels():
+    return db.get_discovered_channels()
+
+
+class DiscoveredChannelStatus(BaseModel):
+    status: str
+
+
+@app.patch("/group-discovery/channels/{channel_id}")
+def update_discovered_channel(channel_id: int, body: DiscoveredChannelStatus):
+    db.update_discovered_channel_status(channel_id, body.status)
+    return {"status": "ok"}
 
 
 @app.get("/glance")

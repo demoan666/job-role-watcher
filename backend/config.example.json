@@ -19,7 +19,8 @@
     "api_id": null,
     "api_hash": "",
     "session_name": "telegram_session",
-    "channels": []
+    "channels": [],
+    "notify_chat": "me"
   },
   "slack": {
     "user_token": "xoxp-...",
@@ -29,5 +30,8 @@
   "gmail": {
     "client_secret_path": "client_secret.json",
     "daily_send_cap": 20
+  },
+  "enrichment": {
+    "hunter_api_key": ""
   }
 }
