@@ -30,7 +30,10 @@
     font-family: -apple-system, Segoe UI, Roboto, sans-serif;
     margin: 0 auto;
     max-width: 1100px;
-    padding: 1.5rem;
+    /* Top spacing lives on .sticky-header (padding-top) instead of here —
+       see that rule for why: this is the same visual gap, just moved inside
+       the sticky box so it's rigid with it from the first pixel of scroll. */
+    padding: 0 1.5rem 1.5rem;
     line-height: 1.4;
   }
   h1 { font-size: 1.4rem; margin-bottom: 0.2rem; }
@@ -106,8 +109,16 @@
   /* transform: translateZ(0) forces its own compositor layer — without it,
      Chrome on Windows can re-rasterize this sticky element at a slightly
      different sub-pixel offset than the page underneath on some scroll
-     frames, reading as a faint 1px "wobble" while scrolling. */
-  .sticky-header { position: sticky; top: 0; z-index: 40; background: Canvas; transform: translateZ(0); }
+     frames, reading as a faint 1px "wobble" while scrolling.
+     padding-top carries the gap that used to live on body's top padding —
+     that gap sat OUTSIDE this sticky box, so position:sticky's top:0
+     threshold wasn't reached (and the header wasn't actually pinned yet)
+     until the page had already scrolled past it, making the whole header
+     visibly slide up for the first ~24px of scroll. Baking the gap into
+     the sticky box's own padding means the box's top edge sits at y:0 from
+     the very start, so it's fully pinned — title, gap above it, and the
+     tabs/subtabs below — from the first pixel of scroll, no slack. */
+  .sticky-header { position: sticky; top: 0; z-index: 40; background: Canvas; padding-top: 1.5rem; transform: translateZ(0); }
   .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); }
   .tabs button {
     background: none; border: none; padding: 0.5rem 0.8rem; font-size: 0.95rem;
