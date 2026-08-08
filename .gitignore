@@ -6,4 +6,7 @@ backend/config.json
 backend/app.db
 backend/*.session
 backend/client_secret.json
+backend/client_secret.json.migrated-to-vault.bak
 backend/token.json
+backend/vault.dat
+backend/backups/

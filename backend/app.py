@@ -17,6 +17,7 @@ import db
 import gmail
 import llm
 import resume_parse
+import vault
 from config import (
     delete_custom_provider,
     get_llm_settings,
@@ -48,6 +49,64 @@ def on_startup():
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+class VaultInit(BaseModel):
+    password: str
+    migrate: bool = True
+
+
+class VaultUnlock(BaseModel):
+    password: str
+
+
+class VaultChangePassword(BaseModel):
+    new_password: str
+
+
+@app.get("/vault/status")
+def vault_status():
+    return {"initialized": vault.is_initialized(), "unlocked": vault.is_unlocked()}
+
+
+@app.post("/vault/init")
+def vault_init(body: VaultInit):
+    """First-time setup. Optionally (default True) migrates existing
+    plaintext secrets — config.json's LLM keys and backend/client_secret.json
+    — into the newly-created vault, per decision #24. Refuses to run twice;
+    use /vault/unlock on an already-initialized vault instead."""
+    if vault.is_initialized():
+        raise HTTPException(status_code=409, detail="Vault already initialized.")
+    if len(body.password) < 8:
+        raise HTTPException(status_code=400, detail="Master password must be at least 8 characters.")
+    vault.init_vault(body.password)
+    migrated = vault.migrate_plaintext_secrets() if body.migrate else []
+    return {"status": "initialized", "migrated_secrets": migrated}
+
+
+@app.post("/vault/unlock")
+def vault_unlock(body: VaultUnlock):
+    if not vault.is_initialized():
+        raise HTTPException(status_code=404, detail="Vault not initialized yet.")
+    if not vault.unlock(body.password):
+        raise HTTPException(status_code=401, detail="Incorrect master password.")
+    return {"status": "unlocked"}
+
+
+@app.post("/vault/lock")
+def vault_lock():
+    vault.lock()
+    return {"status": "locked"}
+
+
+@app.post("/vault/change-password")
+def vault_change_password(body: VaultChangePassword):
+    if not vault.is_unlocked():
+        raise HTTPException(status_code=423, detail="Unlock the vault first.")
+    if len(body.new_password) < 8:
+        raise HTTPException(status_code=400, detail="Master password must be at least 8 characters.")
+    vault.change_password(body.new_password)
+    return {"status": "changed"}
 
 
 class ResumeText(BaseModel):

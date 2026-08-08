@@ -437,6 +437,25 @@
     padding: 0.35rem 0.5rem; border: 1px solid var(--border); border-radius: 4px;
     background: var(--bg-alt); color: inherit; font-family: inherit; accent-color: var(--accent);
   }
+  .vault-status-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem; font-size: 0.9rem; }
+  #settings-tab-security label {
+    display: block; font-size: 0.85rem; margin: 0.5rem 0 0.9rem;
+  }
+  #settings-tab-security input[type="password"] {
+    display: block; width: 100%; max-width: 320px; margin-top: 0.3rem; padding: 0.35rem 0.5rem;
+    border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit; font-family: inherit;
+    box-sizing: border-box;
+  }
+  .vault-checkbox-label { display: flex !important; align-items: center; gap: 0.4rem; }
+  .vault-checkbox-label input { margin: 0; }
+  .vault-warning { font-size: 0.78rem; color: var(--muted); font-style: italic; max-width: 420px; }
+  #vault-unlock-overlay .modal-panel { max-width: 420px; }
+  #vault-unlock-overlay input[type="password"] {
+    display: block; width: 100%; margin: 0.5rem 0 0.8rem; padding: 0.4rem 0.6rem;
+    border: 1px solid var(--border); border-radius: 4px; background: transparent; color: inherit;
+    font-family: inherit; box-sizing: border-box;
+  }
+  .vault-skip-btn { background: transparent; border: none; color: var(--muted); text-decoration: underline; cursor: pointer; margin-left: 0.6rem; font-size: 0.85rem; }
   .modal-panel .status { font-size: 0.85rem; color: var(--muted); margin-top: 0.6rem; }
   .modal-panel .status.error { color: var(--error); font-weight: 600; }
   .country-quickselect { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.6rem 0; }
@@ -546,6 +565,7 @@
         <button type="button" data-settings-subtab="apis" class="active">LLM APIs</button>
         <button type="button" data-settings-subtab="usage">LLM Usage</button>
         <button type="button" data-settings-subtab="backend">Backend</button>
+        <button type="button" data-settings-subtab="security">Security</button>
       </div>
 
       <div id="settings-tab-apis" class="subtab-panel active">
@@ -594,6 +614,51 @@
         </div>
         <pre class="backend-start-cmd"><code>cd backend &amp;&amp; ../.venv/Scripts/python.exe -m uvicorn app:app --host 127.0.0.1 --port 8420</code></pre>
       </div>
+
+      <div id="settings-tab-security" class="subtab-panel">
+        <div class="vault-status-row">
+          <span class="backend-status-dot" id="vault-status-dot"></span>
+          <span id="vault-status-text">Checking…</span>
+        </div>
+
+        <div id="vault-setup-form" style="display:none">
+          <h3>Set up the credential vault <span class="tooltip-icon" title="Encrypts your LLM API keys and Gmail OAuth client secret at rest behind one master password, instead of sitting in plaintext config.json. Optional — everything keeps working without it.">ⓘ</span></h3>
+          <label>Master password (min. 8 characters) <input type="password" id="vault-init-password" autocomplete="new-password"></label>
+          <label>Confirm password <input type="password" id="vault-init-password-confirm" autocomplete="new-password"></label>
+          <label class="vault-checkbox-label"><input type="checkbox" id="vault-init-migrate" checked> Migrate existing plaintext keys into the vault</label>
+          <button type="button" id="vault-init-btn">Create vault</button>
+          <p class="vault-warning">There is no password recovery — if you forget this password, the vault's contents are unrecoverable and you'll need to re-enter your API keys from scratch.</p>
+        </div>
+
+        <div id="vault-unlock-form" style="display:none">
+          <h3>Unlock vault</h3>
+          <label>Master password <input type="password" id="vault-unlock-password" autocomplete="current-password"></label>
+          <button type="button" id="vault-unlock-btn">Unlock</button>
+        </div>
+
+        <div id="vault-unlocked-panel" style="display:none">
+          <h3>Vault unlocked for this backend session</h3>
+          <button type="button" id="vault-lock-btn">Lock now</button>
+          <h3>Change master password</h3>
+          <label>New password (min. 8 characters) <input type="password" id="vault-change-password" autocomplete="new-password"></label>
+          <button type="button" id="vault-change-password-btn">Change password</button>
+        </div>
+
+        <div class="status" id="vault-settings-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="vault-unlock-overlay" class="modal-overlay" style="display:none">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h2>Vault locked</h2>
+      </div>
+      <p>This backend's credential vault is initialized but locked — LLM and Gmail-sending features won't work until it's unlocked.</p>
+      <label>Master password <input type="password" id="vault-unlock-overlay-password" autocomplete="current-password"></label>
+      <button type="button" id="vault-unlock-overlay-btn">Unlock</button>
+      <button type="button" id="vault-unlock-overlay-skip" class="vault-skip-btn">Continue locked</button>
+      <div class="status" id="vault-unlock-overlay-status"></div>
     </div>
   </div>
 
@@ -2609,6 +2674,132 @@
     loadSettings();
   }
 
+  function initVault() {
+    var dot = document.getElementById("vault-status-dot");
+    var text = document.getElementById("vault-status-text");
+    var setupForm = document.getElementById("vault-setup-form");
+    var unlockForm = document.getElementById("vault-unlock-form");
+    var unlockedPanel = document.getElementById("vault-unlocked-panel");
+    var statusEl = document.getElementById("vault-settings-status");
+    var blockingOverlay = document.getElementById("vault-unlock-overlay");
+
+    function showStatusError(el, err) {
+      el.classList.add("error");
+      el.textContent = "Error: " + err.message;
+    }
+
+    function refreshVaultStatus() {
+      return fetch(BACKEND + "/vault/status").then(function (r) {
+        return r.ok ? r.json() : null;
+      }).then(function (data) {
+        setupForm.style.display = "none";
+        unlockForm.style.display = "none";
+        unlockedPanel.style.display = "none";
+        if (!data) {
+          dot.className = "backend-status-dot down";
+          text.textContent = "Couldn't reach the local backend.";
+          blockingOverlay.style.display = "none";
+          return;
+        }
+        if (!data.initialized) {
+          dot.className = "backend-status-dot";
+          text.textContent = "Not set up — keys currently sit in plaintext config.json (still works fine).";
+          setupForm.style.display = "block";
+          blockingOverlay.style.display = "none";
+        } else if (data.unlocked) {
+          dot.className = "backend-status-dot running";
+          text.textContent = "Initialized and unlocked for this backend session.";
+          unlockedPanel.style.display = "block";
+          blockingOverlay.style.display = "none";
+        } else {
+          dot.className = "backend-status-dot down";
+          text.textContent = "Initialized but locked.";
+          unlockForm.style.display = "block";
+          blockingOverlay.style.display = "flex";
+        }
+        return data;
+      }).catch(function () {
+        dot.className = "backend-status-dot down";
+        text.textContent = "Couldn't reach the local backend.";
+      });
+    }
+
+    document.getElementById("vault-init-btn").addEventListener("click", function () {
+      var pw = document.getElementById("vault-init-password").value;
+      var confirm = document.getElementById("vault-init-password-confirm").value;
+      var migrate = document.getElementById("vault-init-migrate").checked;
+      statusEl.classList.remove("error");
+      if (pw.length < 8) { showStatusError(statusEl, new Error("Password must be at least 8 characters.")); return; }
+      if (pw !== confirm) { showStatusError(statusEl, new Error("Passwords don't match.")); return; }
+      statusEl.textContent = "Creating vault…";
+      fetch(BACKEND + "/vault/init", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pw, migrate: migrate })
+      }).then(function (r) {
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (b) { throw new Error(b.detail || ("Backend returned " + r.status)); });
+        return r.json();
+      }).then(function (data) {
+        statusEl.classList.remove("error");
+        statusEl.textContent = data.migrated_secrets && data.migrated_secrets.length
+          ? "Vault created — migrated: " + data.migrated_secrets.join(", ") : "Vault created.";
+        document.getElementById("vault-init-password").value = "";
+        document.getElementById("vault-init-password-confirm").value = "";
+        return refreshVaultStatus();
+      }).catch(function (err) { showStatusError(statusEl, err); });
+    });
+
+    function doUnlock(passwordInputId, statusElForUnlock, onSuccess) {
+      var pw = document.getElementById(passwordInputId).value;
+      statusElForUnlock.classList.remove("error");
+      statusElForUnlock.textContent = "Unlocking…";
+      return fetch(BACKEND + "/vault/unlock", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pw })
+      }).then(function (r) {
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (b) { throw new Error(b.detail || ("Backend returned " + r.status)); });
+        return r.json();
+      }).then(function () {
+        document.getElementById(passwordInputId).value = "";
+        statusElForUnlock.textContent = "";
+        if (onSuccess) onSuccess();
+        return refreshVaultStatus();
+      }).catch(function (err) { showStatusError(statusElForUnlock, err); });
+    }
+
+    document.getElementById("vault-unlock-btn").addEventListener("click", function () {
+      doUnlock("vault-unlock-password", statusEl);
+    });
+
+    var overlayStatusEl = document.getElementById("vault-unlock-overlay-status");
+    document.getElementById("vault-unlock-overlay-btn").addEventListener("click", function () {
+      doUnlock("vault-unlock-overlay-password", overlayStatusEl, function () { loadSettings(); });
+    });
+    document.getElementById("vault-unlock-overlay-skip").addEventListener("click", function () {
+      blockingOverlay.style.display = "none";
+    });
+
+    document.getElementById("vault-lock-btn").addEventListener("click", function () {
+      fetch(BACKEND + "/vault/lock", { method: "POST" }).then(function () { return refreshVaultStatus(); });
+    });
+
+    document.getElementById("vault-change-password-btn").addEventListener("click", function () {
+      var pw = document.getElementById("vault-change-password").value;
+      statusEl.classList.remove("error");
+      if (pw.length < 8) { showStatusError(statusEl, new Error("Password must be at least 8 characters.")); return; }
+      statusEl.textContent = "Changing…";
+      fetch(BACKEND + "/vault/change-password", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ new_password: pw })
+      }).then(function (r) {
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (b) { throw new Error(b.detail || ("Backend returned " + r.status)); });
+        statusEl.textContent = "Password changed.";
+        document.getElementById("vault-change-password").value = "";
+      }).catch(function (err) { showStatusError(statusEl, err); });
+    });
+
+    refreshVaultStatus();
+  }
+
   function render() {
     var q = document.getElementById("search").value.trim().toLowerCase();
     var remoteOnly = document.getElementById("remote-only").checked;
@@ -2659,6 +2850,7 @@
   initOutreach();
   initGlance();
   initLlmSettings();
+  initVault();
   refreshLlmUsage();
 
   Promise.all([

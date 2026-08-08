@@ -14,6 +14,7 @@ import json
 import re
 
 import db
+import vault
 from config import get_llm_settings
 
 # Curated "popular model" defaults per provider — always paired with a free-
@@ -179,6 +180,8 @@ def _call_json(system_prompt, user_content, task, max_tokens=1024):
     api_key = provider_settings.get("api_key")
     if not api_key:
         provider_label = get_all_providers().get(provider, {}).get("label", provider)
+        if provider_settings.get("has_key") and vault.is_initialized() and not vault.is_unlocked():
+            raise RuntimeError(f"Vault is locked — unlock it to use {provider_label}.")
         raise RuntimeError(
             f"No API key configured for {provider_label}. Add one in Setup > LLM settings."
         )
