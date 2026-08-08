@@ -81,6 +81,8 @@ CREATE TABLE IF NOT EXISTS contacts (
   source_type TEXT,
   source_id TEXT,
   status TEXT NOT NULL DEFAULT 'not_contacted',
+  tier TEXT,
+  posting_id TEXT REFERENCES postings(id),
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 );
@@ -165,6 +167,14 @@ def init_db():
             conn.execute("ALTER TABLE profile ADD COLUMN manual_tags_json TEXT DEFAULT '[]'")
         except sqlite3.OperationalError:
             pass  # column already exists (pre-existing DB file from before this field was added)
+        for stmt in [
+            "ALTER TABLE contacts ADD COLUMN tier TEXT",
+            "ALTER TABLE contacts ADD COLUMN posting_id TEXT REFERENCES postings(id)",
+        ]:
+            try:
+                conn.execute(stmt)
+            except sqlite3.OperationalError:
+                pass  # column already exists on a pre-existing DB file
         conn.commit()
     finally:
         conn.close()
@@ -398,17 +408,35 @@ def mark_seen(key="leads_last_seen_at"):
     set_setting(key, now_iso())
 
 
-def insert_contact(company, name, role, email, source_type, source_id):
+def insert_contact(company, name, role, email, source_type, source_id, tier=None, posting_id=None):
     conn = get_connection()
     try:
         ts = now_iso()
         conn.execute(
             "INSERT INTO contacts (company, name, role, email, source_type, source_id, "
-            "status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, 'not_contacted', ?, ?)",
-            (company, name, role, email, source_type, source_id, ts, ts),
+            "status, tier, posting_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, 'not_contacted', ?, ?, ?, ?)",
+            (company, name, role, email, source_type, source_id, tier, posting_id, ts, ts),
         )
         conn.commit()
         return conn.execute("SELECT last_insert_rowid() AS id").fetchone()["id"]
+    finally:
+        conn.close()
+
+
+def contact_exists(company, email):
+    """Dedup rule (decision #13): block on (company, specific contact
+    person) pair, keyed here by (company, email) since email is the stable
+    per-person identifier the pipeline actually has. A new named person or a
+    materially different email at the same company is a legitimate new
+    contact, not a duplicate."""
+    if not email:
+        return False
+    conn = get_connection()
+    try:
+        row = conn.execute(
+            "SELECT 1 FROM contacts WHERE company = ? AND email = ? LIMIT 1", (company, email)
+        ).fetchone()
+        return row is not None
     finally:
         conn.close()
 
@@ -683,6 +711,15 @@ def get_postings():
         active = [_posting_row_to_dict(r) for r in rows if r["status"] == "active"]
         closed = [_posting_row_to_dict(r) for r in rows if r["status"] == "closed"]
         return {"active": active, "archive": closed}
+    finally:
+        conn.close()
+
+
+def get_posting(posting_id):
+    conn = get_connection()
+    try:
+        row = conn.execute("SELECT * FROM postings WHERE id = ?", (posting_id,)).fetchone()
+        return _posting_row_to_dict(row) if row else None
     finally:
         conn.close()
 

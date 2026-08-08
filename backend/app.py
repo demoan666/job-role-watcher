@@ -14,11 +14,13 @@ from pydantic import BaseModel
 import re
 
 import db
+import enrichment
 import gmail
 import llm
 import resume_parse
 import scoring
 import vault
+from providers import enrichment as enrichment_providers
 from config import (
     delete_custom_provider,
     get_llm_settings,
@@ -480,6 +482,74 @@ def get_work_mode_weights():
 def save_work_mode_weights(body: WorkModeWeights):
     scoring.save_work_mode_weights(body.model_dump())
     db.sync_postings_from_json()  # re-score immediately so the change is visible without a manual refresh
+    return {"status": "saved"}
+
+
+@app.post("/postings/{posting_id}/enrich")
+def enrich_posting(posting_id: str):
+    """Runs the contact-resolution chain for a posting's company (Phase 2)
+    and inserts any newly-found contacts, skipping ones already known for
+    this (company, email) pair (decision #13). Returns both the newly
+    inserted contacts and how many were skipped as already-known."""
+    posting = db.get_posting(posting_id)
+    if not posting:
+        raise HTTPException(status_code=404, detail="posting not found")
+
+    found = enrichment.enrich_company(posting["company"], posting["url"], industry=posting.get("cluster"))
+    inserted = []
+    skipped = 0
+    for contact in found:
+        if db.contact_exists(posting["company"], contact.get("email")):
+            skipped += 1
+            continue
+        contact_id = db.insert_contact(
+            posting["company"], contact.get("name"), contact.get("role"), contact.get("email"),
+            source_type="enrichment:" + contact.get("source", "unknown"), source_id=posting_id,
+            tier=contact.get("tier"), posting_id=posting_id,
+        )
+        inserted.append(dict(contact, id=contact_id))
+    return {"inserted": inserted, "skipped_existing": skipped}
+
+
+class DecisionMakerTitles(BaseModel):
+    titles: list[str]
+
+
+class SizeThresholds(BaseModel):
+    small_max: int
+    large_min: int
+
+
+class EnrichmentProviderOrder(BaseModel):
+    order: list[str]
+    industry: str | None = None
+
+
+@app.get("/settings/enrichment")
+def get_enrichment_settings():
+    return {
+        "decision_maker_titles": enrichment.get_decision_maker_titles(),
+        "size_thresholds": enrichment.get_size_thresholds(),
+        "provider_order": enrichment.get_provider_order(),
+        "available_providers": list(enrichment_providers.REGISTRY.keys()),
+    }
+
+
+@app.post("/settings/enrichment/decision-maker-titles")
+def save_decision_maker_titles(body: DecisionMakerTitles):
+    enrichment.save_decision_maker_titles(body.titles)
+    return {"status": "saved"}
+
+
+@app.post("/settings/enrichment/size-thresholds")
+def save_size_thresholds(body: SizeThresholds):
+    enrichment.save_size_thresholds({"small_max": body.small_max, "large_min": body.large_min})
+    return {"status": "saved"}
+
+
+@app.post("/settings/enrichment/provider-order")
+def save_provider_order(body: EnrichmentProviderOrder):
+    enrichment.save_provider_order(body.order, industry=body.industry)
     return {"status": "saved"}
 
 
