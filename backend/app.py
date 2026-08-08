@@ -17,6 +17,7 @@ import db
 import gmail
 import llm
 import resume_parse
+import scoring
 import vault
 from config import (
     delete_custom_provider,
@@ -44,6 +45,10 @@ app.add_middleware(
 @app.on_event("startup")
 def on_startup():
     db.init_db()
+    try:
+        db.sync_postings_from_json()
+    except Exception:
+        pass  # data/postings.json may not exist yet on a fresh checkout — not fatal
 
 
 @app.get("/health")
@@ -426,6 +431,56 @@ def send_outreach(contact_id: int, body: OutreachRequest):
 @app.get("/sent-emails")
 def list_sent_emails():
     return db.get_sent_emails()
+
+
+class PostingUpdate(BaseModel):
+    archived: bool | None = None
+    pinned: bool | None = None
+
+
+@app.get("/postings")
+def list_postings():
+    """Live, scored version of what data/postings.json + archive.json used
+    to serve directly to the frontend (Phase 1 — see master plan §5). Syncs
+    from those files first so a fetch_postings.py run picked up since the
+    last sync (or the last profile edit, which changes scoring) is
+    reflected immediately rather than waiting for the next backend restart."""
+    try:
+        db.sync_postings_from_json()
+    except Exception:
+        pass
+    return db.get_postings()
+
+
+@app.post("/postings/sync")
+def sync_postings():
+    return db.sync_postings_from_json()
+
+
+@app.patch("/postings/{posting_id}")
+def update_posting(posting_id: str, body: PostingUpdate):
+    updated = db.update_posting(posting_id, archived=body.archived, pinned=body.pinned)
+    if updated is None:
+        raise HTTPException(status_code=404, detail="posting not found")
+    return updated
+
+
+class WorkModeWeights(BaseModel):
+    remote: float = 0.6
+    hybrid: float = 0.3
+    onsite: float = 0.1
+
+
+@app.get("/scoring/work-mode-weights")
+def get_work_mode_weights():
+    return scoring.get_work_mode_weights()
+
+
+@app.post("/scoring/work-mode-weights")
+def save_work_mode_weights(body: WorkModeWeights):
+    scoring.save_work_mode_weights(body.model_dump())
+    db.sync_postings_from_json()  # re-score immediately so the change is visible without a manual refresh
+    return {"status": "saved"}
 
 
 @app.get("/glance")

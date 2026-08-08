@@ -18,6 +18,7 @@ SEARCH_PROFILE_PATH = os.path.join(REPO_ROOT, "data", "search_profile.json")
 SEARCH_SCOPE_PATH = os.path.join(REPO_ROOT, "data", "search_scope.json")
 COMPANIES_PATH = os.path.join(REPO_ROOT, "data", "companies.json")
 POSTINGS_PATH = os.path.join(REPO_ROOT, "data", "postings.json")
+ARCHIVE_PATH = os.path.join(REPO_ROOT, "data", "archive.json")
 STALE_OUTREACH_DAYS = 7
 ALL_ATS = ["greenhouse", "lever", "smartrecruiters"]
 ALL_CONTRACT_MODES = ["full-time", "contract", "freelance", "internship"]
@@ -119,6 +120,28 @@ CREATE TABLE IF NOT EXISTS llm_usage (
   output_tokens INTEGER NOT NULL,
   estimated_cost_usd REAL,
   created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS postings (
+  id TEXT PRIMARY KEY,
+  company TEXT NOT NULL,
+  cluster TEXT,
+  title TEXT NOT NULL,
+  location TEXT,
+  remote INTEGER NOT NULL DEFAULT 0,
+  eu_hireable_or_remote INTEGER NOT NULL DEFAULT 0,
+  url TEXT,
+  ats TEXT,
+  contract_type TEXT,
+  first_seen TEXT,
+  status TEXT NOT NULL DEFAULT 'active',
+  closed_date TEXT,
+  score REAL,
+  score_breakdown_json TEXT,
+  work_mode_tag TEXT,
+  archived INTEGER NOT NULL DEFAULT 0,
+  pinned INTEGER NOT NULL DEFAULT 0,
+  synced_at TEXT NOT NULL
 );
 """
 
@@ -575,5 +598,107 @@ def get_llm_usage_summary(since=None):
         if since:
             result["session"] = summarize("WHERE created_at >= ?", (since,))
         return result
+    finally:
+        conn.close()
+
+
+def sync_postings_from_json():
+    """Upserts data/postings.json (active) + data/archive.json (closed) into
+    the postings table, scoring each against the current profile (plan
+    Phase 1). Cheap enough to just re-run in full rather than diff — scoring
+    is a pure function of (posting, profile, work-mode weights), and
+    archived/pinned (user-set retention flags, not present in the source
+    JSON) are deliberately left out of the UPDATE clause below so a re-sync
+    never clobbers them; new rows get their schema default of 0."""
+    import scoring  # local import — avoids a circular import at module load
+
+    profile = get_profile() or {}
+    extracted = profile.get("extracted") or {}
+    keywords = extracted.get("keywords", [])
+    industries = extracted.get("industries", [])
+    weights = scoring.get_work_mode_weights()
+
+    active = load_json_list(POSTINGS_PATH)
+    archived = load_json_list(ARCHIVE_PATH)
+
+    conn = get_connection()
+    try:
+        synced = 0
+        for posting, status in [(p, "active") for p in active] + [(p, "closed") for p in archived]:
+            score, breakdown = scoring.score_posting(posting, keywords, industries, weights)
+            conn.execute(
+                "INSERT INTO postings (id, company, cluster, title, location, remote, "
+                "eu_hireable_or_remote, url, ats, contract_type, first_seen, status, closed_date, "
+                "score, score_breakdown_json, work_mode_tag, synced_at) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+                "ON CONFLICT(id) DO UPDATE SET company=excluded.company, cluster=excluded.cluster, "
+                "title=excluded.title, location=excluded.location, remote=excluded.remote, "
+                "eu_hireable_or_remote=excluded.eu_hireable_or_remote, url=excluded.url, ats=excluded.ats, "
+                "contract_type=excluded.contract_type, first_seen=excluded.first_seen, status=excluded.status, "
+                "closed_date=excluded.closed_date, score=excluded.score, "
+                "score_breakdown_json=excluded.score_breakdown_json, work_mode_tag=excluded.work_mode_tag, "
+                "synced_at=excluded.synced_at",
+                (
+                    posting["id"], posting.get("company"), posting.get("cluster"), posting.get("title"),
+                    posting.get("location"), int(bool(posting.get("remote"))),
+                    int(bool(posting.get("eu_hireable_or_remote"))), posting.get("url"), posting.get("ats"),
+                    posting.get("contract_type"), posting.get("first_seen"), status, posting.get("closed_date"),
+                    score, json.dumps(breakdown, ensure_ascii=False), breakdown["work_mode_tag"], now_iso(),
+                ),
+            )
+            synced += 1
+        conn.commit()
+        return {"synced": synced}
+    finally:
+        conn.close()
+
+
+def load_json_list(path):
+    if not os.path.exists(path):
+        return []
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _posting_row_to_dict(row):
+    d = dict(row)
+    d["remote"] = bool(d["remote"])
+    d["eu_hireable_or_remote"] = bool(d["eu_hireable_or_remote"])
+    d["archived"] = bool(d["archived"])
+    d["pinned"] = bool(d["pinned"])
+    d["score_breakdown"] = json.loads(d.pop("score_breakdown_json")) if d.get("score_breakdown_json") else None
+    return d
+
+
+def get_postings():
+    """Returns {"active": [...], "archive": [...]} — same two-list shape the
+    frontend already renders from data/postings.json + archive.json
+    (backend/CLAUDE.md's Search Results tab), plus extra score/work_mode_tag/
+    archived/pinned fields the existing renderer just ignores."""
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            "SELECT * FROM postings WHERE archived = 0 ORDER BY score DESC"
+        ).fetchall()
+        active = [_posting_row_to_dict(r) for r in rows if r["status"] == "active"]
+        closed = [_posting_row_to_dict(r) for r in rows if r["status"] == "closed"]
+        return {"active": active, "archive": closed}
+    finally:
+        conn.close()
+
+
+def update_posting(posting_id, archived=None, pinned=None):
+    conn = get_connection()
+    try:
+        row = conn.execute("SELECT id FROM postings WHERE id = ?", (posting_id,)).fetchone()
+        if not row:
+            return None
+        if archived is not None:
+            conn.execute("UPDATE postings SET archived = ? WHERE id = ?", (int(archived), posting_id))
+        if pinned is not None:
+            conn.execute("UPDATE postings SET pinned = ? WHERE id = ?", (int(pinned), posting_id))
+        conn.commit()
+        updated = conn.execute("SELECT * FROM postings WHERE id = ?", (posting_id,)).fetchone()
+        return _posting_row_to_dict(updated)
     finally:
         conn.close()

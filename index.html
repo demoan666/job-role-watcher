@@ -2853,12 +2853,34 @@
   initVault();
   refreshLlmUsage();
 
-  Promise.all([
-    fetch("data/postings.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),
-    fetch("data/archive.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
-  ]).then(function (results) {
-    state.postings = results[0] || [];
-    state.archive = results[1] || [];
+  // Backend-first (live, scored — Phase 1 of the master plan), falling back
+  // to the static JSON files fetch_postings.py/GitHub Actions produce so the
+  // Search Results tab still works standalone on GitHub Pages with no local
+  // backend running (the resilience the app was originally built around —
+  // see CLAUDE.md's "Search Results tab reads static postings.json directly").
+  function loadPostingsFromBackend() {
+    var controller = new AbortController();
+    var timeout = setTimeout(function () { controller.abort(); }, 3000);
+    return fetch(BACKEND + "/postings", { signal: controller.signal }).then(function (r) {
+      clearTimeout(timeout);
+      if (!r.ok) throw new Error("backend returned " + r.status);
+      return r.json();
+    }).then(function (data) {
+      return { postings: data.active || [], archive: data.archive || [] };
+    });
+  }
+  function loadPostingsFromStaticJson() {
+    return Promise.all([
+      fetch("data/postings.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),
+      fetch("data/archive.json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+    ]).then(function (results) {
+      return { postings: results[0] || [], archive: results[1] || [] };
+    });
+  }
+
+  loadPostingsFromBackend().catch(function () { return loadPostingsFromStaticJson(); }).then(function (results) {
+    state.postings = results.postings;
+    state.archive = results.archive;
     var latest = state.postings.reduce(function (max, p) { return p.first_seen > max ? p.first_seen : max; }, "");
     document.getElementById("meta").textContent =
       state.postings.length + " active posting(s) across " +
