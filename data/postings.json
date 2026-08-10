@@ -78,19 +78,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "greenhouse:Adyen:8074355",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Machine Learning Engineer II - AI",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8074355",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "greenhouse:Adyen:7687317",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -112,19 +99,6 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/8002425",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "greenhouse:Adyen:7711481",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Machine Learning Engineer - AI",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7711481",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-08"
@@ -190,19 +164,6 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139354019",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000141835199",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "AI Product Management Associate (12 Months Contract)",
-    "location": "Kuala Lumpur, Wilayah Perseketuan, my",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141835199",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -593,19 +554,6 @@
     "remote": false,
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141271220",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000115125017",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "IT Internship  (AI)",
-    "location": "Cyberjaya, Selangor, my",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000115125017",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -1038,6 +986,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000142551419",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Director, Platform Engineering- SDLC & Cloud Native Foundations",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142551419",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-10"
   },
   {
     "id": "smartrecruiters:Experian:744000133652599",
