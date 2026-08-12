@@ -78,17 +78,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "greenhouse:Adyen:7687317",
+    "id": "greenhouse:Adyen:8050072",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Member of Technical Staff",
     "location": "San Francisco",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7687317",
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8050072",
     "ats": "greenhouse",
     "contract_type": null,
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-12"
   },
   {
     "id": "greenhouse:Adyen:8002425",
@@ -104,19 +104,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "greenhouse:Adyen:8003083",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Staff Engineer (Java) - Merchant Fraud Prevention",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8003083",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "greenhouse:Adyen:7825733",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -125,6 +112,19 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/7825733",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-08"
+  },
+  {
+    "id": "greenhouse:Adyen:8003083",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Staff Java Engineer - Merchant Fraud Prevention",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8003083",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-08"
@@ -255,19 +255,6 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138780829",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000141969699",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Customer Support Representative",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141969699",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -494,19 +481,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000141271220",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Head of Enablement & Innovation",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141271220",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000140066035",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -624,17 +598,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000138272154",
+    "id": "smartrecruiters:Experian:744000142827047",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Machine Learning Engineer",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138272154",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142827047",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-12"
   },
   {
     "id": "smartrecruiters:Experian:744000138202510",
@@ -832,17 +806,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000142804597",
+    "id": "smartrecruiters:Experian:744000142864834",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Data Engineer",
     "location": "Hyderabad, in",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142804597",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142864834",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-11"
+    "first_seen": "2026-08-12"
   },
   {
     "id": "smartrecruiters:Experian:744000138313149",
@@ -949,6 +923,32 @@
     "first_seen": "2026-08-10"
   },
   {
+    "id": "smartrecruiters:Experian:744000142916170",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Insider Risk Specialist",
+    "location": "London, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142916170",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-12"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000142916499",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Insider Risk Specialist",
+    "location": "Nottingham, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142916499",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-12"
+  },
+  {
     "id": "smartrecruiters:Experian:744000133652599",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -975,17 +975,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000142647469",
+    "id": "smartrecruiters:Experian:744000142976387",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Product Manager (Remote)",
     "location": "United States, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142647469",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142976387",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-11"
+    "first_seen": "2026-08-12"
   },
   {
     "id": "smartrecruiters:Experian:744000142105077",
@@ -1079,19 +1079,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000130283930",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer- Java & Database Development",
-    "location": "Heredia, Heredia, cr",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000130283930",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000138852574",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1165,19 +1152,6 @@
     "remote": true,
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142017679",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000141994229",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Support Engineer II – Developer Portal",
-    "location": "Heredia, Heredia, cr",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141994229",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -1480,6 +1454,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000142820114",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Backend Engineer – Customer Support Platform",
+    "location": "Budapest, hu",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000142820114",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-12"
   },
   {
     "id": "smartrecruiters:Wise:744000132896494",
