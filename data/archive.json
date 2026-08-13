@@ -292,5 +292,19 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-08",
     "closed_date": "2026-08-12"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000138237163",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Malaysia Country Manager",
+    "location": "Kuala Lumpur, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000138237163",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-08-13"
   }
 ]
