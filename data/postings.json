@@ -39,6 +39,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "greenhouse:Adyen:8053785",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Operations Analytics",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8053785",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-15"
+  },
+  {
     "id": "greenhouse:Adyen:7522608",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -154,6 +167,32 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000143490329",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Account Director - Financial Services",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143490329",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-15"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000143492702",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Account Director - Public Sector ",
+    "location": "London, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143492702",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-15"
   },
   {
     "id": "smartrecruiters:Experian:744000138262469",
@@ -858,19 +897,6 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "smartrecruiters:Experian:744000138313149",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Engineer",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138313149",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000127797679",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1547,17 +1573,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000143077656",
+    "id": "smartrecruiters:Wise:744000143607001",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer II- Regional Expansion LatAM",
+    "title": "Senior Software Engineer II- Regional Expansion ",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000143077656",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000143607001",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-13"
+    "first_seen": "2026-08-15"
   },
   {
     "id": "smartrecruiters:Wise:744000133347494",

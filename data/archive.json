@@ -376,5 +376,33 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-08",
     "closed_date": "2026-08-14"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000138313149",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Engineer",
+    "location": "Sofia, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138313149",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-08-15"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000143077656",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer II- Regional Expansion LatAM",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000143077656",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-13",
+    "closed_date": "2026-08-15"
   }
 ]
