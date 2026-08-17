@@ -286,6 +286,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000143737259",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Commercial Account Director - Hybrid",
+    "location": "North Sydney, NSW, au",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143737259",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-17"
+  },
+  {
     "id": "smartrecruiters:Experian:744000143333500",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
