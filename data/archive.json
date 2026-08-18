@@ -404,5 +404,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-13",
     "closed_date": "2026-08-15"
+  },
+  {
+    "id": "greenhouse:Adyen:8053785",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Operations Analytics",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8053785",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-15",
+    "closed_date": "2026-08-18"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000140773999",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software Senior",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140773999",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-08-18"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000139297240",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Third Party Security - Programme Support",
+    "location": "Nottingham, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139297240",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-08-18"
   }
 ]
