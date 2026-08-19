@@ -91,6 +91,19 @@
     "first_seen": "2026-08-12"
   },
   {
+    "id": "greenhouse:Adyen:7908806",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior AI Research Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-19"
+  },
+  {
     "id": "greenhouse:Adyen:8002425",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -403,6 +416,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000144131724",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Product Marketing (US Remote)",
+    "location": "Allen, TX, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144131724",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-19"
+  },
+  {
     "id": "smartrecruiters:Experian:744000143305890",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -559,30 +585,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000140066035",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "IT Procurement Partner (Hybrid)",
-    "location": "Costa Mesa, CA, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140066035",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000140066230",
+    "id": "smartrecruiters:Experian:744000144168145",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "IT Procurement Partner (Hybrid)",
     "location": "Allen, TX, us",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140066230",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144168145",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-19"
   },
   {
     "id": "smartrecruiters:Experian:744000138284319",
@@ -936,19 +949,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000138183490",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Scientist, Innovation Lab - Remote",
-    "location": "San Diego, CA, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138183490",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000140984547",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1038,6 +1038,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000144176399",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Manager Identity Governance Administration Engineering - Remote",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144176399",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-19"
   },
   {
     "id": "smartrecruiters:Experian:744000142976387",
@@ -1326,19 +1339,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "greenhouse:Storyblok:4816871101",
-    "company": "Storyblok",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "AI Operations & Automation Manager - Europe/LaTAM",
-    "location": "Remote - Poland/Germany/Brazil",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://www.storyblok.com/job?gh_jid=4816871101",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "greenhouse:Storyblok:4924580101",
     "company": "Storyblok",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1560,6 +1560,19 @@
     "first_seen": "2026-08-12"
   },
   {
+    "id": "smartrecruiters:Wise:744000144115709",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Employment and Expatriate Tax Manager",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144115709",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-19"
+  },
+  {
     "id": "smartrecruiters:Wise:744000132896494",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1571,19 +1584,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000143607001",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer II- Regional Expansion ",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000143607001",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-15"
   },
   {
     "id": "smartrecruiters:Wise:744000133347494",
