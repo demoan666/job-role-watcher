@@ -572,6 +572,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000144295179",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Graduate Program in Technology & Analytics - (Expression of Interest)",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144295179",
+    "ats": "smartrecruiters",
+    "contract_type": "contract",
+    "first_seen": "2026-08-20"
+  },
+  {
     "id": "smartrecruiters:Experian:744000139633885",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -645,32 +658,6 @@
     "remote": false,
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140001139",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138089712",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead DevOps Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138089712",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138563410",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Software Engineer(.Net + AWS)",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138563410",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -1144,6 +1131,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000144345163",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer",
+    "location": "Nottingham, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144345163",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-20"
+  },
+  {
     "id": "smartrecruiters:Experian:744000138084802",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1194,19 +1194,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-13"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138852574",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Software Engineer Fullstack Pleno - Java e Angular",
-    "location": "São Paulo, SP, br",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138852574",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000139938479",
@@ -1308,32 +1295,6 @@
     "remote": true,
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140968876",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000139058360",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Videographer / Video Editor - 12 Month FTC",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139058360",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-05"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000141833941",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "[Expression of Interest] Graduate Program in Technology & Analytics",
-    "location": "Cyberjaya, Selangor, my",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141833941",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -1482,19 +1443,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000128734831",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Principal Product Designer",
-    "location": "Austin, TX, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000128734831",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Wise:744000111608686",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1560,17 +1508,17 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "smartrecruiters:Wise:744000144115709",
+    "id": "smartrecruiters:Wise:744000144290359",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Employment and Expatriate Tax Manager",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144115709",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144290359",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-19"
+    "first_seen": "2026-08-20"
   },
   {
     "id": "smartrecruiters:Wise:744000132896494",
@@ -1584,6 +1532,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000144319235",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer II - Regional Expansion MEA ",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144319235",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-20"
   },
   {
     "id": "smartrecruiters:Wise:744000133347494",
