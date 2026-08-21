@@ -143,19 +143,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000138283892",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "AI Engineering Team Lead",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138283892",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139354019",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -520,17 +507,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000143870909",
+    "id": "smartrecruiters:Experian:744000144609430",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Gen AI Software Engineer Senior",
     "location": "Heredia, Heredia, cr",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143870909",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144609430",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-18"
+    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Experian:744000138566265",
@@ -611,19 +598,6 @@
     "first_seen": "2026-08-19"
   },
   {
-    "id": "smartrecruiters:Experian:744000138284319",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead AI Engineer",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138284319",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139121720",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -658,19 +632,6 @@
     "remote": false,
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140001139",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138089096",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Test Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138089096",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -962,17 +923,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000142551419",
+    "id": "smartrecruiters:Experian:744000144678609",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Director, Platform Engineering- SDLC & Cloud Native Foundations",
+    "title": "Senior Director, Platform Engineering - SDLC & Cloud Native Foundations",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142551419",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144678609",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-10"
+    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Experian:744000142916170",
@@ -1105,6 +1066,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000144621689",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Security Automation Engineer",
+    "location": "Heredia, Heredia, cr",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144621689",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-21"
+  },
+  {
     "id": "smartrecruiters:Experian:744000143794799",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1222,17 +1196,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000143252404",
+    "id": "smartrecruiters:Experian:744000144679769",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Solutions Architect - Telephony, Voice Contact Center",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143252404",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144679769",
     "ats": "smartrecruiters",
     "contract_type": "contract",
-    "first_seen": "2026-08-13"
+    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Experian:744000138098870",
@@ -1259,6 +1233,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000144672615",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Strategic Client Partner, Digital Banking Solutions- Hybrid",
+    "location": "North Sydney, au",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144672615",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Experian:744000138101929",
@@ -1313,6 +1300,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "greenhouse:Storyblok:4951011101",
+    "company": "Storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Outbound GTM Specialist ",
+    "location": "Remote",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://www.storyblok.com/job?gh_jid=4951011101",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-21"
+  },
+  {
     "id": "smartrecruiters:Wise:744000140382109",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1352,17 +1352,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000142589819",
+    "id": "smartrecruiters:Wise:744000144512560",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Creative Designer Wise Business",
+    "title": "Compliance Lead for MEA",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000142589819",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144512560",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-11"
+    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Wise:744000136794784",
@@ -1376,6 +1376,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000144523049",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Design Director",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144523049",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Wise:744000142103074",
@@ -1441,6 +1454,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000144535739",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Paid Search Manager",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144535739",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Wise:744000111608686",
@@ -1521,6 +1547,19 @@
     "first_seen": "2026-08-20"
   },
   {
+    "id": "smartrecruiters:Wise:744000144543499",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Engineering Lead - Business Onboarding",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144543499",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-21"
+  },
+  {
     "id": "smartrecruiters:Wise:744000132896494",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1545,19 +1584,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-20"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000133347494",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Software Engineer - Generative AI Platform",
-    "location": "Tallinn, ee",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000133347494",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Wise:744000139095880",
