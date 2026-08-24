@@ -273,17 +273,17 @@
     "first_seen": "2026-08-17"
   },
   {
-    "id": "smartrecruiters:Experian:744000143333500",
+    "id": "smartrecruiters:Experian:744000145042569",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Coordenador de Dados - Customer Intelligence",
     "location": "São Paulo, br",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143333500",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145042569",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-14"
+    "first_seen": "2026-08-24"
   },
   {
     "id": "smartrecruiters:Experian:744000138782279",
@@ -609,19 +609,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-12"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138815279",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Motion Designer and Video Editor",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138815279",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-05"
   },
   {
     "id": "smartrecruiters:Experian:744000114755307",
@@ -986,6 +973,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000145201909",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Product Manager – Digital Intelligence",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145201909",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-24"
   },
   {
     "id": "smartrecruiters:Experian:744000121887767",
