@@ -866,5 +866,61 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-05",
     "closed_date": "2026-08-24"
+  },
+  {
+    "id": "greenhouse:Adyen:7355910",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Art Director - Internal Comms Branding",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7355910",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-05",
+    "closed_date": "2026-08-25"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000141350519",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Product Marketing Director – Experian Health (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141350519",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-08-25"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000142864834",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Engineer",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142864834",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-12",
+    "closed_date": "2026-08-25"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000144319235",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer II - Regional Expansion MEA ",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144319235",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-20",
+    "closed_date": "2026-08-25"
   }
 ]

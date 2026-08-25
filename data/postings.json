@@ -1,16 +1,29 @@
 [
   {
-    "id": "greenhouse:Adyen:7355910",
+    "id": "greenhouse:Adyen:7943731",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Art Director - Internal Comms Branding",
-    "location": "Amsterdam",
+    "title": " Engineering Director",
+    "location": "San Francisco",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7355910",
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7943731",
     "ats": "greenhouse",
     "contract_type": null,
-    "first_seen": "2026-08-05"
+    "first_seen": "2026-08-25"
+  },
+  {
+    "id": "greenhouse:Adyen:7736567",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": " Engineering Director, Developer Platform",
+    "location": "San Francisco",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7736567",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-25"
   },
   {
     "id": "greenhouse:Adyen:7419377",
@@ -234,6 +247,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000145340729",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Client Development Executive - Employer Services (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145340729",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-25"
+  },
+  {
     "id": "smartrecruiters:Experian:744000141584922",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -284,6 +310,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-24"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000145346600",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Coordenador de Gestão do Cliente - São Carlos / SP",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145346600",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-25"
   },
   {
     "id": "smartrecruiters:Experian:744000138782279",
@@ -388,6 +427,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000145296844",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Engineering - C#.NET, AWS, AI",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145296844",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-25"
   },
   {
     "id": "smartrecruiters:Experian:744000144131724",
@@ -702,19 +754,6 @@
     "first_seen": "2026-08-11"
   },
   {
-    "id": "smartrecruiters:Experian:744000141350519",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Product Marketing Director – Experian Health (Remote)",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141350519",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139561521",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -804,19 +843,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000142864834",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142864834",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-12"
   },
   {
     "id": "smartrecruiters:Experian:744000127797679",
@@ -1352,6 +1378,19 @@
     "first_seen": "2026-08-21"
   },
   {
+    "id": "smartrecruiters:Wise:744000145322456",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Customer Support Specialist (Spanish Speaker - Nightime)",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000145322456",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-25"
+  },
+  {
     "id": "smartrecruiters:Wise:744000136794784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1558,19 +1597,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000144319235",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer II - Regional Expansion MEA ",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144319235",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-20"
   },
   {
     "id": "smartrecruiters:Wise:744000139095880",
