@@ -104,19 +104,6 @@
     "first_seen": "2026-08-19"
   },
   {
-    "id": "greenhouse:Adyen:8002425",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Forward Deployed Engineer",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8002425",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "greenhouse:Adyen:7825733",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -141,6 +128,19 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000145667820",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": ".Net Engineer",
+    "location": "Nottingham, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145667820",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-26"
   },
   {
     "id": "smartrecruiters:Experian:744000139354019",
@@ -598,17 +598,17 @@
     "first_seen": "2026-08-20"
   },
   {
-    "id": "smartrecruiters:Experian:744000139633885",
+    "id": "smartrecruiters:Experian:744000145665479",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Group FP&A Manager - Planning",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139633885",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145665479",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-26"
   },
   {
     "id": "smartrecruiters:Experian:744000144168145",
@@ -637,17 +637,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000140001139",
+    "id": "smartrecruiters:Experian:744000145667189",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Data Platform Engineer -12 Month Secondment",
+    "title": "Lead Data Platform Engineer -6 Month Secondment",
     "location": "Nottingham, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140001139",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145667189",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-26"
   },
   {
     "id": "smartrecruiters:Experian:744000142827047",
@@ -1222,19 +1222,6 @@
     "first_seen": "2026-08-21"
   },
   {
-    "id": "smartrecruiters:Experian:744000138098870",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Sr. Staff Python Developer (Python,AWS,AI)",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138098870",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000142017679",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1311,6 +1298,19 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "greenhouse:Storyblok:4958277101",
+    "company": "Storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Enterprise Account Executive - Chicago, USA ",
+    "location": "Remote",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://www.storyblok.com/job?gh_jid=4958277101",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-26"
   },
   {
     "id": "greenhouse:Storyblok:4951011101",
@@ -1443,17 +1443,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000140192832",
+    "id": "smartrecruiters:Wise:744000145554449",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Lead Marketing Analyst - Growth Drivers",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000140192832",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000145554449",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-26"
   },
   {
     "id": "smartrecruiters:Wise:744000143065996",
