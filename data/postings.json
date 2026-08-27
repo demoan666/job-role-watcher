@@ -78,6 +78,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "greenhouse:Adyen:8138721",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Tech Support EMEA",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8138721",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-27"
+  },
+  {
     "id": "greenhouse:Adyen:8050072",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -195,6 +208,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000145760934",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista Sr de Governança, Transformação Digital e Inteligência Artificial",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145760934",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-27"
+  },
+  {
     "id": "smartrecruiters:Experian:744000144837049",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -208,17 +234,17 @@
     "first_seen": "2026-08-22"
   },
   {
-    "id": "smartrecruiters:Experian:744000140411011",
+    "id": "smartrecruiters:Experian:744000145673352",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Bid Manager (A/NZ)",
     "location": "Cyberjaya, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140411011",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145673352",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-27"
   },
   {
     "id": "smartrecruiters:Experian:744000143086530",
@@ -299,17 +325,17 @@
     "first_seen": "2026-08-17"
   },
   {
-    "id": "smartrecruiters:Experian:744000145042569",
+    "id": "smartrecruiters:Experian:744000145983438",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Coordenador de Dados - Customer Intelligence",
     "location": "São Paulo, br",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145042569",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145983438",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-24"
+    "first_seen": "2026-08-27"
   },
   {
     "id": "smartrecruiters:Experian:744000145346600",
@@ -323,32 +349,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-25"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138782279",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Customer Success Manager – GTM",
-    "location": "Southbank, VIC, au",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138782279",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138780829",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Customer Success Manager – GTM",
-    "location": "North Sydney, NSW, au",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138780829",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000129044739",
@@ -624,6 +624,19 @@
     "first_seen": "2026-08-19"
   },
   {
+    "id": "smartrecruiters:Experian:744000145719330",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Internal Communications & Brand Specialist",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145719330",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-27"
+  },
+  {
     "id": "smartrecruiters:Experian:744000139121720",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -754,6 +767,19 @@
     "first_seen": "2026-08-11"
   },
   {
+    "id": "smartrecruiters:Experian:744000145850189",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Product Manager, Strategic Integrations - Remote",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145850189",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-27"
+  },
+  {
     "id": "smartrecruiters:Experian:744000139561521",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -817,19 +843,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-22"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000139457100",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Consultant - Credit & Risk Solutions",
-    "location": "North Sydney, NSW, au",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139457100",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000138301400",
@@ -1053,17 +1066,17 @@
     "first_seen": "2026-08-21"
   },
   {
-    "id": "smartrecruiters:Experian:744000143794799",
+    "id": "smartrecruiters:Experian:744000146033529",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Service Delivery Manager",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143794799",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146033529",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-18"
+    "first_seen": "2026-08-27"
   },
   {
     "id": "smartrecruiters:Experian:744000139933636",
@@ -1077,6 +1090,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000145756959",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145756959",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-27"
   },
   {
     "id": "smartrecruiters:Experian:744000144345163",
@@ -1532,6 +1558,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000145775089",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Salesforce & GTM Systems Specialist",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000145775089",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-27"
   },
   {
     "id": "smartrecruiters:Wise:744000139212569",
