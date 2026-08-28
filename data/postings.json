@@ -286,19 +286,6 @@
     "first_seen": "2026-08-25"
   },
   {
-    "id": "smartrecruiters:Experian:744000141584922",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Client Support Analyst",
-    "location": "Schaumburg, IL, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141584922",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000144780049",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -648,19 +635,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000145667189",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Data Platform Engineer -6 Month Secondment",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145667189",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-26"
   },
   {
     "id": "smartrecruiters:Experian:744000142827047",
@@ -1365,6 +1339,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Wise:744000146159764",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analytics Engineering Director - Servicing",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000146159764",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-28"
+  },
+  {
     "id": "smartrecruiters:Wise:744000138552489",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1441,6 +1428,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-22"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000146220099",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Risk Analytics",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000146220099",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-28"
   },
   {
     "id": "smartrecruiters:Wise:744000142103074",
