@@ -1104,5 +1104,33 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-26",
     "closed_date": "2026-08-28"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000142105077",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Product Manager – Behavioral Analytics, Fraud Detection",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142105077",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-08-31"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000143110130",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Staff Engineer ( AI )",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143110130",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-13",
+    "closed_date": "2026-08-31"
   }
 ]

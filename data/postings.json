@@ -117,6 +117,19 @@
     "first_seen": "2026-08-19"
   },
   {
+    "id": "greenhouse:Adyen:8002425",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Forward Deployed Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8002425",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-31"
+  },
+  {
     "id": "greenhouse:Adyen:7825733",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -975,17 +988,17 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "smartrecruiters:Experian:744000142105077",
+    "id": "smartrecruiters:Experian:744000146406989",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Product Manager – Behavioral Analytics, Fraud Detection",
+    "title": "Senior Product Manager – Behavioral Analytics",
     "location": "Hyderabad, in",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142105077",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146406989",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-08-31"
   },
   {
     "id": "smartrecruiters:Experian:744000145201909",
@@ -1129,19 +1142,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000143110130",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Staff Engineer ( AI )",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143110130",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-13"
   },
   {
     "id": "smartrecruiters:Experian:744000139938479",
