@@ -52,6 +52,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "greenhouse:Adyen:8053785",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Operations Analytics",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8053785",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-09-01"
+  },
+  {
     "id": "greenhouse:Adyen:7522608",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -416,19 +429,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000141222695",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Engineering",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141222695",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000145296844",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -492,6 +492,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000146548048",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Enterprise Dealer Account Executive (Automotive) - Remote",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146548048",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-01"
   },
   {
     "id": "smartrecruiters:Experian:744000139122170",
@@ -676,17 +689,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000143122623",
+    "id": "smartrecruiters:Experian:744000146643829",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Principal Sales Specialist & Solutions Lead (Experian Ascend Platform)",
+    "title": "Principal Solution Consultant",
     "location": "Kuala Lumpur, KUALA LUMPUR, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143122623",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146643829",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-13"
+    "first_seen": "2026-09-01"
   },
   {
     "id": "smartrecruiters:Experian:744000141780701",
@@ -871,6 +884,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000146683325",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Engineering Lead",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146683325",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-01"
+  },
+  {
     "id": "smartrecruiters:Experian:744000140984547",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -962,17 +988,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000144176399",
+    "id": "smartrecruiters:Experian:744000146538149",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Manager Identity Governance Administration Engineering - Remote",
+    "title": "Senior Manager IGA Engineering (Sailpoint ISC)- Remote",
     "location": "United States, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144176399",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146538149",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-19"
+    "first_seen": "2026-09-01"
   },
   {
     "id": "smartrecruiters:Experian:744000142976387",
