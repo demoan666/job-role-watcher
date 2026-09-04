@@ -117,19 +117,6 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "greenhouse:Adyen:7908806",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior AI Research Engineer",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-19"
-  },
-  {
     "id": "greenhouse:Adyen:8002425",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -167,19 +154,6 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000145667820",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": ".Net Engineer",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145667820",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-26"
   },
   {
     "id": "smartrecruiters:Experian:744000146817719",
@@ -221,19 +195,6 @@
     "first_seen": "2026-08-15"
   },
   {
-    "id": "smartrecruiters:Experian:744000138262469",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Agile Lead (Credit & Verification Services)",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138262469",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000145760934",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -258,19 +219,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-22"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000145673352",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Bid Manager (A/NZ)",
-    "location": "Cyberjaya, my",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145673352",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-27"
   },
   {
     "id": "smartrecruiters:Experian:744000143086530",
@@ -650,17 +598,17 @@
     "first_seen": "2026-08-26"
   },
   {
-    "id": "smartrecruiters:Experian:744000147202429",
+    "id": "smartrecruiters:Experian:744000147235219",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Head of Product",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147202429",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147235219",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-03"
+    "first_seen": "2026-09-04"
   },
   {
     "id": "smartrecruiters:Experian:744000144168145",
@@ -1079,19 +1027,6 @@
     "first_seen": "2026-09-01"
   },
   {
-    "id": "smartrecruiters:Experian:744000142976387",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Product Manager (Remote)",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142976387",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-12"
-  },
-  {
     "id": "smartrecruiters:Experian:744000146406989",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1441,19 +1376,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-29"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000140382109",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Analytics Director, APAC",
-    "location": "Singapore, sg",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000140382109",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Wise:744000147189504",
