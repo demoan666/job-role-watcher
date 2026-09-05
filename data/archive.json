@@ -1454,5 +1454,61 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-08",
     "closed_date": "2026-09-04"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000147235219",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Product",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147235219",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-04",
+    "closed_date": "2026-09-05"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000140888579",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Solutions Architect",
+    "location": "São Carlos, SP, br",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140888579",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-09-05"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000147189504",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analytics Engineering Director - Servicing",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000147189504",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-03",
+    "closed_date": "2026-09-05"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000147209849",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Product Design Lead - Wise Platform FTC (12-Month Maternity Cover)",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000147209849",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-03",
+    "closed_date": "2026-09-05"
   }
 ]
