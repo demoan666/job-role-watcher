@@ -104,17 +104,17 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "greenhouse:Adyen:8002425",
+    "id": "greenhouse:Adyen:7908806",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Forward Deployed Engineer",
+    "title": "Senior AI Research Engineer",
     "location": "Amsterdam",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8002425",
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
     "ats": "greenhouse",
     "contract_type": null,
-    "first_seen": "2026-08-31"
+    "first_seen": "2026-09-08"
   },
   {
     "id": "greenhouse:Adyen:7825733",
@@ -310,32 +310,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-25"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000129044739",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Data Management Analyst",
-    "location": "Las Condes, Región Metropolitana, cl",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000129044739",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000129044549",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Data Management Analyst",
-    "location": "Heredia, Heredia, cr",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000129044549",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000138285159",
@@ -1157,6 +1131,19 @@
     "first_seen": "2026-09-03"
   },
   {
+    "id": "smartrecruiters:Experian:744000148211273",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer Java & AWS",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148211273",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-08"
+  },
+  {
     "id": "smartrecruiters:Experian:744000146836769",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1532,6 +1519,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-21"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000148137604",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Product Director - APAC Growth & Expansion",
+    "location": "Singapore, sg",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000148137604",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-08"
   },
   {
     "id": "smartrecruiters:Wise:744000111608686",

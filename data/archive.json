@@ -1580,5 +1580,33 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-08",
     "closed_date": "2026-09-07"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000129044739",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Data Management Analyst",
+    "location": "Las Condes, Región Metropolitana, cl",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000129044739",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-09-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000129044549",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Data Management Analyst",
+    "location": "Heredia, Heredia, cr",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000129044549",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-09-08"
   }
 ]
