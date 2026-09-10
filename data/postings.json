@@ -39,19 +39,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "greenhouse:Adyen:7522608",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Head of Product, Developer Experience",
-    "location": "San Francisco",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7522608",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "greenhouse:Adyen:8138721",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -247,17 +234,17 @@
     "first_seen": "2026-08-25"
   },
   {
-    "id": "smartrecruiters:Experian:744000147090159",
+    "id": "smartrecruiters:Experian:744000148625419",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Client Relationship Manager - Health (Remote)",
+    "title": "Client Success Manager, Healthcare Revenue Cycle",
     "location": "United States, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147090159",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148625419",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-03"
+    "first_seen": "2026-09-10"
   },
   {
     "id": "smartrecruiters:Experian:744000144780049",
@@ -388,6 +375,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-19"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000148590762",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "EJECUTIVO DE VINCULACION SMB",
+    "location": "Bogotá, co",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148590762",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-10"
   },
   {
     "id": "smartrecruiters:Experian:744000139866919",
@@ -767,6 +767,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000148591599",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Backend .NET Software Engineer",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148591599",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-10"
+  },
+  {
     "id": "smartrecruiters:Experian:744000144815929",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -845,17 +858,17 @@
     "first_seen": "2026-09-03"
   },
   {
-    "id": "smartrecruiters:Experian:744000144678609",
+    "id": "smartrecruiters:Experian:744000148685469",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Director, Platform Engineering - SDLC & Cloud Native Foundations",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144678609",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148685469",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-21"
+    "first_seen": "2026-09-10"
   },
   {
     "id": "smartrecruiters:Experian:744000147127230",
@@ -882,32 +895,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-03"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000142916170",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Insider Risk Specialist",
-    "location": "London, England, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142916170",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-12"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000142916499",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Insider Risk Specialist",
-    "location": "Nottingham, England, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142916499",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-12"
   },
   {
     "id": "smartrecruiters:Experian:744000133652599",
@@ -1105,19 +1092,6 @@
     "first_seen": "2026-09-09"
   },
   {
-    "id": "smartrecruiters:Experian:744000148215213",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Staff Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148215213",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-09"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139938479",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1129,6 +1103,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000148585639",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Solution Engineer - Remote",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148585639",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-10"
   },
   {
     "id": "smartrecruiters:Experian:744000144810299",
@@ -1378,17 +1365,17 @@
     "first_seen": "2026-08-21"
   },
   {
-    "id": "smartrecruiters:Wise:744000145322456",
+    "id": "smartrecruiters:Wise:744000148502390",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Customer Support Specialist (Spanish Speaker - Nightime)",
     "location": "São Paulo, br",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000145322456",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000148502390",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-25"
+    "first_seen": "2026-09-10"
   },
   {
     "id": "smartrecruiters:Wise:744000136794784",
