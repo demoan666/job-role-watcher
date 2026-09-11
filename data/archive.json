@@ -1846,5 +1846,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-25",
     "closed_date": "2026-09-10"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000145665479",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Group FP&A Manager - Planning",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145665479",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-26",
+    "closed_date": "2026-09-11"
+  },
+  {
+    "id": "greenhouse:Storyblok:4951011101",
+    "company": "Storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Outbound GTM Specialist ",
+    "location": "Remote",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://www.storyblok.com/job?gh_jid=4951011101",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-21",
+    "closed_date": "2026-09-11"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000144512560",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Compliance Lead for MEA",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144512560",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-21",
+    "closed_date": "2026-09-11"
   }
 ]

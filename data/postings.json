@@ -65,19 +65,6 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "greenhouse:Adyen:7908806",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior AI Research Engineer",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-09-08"
-  },
-  {
     "id": "greenhouse:Adyen:7825733",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -180,6 +167,32 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-22"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000148833934",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software II",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148833934",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-11"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000148833884",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software II",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148833884",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-11"
   },
   {
     "id": "smartrecruiters:Experian:744000148256719",
@@ -377,6 +390,19 @@
     "first_seen": "2026-08-19"
   },
   {
+    "id": "smartrecruiters:Experian:744000148813097",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director, Security Enablement (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148813097",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-11"
+  },
+  {
     "id": "smartrecruiters:Experian:744000148590762",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -505,19 +531,6 @@
     "ats": "smartrecruiters",
     "contract_type": "contract",
     "first_seen": "2026-09-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000145665479",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Group FP&A Manager - Planning",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145665479",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-26"
   },
   {
     "id": "smartrecruiters:Experian:744000147527769",
@@ -1274,19 +1287,6 @@
     "first_seen": "2026-08-26"
   },
   {
-    "id": "greenhouse:Storyblok:4951011101",
-    "company": "Storyblok",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Outbound GTM Specialist ",
-    "location": "Remote",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://www.storyblok.com/job?gh_jid=4951011101",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-21"
-  },
-  {
     "id": "smartrecruiters:Wise:744000147522430",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1350,19 +1350,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-03"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000144512560",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Compliance Lead for MEA",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144512560",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-21"
   },
   {
     "id": "smartrecruiters:Wise:744000148502390",
