@@ -1888,5 +1888,33 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-21",
     "closed_date": "2026-09-11"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000146643829",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Principal Solution Consultant",
+    "location": "Kuala Lumpur, KUALA LUMPUR, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146643829",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-01",
+    "closed_date": "2026-09-12"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000144876849",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Solutions Architect (Video Conference)",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144876849",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-23",
+    "closed_date": "2026-09-12"
   }
 ]

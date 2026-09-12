@@ -65,6 +65,19 @@
     "first_seen": "2026-08-12"
   },
   {
+    "id": "greenhouse:Adyen:8002425",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Forward Deployed Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8002425",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-09-12"
+  },
+  {
     "id": "greenhouse:Adyen:7825733",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -81,7 +94,7 @@
     "id": "greenhouse:Adyen:8003083",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Staff Java Engineer - Merchant Fraud Prevention",
+    "title": "Staff Software Engineer - Merchant Fraud Prevention",
     "location": "Amsterdam",
     "remote": false,
     "eu_hireable_or_remote": false,
@@ -611,17 +624,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000146643829",
+    "id": "smartrecruiters:Experian:744000149147169",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Principal Solution Consultant",
     "location": "Kuala Lumpur, KUALA LUMPUR, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146643829",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149147169",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-01"
+    "first_seen": "2026-09-12"
   },
   {
     "id": "smartrecruiters:Experian:744000147035711",
@@ -1157,17 +1170,17 @@
     "first_seen": "2026-08-22"
   },
   {
-    "id": "smartrecruiters:Experian:744000144876849",
+    "id": "smartrecruiters:Experian:744000149147209",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Solutions Architect (Video Conference)",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144876849",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149147209",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-23"
+    "first_seen": "2026-09-12"
   },
   {
     "id": "smartrecruiters:Experian:744000144679769",
