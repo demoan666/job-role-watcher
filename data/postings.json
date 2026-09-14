@@ -1560,6 +1560,19 @@
     "first_seen": "2026-08-20"
   },
   {
+    "id": "smartrecruiters:Wise:744000149273629",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Engineering Lead - Business Account Experience",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000149273629",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-14"
+  },
+  {
     "id": "smartrecruiters:Wise:744000144543499",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
