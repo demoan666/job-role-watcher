@@ -169,17 +169,17 @@
     "first_seen": "2026-09-09"
   },
   {
-    "id": "smartrecruiters:Experian:744000144837049",
+    "id": "smartrecruiters:Experian:744000149436210",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Analista Sênior de Inteligência Artificial — GenAI & Developer Experience",
+    "title": "Analista de Desenvolvimento de Software II",
     "location": "São Paulo, br",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144837049",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149436210",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-22"
+    "first_seen": "2026-09-15"
   },
   {
     "id": "smartrecruiters:Experian:744000148833934",
@@ -247,30 +247,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000145340729",
+    "id": "smartrecruiters:Experian:744000149409899",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Client Development Executive - Employer Services (Remote)",
+    "title": "Client Executive, Community Lending Markets (Northwest Region)",
     "location": "United States, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145340729",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149409899",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-25"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000148625419",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Client Success Manager, Healthcare Revenue Cycle",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148625419",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-10"
+    "first_seen": "2026-09-15"
   },
   {
     "id": "smartrecruiters:Experian:744000144780049",
@@ -377,19 +364,6 @@
     "first_seen": "2026-09-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000145296844",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Engineering - C#.NET, AWS, AI",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145296844",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-25"
-  },
-  {
     "id": "smartrecruiters:Experian:744000144131724",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -481,6 +455,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000149423196",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Expert Compliance Risk Advisor (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149423196",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-15"
+  },
+  {
     "id": "smartrecruiters:Experian:744000144609430",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -557,6 +544,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-05"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000149512499",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Software Engineering - C#.NET, Java, AWS, AI",
+    "location": "Nottingham, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149512499",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-15"
   },
   {
     "id": "smartrecruiters:Experian:744000144168145",
@@ -648,32 +648,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-03"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000130507322",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Product & Proposition Manager - Digital Onboarding",
-    "location": "Rome, it",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000130507322",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000130506384",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Product & Proposition Manager - Digital Onboarding",
-    "location": "Milan, it",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000130506384",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000140191201",
@@ -858,30 +832,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000148310049",
+    "id": "smartrecruiters:Experian:744000149460539",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Director, Demand Generation (Remote)",
     "location": "United States, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148310049",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149460539",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-09"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000147099289",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Director, Platform Architecture - Remote",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147099289",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-03"
+    "first_seen": "2026-09-15"
   },
   {
     "id": "smartrecruiters:Experian:744000148685469",
@@ -895,19 +856,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-10"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000147127230",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Director, Platform Software Engineering - Remote",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147127230",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-03"
   },
   {
     "id": "smartrecruiters:Experian:744000147161569",
@@ -1105,19 +1053,6 @@
     "first_seen": "2026-09-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000148460559",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Staff Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148460559",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-09"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139938479",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1129,19 +1064,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000148585639",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Solution Engineer - Remote",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148585639",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-10"
   },
   {
     "id": "smartrecruiters:Experian:744000144810299",
@@ -1391,19 +1313,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000144706679",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Design Director",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144706679",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-22"
-  },
-  {
     "id": "smartrecruiters:Wise:744000146220099",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1612,16 +1521,16 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000138235721",
+    "id": "smartrecruiters:Wise:744000149489053",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Thailand Country Manager",
     "location": "Bangkok, th",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000138235721",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000149489053",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-09-15"
   }
 ]
