@@ -65,19 +65,6 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "greenhouse:Adyen:8002425",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Forward Deployed Engineer",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8002425",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-09-12"
-  },
-  {
     "id": "greenhouse:Adyen:7825733",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -169,17 +156,17 @@
     "first_seen": "2026-09-09"
   },
   {
-    "id": "smartrecruiters:Experian:744000149686309",
+    "id": "smartrecruiters:Experian:744000149959019",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Analista de Desenvolvimento de Software II",
+    "title": "Analista de Desenvolvimento de Software I",
     "location": "São Paulo, br",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149686309",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149959019",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-16"
+    "first_seen": "2026-09-17"
   },
   {
     "id": "smartrecruiters:Experian:744000148833934",
@@ -286,17 +273,17 @@
     "first_seen": "2026-08-27"
   },
   {
-    "id": "smartrecruiters:Experian:744000149637321",
+    "id": "smartrecruiters:Experian:744000149946109",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Coordenador de Gestão do Cliente - São Carlos / SP",
     "location": "São Carlos, SP, br",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149637321",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149946109",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-16"
+    "first_seen": "2026-09-17"
   },
   {
     "id": "smartrecruiters:Experian:744000138285159",
@@ -819,6 +806,19 @@
     "first_seen": "2026-09-10"
   },
   {
+    "id": "smartrecruiters:Experian:744000149963169",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Director, Product Management - Identity Digital Intelligence",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149963169",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-17"
+  },
+  {
     "id": "smartrecruiters:Experian:744000149798060",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1001,6 +1001,19 @@
     "first_seen": "2026-09-02"
   },
   {
+    "id": "smartrecruiters:Experian:744000150074929",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Staff Engineer",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000150074929",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-17"
+  },
+  {
     "id": "smartrecruiters:Experian:744000139938479",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1012,6 +1025,32 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000149914954",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Solutions Architect",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149914954",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-17"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000149912959",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Solutions Architect",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149912959",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-17"
   },
   {
     "id": "smartrecruiters:Experian:744000149147209",
@@ -1285,6 +1324,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000150066950",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Paid Search Manager",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150066950",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-17"
   },
   {
     "id": "smartrecruiters:Wise:744000111608686",

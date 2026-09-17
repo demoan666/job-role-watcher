@@ -2280,5 +2280,33 @@
     "contract_type": "full-time",
     "first_seen": "2026-09-09",
     "closed_date": "2026-09-16"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000149686309",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software II",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149686309",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-16",
+    "closed_date": "2026-09-17"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000149637321",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Coordenador de Gestão do Cliente - São Carlos / SP",
+    "location": "São Carlos, SP, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149637321",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-16",
+    "closed_date": "2026-09-17"
   }
 ]
