@@ -169,6 +169,19 @@
     "first_seen": "2026-09-17"
   },
   {
+    "id": "smartrecruiters:Experian:744000150204319",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software II",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000150204319",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-18"
+  },
+  {
     "id": "smartrecruiters:Experian:744000148833934",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -455,32 +468,6 @@
     "first_seen": "2026-08-21"
   },
   {
-    "id": "smartrecruiters:Experian:744000138566265",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "GenAI Product Lead, EMAP",
-    "location": "Hyderabad, Telangana, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138566265",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138285089",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "GenAI Product Lead, EMAP",
-    "location": "Sofia, Sofia City Province, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138285089",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000146915119",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -492,19 +479,6 @@
     "ats": "smartrecruiters",
     "contract_type": "contract",
     "first_seen": "2026-09-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000149813859",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Head of GenAI Products, EMAP  ",
-    "location": "Mumbai, Maharashtra, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149813859",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-16"
   },
   {
     "id": "smartrecruiters:Experian:744000147527769",
@@ -1248,19 +1222,6 @@
     "first_seen": "2026-09-03"
   },
   {
-    "id": "smartrecruiters:Wise:744000148502390",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Customer Support Specialist (Spanish Speaker - Nightime)",
-    "location": "São Paulo, br",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000148502390",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-10"
-  },
-  {
     "id": "smartrecruiters:Wise:744000136794784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1272,6 +1233,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000150121653",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Business Operations - North America",
+    "location": "Austin, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150121653",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-18"
   },
   {
     "id": "smartrecruiters:Wise:744000137158275",
@@ -1402,6 +1376,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-12"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000150347979",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Creative Designer",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150347979",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-18"
   },
   {
     "id": "smartrecruiters:Wise:744000144290359",
