@@ -1,44 +1,5 @@
 [
   {
-    "id": "greenhouse:Adyen:7943731",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": " Engineering Director",
-    "location": "San Francisco",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7943731",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-25"
-  },
-  {
-    "id": "greenhouse:Adyen:7736567",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": " Engineering Director, Developer Platform",
-    "location": "San Francisco",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7736567",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-25"
-  },
-  {
-    "id": "greenhouse:Adyen:7419377",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Engineering Director, Developer Experience",
-    "location": "San Francisco",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7419377",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "greenhouse:Adyen:8138721",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -234,19 +195,6 @@
     "first_seen": "2026-08-13"
   },
   {
-    "id": "smartrecruiters:Experian:744000141927384",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "CFC Senior Enterprise Security Incident Manager",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141927384",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000149409899",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -299,6 +247,19 @@
     "first_seen": "2026-09-17"
   },
   {
+    "id": "smartrecruiters:Experian:744000150454108",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Creative Services Designer - CA Remote",
+    "location": "Costa Mesa, CA, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000150454108",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-19"
+  },
+  {
     "id": "smartrecruiters:Experian:744000138285159",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -349,19 +310,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000144131724",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Product Marketing (US Remote)",
-    "location": "Allen, TX, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144131724",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-19"
   },
   {
     "id": "smartrecruiters:Experian:744000148813097",
@@ -1220,6 +1168,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-03"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000150363703",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Compliance System Manager",
+    "location": "Tallinn, ee",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150363703",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-19"
   },
   {
     "id": "smartrecruiters:Wise:744000136794784",
