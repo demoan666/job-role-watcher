@@ -2434,5 +2434,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-19",
     "closed_date": "2026-09-19"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000143490329",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Account Director - Financial Services",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143490329",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-15",
+    "closed_date": "2026-09-21"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000141942898",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Experian Graduate Program in Technology & Analytics",
+    "location": "Sofia, Sofia City Province, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000141942898",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-09-21"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000147522430",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "APAC Marketing Director",
+    "location": "Singapore, sg",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000147522430",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-05",
+    "closed_date": "2026-09-21"
   }
 ]
