@@ -1,18 +1,5 @@
 [
   {
-    "id": "greenhouse:Adyen:8138721",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Head of Tech Support EMEA",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8138721",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-27"
-  },
-  {
     "id": "greenhouse:Adyen:8050072",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -24,6 +11,19 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-12"
+  },
+  {
+    "id": "greenhouse:Adyen:7908806",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior AI Research Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-09-23"
   },
   {
     "id": "greenhouse:Adyen:7825733",
@@ -50,6 +50,32 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000151089509",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "AI & Automation Solution Consultant",
+    "location": "Nottingham, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151089509",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-23"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000151088864",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "AI & Automation Solution Consultant",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151088864",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-23"
   },
   {
     "id": "smartrecruiters:Experian:744000146817719",
@@ -663,19 +689,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000146683325",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Engineering Lead",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146683325",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-01"
-  },
-  {
     "id": "smartrecruiters:Experian:744000140984547",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1053,6 +1066,19 @@
     "first_seen": "2026-08-26"
   },
   {
+    "id": "smartrecruiters:Wise:744000151064849",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "AI Implementation Senior Manager, TGS",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000151064849",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-23"
+  },
+  {
     "id": "smartrecruiters:Wise:744000146267396",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1129,6 +1155,32 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-18"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000151353199",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Risk Analytics",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000151353199",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-23"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000151030889",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Graduate Software Engineer",
+    "location": "Austin, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000151030889",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-23"
   },
   {
     "id": "smartrecruiters:Wise:744000137158275",
@@ -1235,6 +1287,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Wise:744000151358507",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Product Director, Receive",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000151358507",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-23"
+  },
+  {
     "id": "smartrecruiters:Wise:744000145775089",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1259,19 +1324,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-12"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000150347979",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Creative Designer",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150347979",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-18"
   },
   {
     "id": "smartrecruiters:Wise:744000144290359",
