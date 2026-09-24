@@ -286,19 +286,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000136823669",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Data Scientist",
-    "location": "Granada, es",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000136823669",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000138713170",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -546,19 +533,6 @@
     "first_seen": "2026-09-12"
   },
   {
-    "id": "smartrecruiters:Experian:744000147035711",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Privacy Operations Manager Senior",
-    "location": "Heredia, Heredia, cr",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147035711",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-03"
-  },
-  {
     "id": "smartrecruiters:Experian:744000140191201",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -624,32 +598,6 @@
     "first_seen": "2026-09-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000132398694",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Analytical Consultant Finance & Payment (m/f/d)",
-    "location": " Frankfurt am Main, de",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000132398694",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000132397820",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Analytical Consultant Finance & Payment (m/f/d)",
-    "location": "Düsseldorf, NRW, de",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000132397820",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000148591599",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -700,6 +648,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000151475869",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Director, Client Education - Healthcare SaaS",
+    "location": "United Staters, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151475869",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-24"
   },
   {
     "id": "smartrecruiters:Experian:744000149460539",
@@ -1053,19 +1014,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "greenhouse:Storyblok:4958277101",
-    "company": "Storyblok",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Enterprise Account Executive - Chicago, USA ",
-    "location": "Remote",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://www.storyblok.com/job?gh_jid=4958277101",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-26"
-  },
-  {
     "id": "smartrecruiters:Wise:744000151064849",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1183,32 +1131,6 @@
     "first_seen": "2026-09-23"
   },
   {
-    "id": "smartrecruiters:Wise:744000137158275",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Growth Analyst - Marketing Analytics",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000137158275",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000145554449",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Marketing Analyst - Growth Drivers",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000145554449",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-26"
-  },
-  {
     "id": "smartrecruiters:Wise:744000143065996",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1220,32 +1142,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-13"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000139166110",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Operational Risk Manager",
-    "location": "Austin, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000139166110",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000150066950",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Paid Search Manager",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150066950",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-17"
   },
   {
     "id": "smartrecruiters:Wise:744000111608686",
@@ -1300,6 +1196,19 @@
     "first_seen": "2026-09-23"
   },
   {
+    "id": "smartrecruiters:Wise:744000151578669",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Regional Marketing Director - LatAm & MEA",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000151578669",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-24"
+  },
+  {
     "id": "smartrecruiters:Wise:744000145775089",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1324,6 +1233,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-12"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000151403510",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Creative Designer",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000151403510",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-24"
   },
   {
     "id": "smartrecruiters:Wise:744000144290359",
