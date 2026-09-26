@@ -2798,5 +2798,33 @@
     "contract_type": "full-time",
     "first_seen": "2026-09-24",
     "closed_date": "2026-09-25"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000145983438",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Coordenador de Dados - Customer Intelligence",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145983438",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-27",
+    "closed_date": "2026-09-26"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000142017679",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Staff Platform Architect, Data & AI (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142017679",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-09-26"
   }
 ]

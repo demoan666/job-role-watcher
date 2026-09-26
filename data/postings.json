@@ -260,19 +260,6 @@
     "first_seen": "2026-08-17"
   },
   {
-    "id": "smartrecruiters:Experian:744000145983438",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Coordenador de Dados - Customer Intelligence",
-    "location": "São Paulo, br",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145983438",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-27"
-  },
-  {
     "id": "smartrecruiters:Experian:744000149946109",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1001,19 +988,6 @@
     "first_seen": "2026-08-21"
   },
   {
-    "id": "smartrecruiters:Experian:744000142017679",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Staff Platform Architect, Data & AI (Remote)",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142017679",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000144672615",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1181,6 +1155,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-23"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000151858969",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Lead Marketing Analyst - Growth Enablement",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000151858969",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-26"
   },
   {
     "id": "smartrecruiters:Wise:744000143065996",
