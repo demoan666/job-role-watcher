@@ -2826,5 +2826,19 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-08",
     "closed_date": "2026-09-26"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000147527769",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Product",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147527769",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-05",
+    "closed_date": "2026-09-28"
   }
 ]
