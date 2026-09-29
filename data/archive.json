@@ -2840,5 +2840,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-09-05",
     "closed_date": "2026-09-28"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000148833934",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software II",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148833934",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-11",
+    "closed_date": "2026-09-29"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000148833884",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software II",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148833884",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-11",
+    "closed_date": "2026-09-29"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000143353659",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Salesforce CRM Analyst",
+    "location": "Heredia, Heredia, cr",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143353659",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-14",
+    "closed_date": "2026-09-29"
   }
 ]
