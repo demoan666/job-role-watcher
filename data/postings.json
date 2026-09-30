@@ -39,6 +39,19 @@
     "first_seen": "2026-08-12"
   },
   {
+    "id": "greenhouse:Adyen:8226137",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "People Technology Application Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8226137",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-09-30"
+  },
+  {
     "id": "greenhouse:Adyen:7908806",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -102,6 +115,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-23"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000152493589",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "AI Developer Intern",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152493589",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-30"
   },
   {
     "id": "smartrecruiters:Experian:744000146817719",
@@ -325,17 +351,17 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "smartrecruiters:Experian:744000146888703",
+    "id": "smartrecruiters:Experian:744000152534057",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Collections",
-    "location": "Southbank, VIC, au",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146888703",
+    "title": "Director, Product Management (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152534057",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-02"
+    "first_seen": "2026-09-30"
   },
   {
     "id": "smartrecruiters:Experian:744000148813097",
@@ -663,17 +689,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000151713789",
+    "id": "smartrecruiters:Experian:744000152534099",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Director, Client Education - Healthcare SaaS",
     "location": "United Staters, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151713789",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152534099",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-25"
+    "first_seen": "2026-09-30"
   },
   {
     "id": "smartrecruiters:Experian:744000149460539",
@@ -817,6 +843,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-24"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000152681041",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Sales Engineer - Remote",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152681041",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-30"
   },
   {
     "id": "smartrecruiters:Experian:744000150783547",
@@ -988,6 +1027,19 @@
     "first_seen": "2026-08-21"
   },
   {
+    "id": "smartrecruiters:Experian:744000152517849",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Staff Architect - Data Platform (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152517849",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-30"
+  },
+  {
     "id": "smartrecruiters:Experian:744000144672615",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1035,19 +1087,6 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138101929",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000140968876",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "VP Developer Platform Engineering - Remote",
-    "location": "Costa Mesa, CA, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140968876",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
@@ -1272,19 +1311,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-27"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000142820114",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Backend Engineer – Customer Support Platform",
-    "location": "Budapest, hu",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000142820114",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-12"
   },
   {
     "id": "smartrecruiters:Wise:744000144290359",

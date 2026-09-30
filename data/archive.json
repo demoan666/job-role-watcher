@@ -2882,5 +2882,61 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-14",
     "closed_date": "2026-09-29"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000146888703",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Collections",
+    "location": "Southbank, VIC, au",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146888703",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-02",
+    "closed_date": "2026-09-30"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000151713789",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Director, Client Education - Healthcare SaaS",
+    "location": "United Staters, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151713789",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-25",
+    "closed_date": "2026-09-30"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000140968876",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "VP Developer Platform Engineering - Remote",
+    "location": "Costa Mesa, CA, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140968876",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-09-30"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000142820114",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Backend Engineer – Customer Support Platform",
+    "location": "Budapest, hu",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000142820114",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-12",
+    "closed_date": "2026-09-30"
   }
 ]
