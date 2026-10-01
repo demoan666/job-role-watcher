@@ -182,17 +182,17 @@
     "first_seen": "2026-08-15"
   },
   {
-    "id": "smartrecruiters:Experian:744000148219728",
+    "id": "smartrecruiters:Experian:744000152779229",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Analista Sênior de GRC e Governança de IA",
+    "title": "Analista Sênior de GRC e IA",
     "location": "São Paulo, br",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148219728",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152779229",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-09"
+    "first_seen": "2026-10-01"
   },
   {
     "id": "smartrecruiters:Experian:744000149959019",
@@ -310,19 +310,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-19"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138285159",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Data Science Lead",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138285159",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000138713170",
@@ -507,19 +494,6 @@
     "first_seen": "2026-09-15"
   },
   {
-    "id": "smartrecruiters:Experian:744000144168145",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "IT Procurement Partner (Hybrid)",
-    "location": "Allen, TX, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144168145",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-19"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139121720",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -598,19 +572,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000145850189",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Product Manager, Strategic Integrations - Remote",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145850189",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-27"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139561521",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -674,6 +635,32 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000152939434",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Scientist",
+    "location": "Madrid, es",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152939434",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-01"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000152926169",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Scientist",
+    "location": "Sofia, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152926169",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-01"
   },
   {
     "id": "smartrecruiters:Experian:744000140984547",
@@ -819,6 +806,19 @@
     "first_seen": "2026-09-25"
   },
   {
+    "id": "smartrecruiters:Experian:744000152918779",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Marketing Manager",
+    "location": "Mumbai, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152918779",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-01"
+  },
+  {
     "id": "smartrecruiters:Experian:744000146406989",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -947,19 +947,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000150074929",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Staff Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000150074929",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-17"
   },
   {
     "id": "smartrecruiters:Experian:744000139938479",
@@ -1378,17 +1365,17 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "smartrecruiters:Wise:744000139095880",
+    "id": "smartrecruiters:Wise:744000152893635",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Staff Product Designer - Receive ",
+    "title": "Staff Product Designer - Money Movement",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000139095880",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000152893635",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-10-01"
   },
   {
     "id": "smartrecruiters:Wise:744000149489053",
