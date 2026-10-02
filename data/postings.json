@@ -260,6 +260,19 @@
     "first_seen": "2026-09-15"
   },
   {
+    "id": "smartrecruiters:Experian:744000152995759",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Client Manager",
+    "location": "Heredia, Heredia, cr",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152995759",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-02"
+  },
+  {
     "id": "smartrecruiters:Experian:744000152270144",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -338,17 +351,17 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "smartrecruiters:Experian:744000152534057",
+    "id": "smartrecruiters:Experian:744000152972234",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Director, Product Management (Remote)",
     "location": "United States, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152534057",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152972234",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-30"
+    "first_seen": "2026-10-02"
   },
   {
     "id": "smartrecruiters:Experian:744000148813097",
@@ -442,19 +455,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000152087130",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Experian Graduate Program in Technology",
-    "location": "Sofia, Sofia City Province, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152087130",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-28"
-  },
-  {
     "id": "smartrecruiters:Experian:744000149423196",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -531,6 +531,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-29"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000153133593",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Optimisation Manager",
+    "location": "London, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153133593",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-02"
   },
   {
     "id": "smartrecruiters:Experian:744000114755307",
@@ -650,19 +663,6 @@
     "first_seen": "2026-10-01"
   },
   {
-    "id": "smartrecruiters:Experian:744000152926169",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Scientist",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152926169",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-01"
-  },
-  {
     "id": "smartrecruiters:Experian:744000140984547",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -754,30 +754,30 @@
     "first_seen": "2026-09-03"
   },
   {
-    "id": "smartrecruiters:Experian:744000133652599",
+    "id": "smartrecruiters:Experian:744000153149080",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Legal Counsel",
     "location": "Frankfurt am Main, de",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000133652599",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153149080",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-10-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000133651810",
+    "id": "smartrecruiters:Experian:744000153150354",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Legal Counsel",
     "location": "Düsseldorf, de",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000133651810",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153150354",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-10-02"
   },
   {
     "id": "smartrecruiters:Experian:744000146538149",
@@ -1194,6 +1194,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-23"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000152971678",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Lead Data Scientist - AML Handling",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000152971678",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-02"
   },
   {
     "id": "smartrecruiters:Wise:744000151858969",
