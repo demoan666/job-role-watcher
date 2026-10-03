@@ -416,6 +416,32 @@
     "first_seen": "2026-09-10"
   },
   {
+    "id": "smartrecruiters:Experian:744000153240050",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "EJECUTIVO DE VINCULACION SME",
+    "location": "Bogotá, co",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153240050",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-03"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000153253189",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Employment Counsel",
+    "location": "Costa Mesa, CA, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153253189",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-03"
+  },
+  {
     "id": "smartrecruiters:Experian:744000139866919",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -455,17 +481,30 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000149423196",
+    "id": "smartrecruiters:Experian:744000153231405",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Expert Compliance Risk Advisor",
+    "location": "United States, UNITED STATES, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153231405",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-03"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000153232441",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Expert Compliance Risk Advisor (Remote)",
     "location": "United States, UNITED STATES, us",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149423196",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153232441",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-15"
+    "first_seen": "2026-10-03"
   },
   {
     "id": "smartrecruiters:Experian:744000144609430",
@@ -544,19 +583,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000114755307",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Plataform Director (Produto & Engenharia)",
-    "location": "São Paulo, br",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000114755307",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000149147169",
