@@ -1170,19 +1170,6 @@
     "first_seen": "2026-09-03"
   },
   {
-    "id": "smartrecruiters:Wise:744000150363703",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Compliance System Manager",
-    "location": "Tallinn, ee",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150363703",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-19"
-  },
-  {
     "id": "smartrecruiters:Wise:744000136794784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
