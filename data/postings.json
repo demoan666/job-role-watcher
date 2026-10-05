@@ -52,19 +52,6 @@
     "first_seen": "2026-09-30"
   },
   {
-    "id": "greenhouse:Adyen:7908806",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior AI Research Engineer",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-09-23"
-  },
-  {
     "id": "greenhouse:Adyen:7825733",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -299,32 +286,6 @@
     "first_seen": "2026-08-17"
   },
   {
-    "id": "smartrecruiters:Experian:744000149946109",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Coordenador de Gestão do Cliente - São Carlos / SP",
-    "location": "São Carlos, SP, br",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149946109",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-17"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000150454108",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Creative Services Designer - CA Remote",
-    "location": "Costa Mesa, CA, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000150454108",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-19"
-  },
-  {
     "id": "smartrecruiters:Experian:744000138713170",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -557,6 +518,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-12"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000153477640",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Marketing Director",
+    "location": "Mumbai, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153477640",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-05"
   },
   {
     "id": "smartrecruiters:Experian:744000152326349",
@@ -1053,19 +1027,6 @@
     "first_seen": "2026-09-30"
   },
   {
-    "id": "smartrecruiters:Experian:744000144672615",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Strategic Client Partner, Digital Banking Solutions- Hybrid",
-    "location": "North Sydney, au",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144672615",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-21"
-  },
-  {
     "id": "smartrecruiters:Experian:744000151785855",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1170,6 +1131,19 @@
     "first_seen": "2026-09-03"
   },
   {
+    "id": "smartrecruiters:Wise:744000153479549",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Customer Support Specialist (Spanish Speaker - Nightime - 3 am shift)",
+    "location": "São Paulo, br",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153479549",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-05"
+  },
+  {
     "id": "smartrecruiters:Wise:744000136794784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1181,19 +1155,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000150121653",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Business Operations - North America",
-    "location": "Austin, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000150121653",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-18"
   },
   {
     "id": "smartrecruiters:Wise:744000151353199",
@@ -1313,17 +1274,17 @@
     "first_seen": "2026-09-24"
   },
   {
-    "id": "smartrecruiters:Wise:744000145775089",
+    "id": "smartrecruiters:Wise:744000153468879",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Salesforce & GTM Systems Specialist",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000145775089",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153468879",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-27"
+    "first_seen": "2026-10-05"
   },
   {
     "id": "smartrecruiters:Wise:744000144290359",
