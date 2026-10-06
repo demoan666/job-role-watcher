@@ -13,6 +13,45 @@
     "first_seen": "2026-09-25"
   },
   {
+    "id": "greenhouse:Adyen:8255687",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "London",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8255685",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "Berlin",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8256429",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Brand & PR Program Manager",
+    "location": "New York; San Francisco",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8256429",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
     "id": "greenhouse:Adyen:8053785",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -585,6 +624,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000153590289",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Product Manager, Strategic Integrations (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153590289",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-06"
+  },
+  {
     "id": "smartrecruiters:Experian:744000139561521",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -778,19 +830,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000146538149",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Manager IGA Engineering (Sailpoint ISC)- Remote",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146538149",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-01"
   },
   {
     "id": "smartrecruiters:Experian:744000151792599",
@@ -1131,19 +1170,6 @@
     "first_seen": "2026-09-03"
   },
   {
-    "id": "smartrecruiters:Wise:744000153479549",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Customer Support Specialist (Spanish Speaker - Nightime - 3 am shift)",
-    "location": "São Paulo, br",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153479549",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-05"
-  },
-  {
     "id": "smartrecruiters:Wise:744000136794784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1274,17 +1300,17 @@
     "first_seen": "2026-09-24"
   },
   {
-    "id": "smartrecruiters:Wise:744000153468879",
+    "id": "smartrecruiters:Wise:744000153727784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Salesforce & GTM Systems Specialist",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153468879",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153727784",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-05"
+    "first_seen": "2026-10-06"
   },
   {
     "id": "smartrecruiters:Wise:744000144290359",

@@ -3204,5 +3204,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-27",
     "closed_date": "2026-10-05"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000146538149",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Manager IGA Engineering (Sailpoint ISC)- Remote",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146538149",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-01",
+    "closed_date": "2026-10-06"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000153479549",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Customer Support Specialist (Spanish Speaker - Nightime - 3 am shift)",
+    "location": "São Paulo, br",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153479549",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-05",
+    "closed_date": "2026-10-06"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000153468879",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Salesforce & GTM Systems Specialist",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153468879",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-05",
+    "closed_date": "2026-10-06"
   }
 ]
