@@ -3246,5 +3246,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-10-05",
     "closed_date": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:7825733",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Staff Engineer - Customer Onboarding",
+    "location": "Chicago",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7825733",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-10-07"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000152995759",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Client Manager",
+    "location": "Heredia, Heredia, cr",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152995759",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-02",
+    "closed_date": "2026-10-07"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000153133593",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Optimisation Manager",
+    "location": "London, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153133593",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-02",
+    "closed_date": "2026-10-07"
   }
 ]
