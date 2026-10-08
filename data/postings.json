@@ -221,19 +221,6 @@
     "first_seen": "2026-10-01"
   },
   {
-    "id": "smartrecruiters:Experian:744000149959019",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Analista de Desenvolvimento de Software I",
-    "location": "São Paulo, br",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149959019",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-17"
-  },
-  {
     "id": "smartrecruiters:Experian:744000151668291",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -559,6 +546,19 @@
     "first_seen": "2026-08-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000154348040",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Lead RPA Engineer",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154348040",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-08"
+  },
+  {
     "id": "smartrecruiters:Experian:744000142827047",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -689,17 +689,17 @@
     "first_seen": "2026-08-22"
   },
   {
-    "id": "smartrecruiters:Experian:744000138301400",
+    "id": "smartrecruiters:Experian:744000154423089",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Analytics Engineer",
+    "title": "Senior Data Scientist",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138301400",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154423089",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-10-08"
   },
   {
     "id": "smartrecruiters:Experian:744000152939434",
@@ -1001,17 +1001,17 @@
     "first_seen": "2026-09-03"
   },
   {
-    "id": "smartrecruiters:Experian:744000146836769",
+    "id": "smartrecruiters:Experian:744000154450517",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer- Java & Database Development",
-    "location": "Heredia, Heredia, cr",
+    "title": "Senior Staff Engineer",
+    "location": "Hyderabad, in",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146836769",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154450517",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-02"
+    "first_seen": "2026-10-08"
   },
   {
     "id": "smartrecruiters:Experian:744000139938479",
@@ -1157,6 +1157,32 @@
     "first_seen": "2026-10-07"
   },
   {
+    "id": "greenhouse:Storyblok:4987716101",
+    "company": "Storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Marketing Automation Manager - Canada, Spain, India ",
+    "location": "Remote",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://www.storyblok.com/job?gh_jid=4987716101",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-08"
+  },
+  {
+    "id": "greenhouse:Storyblok:4998396101",
+    "company": "Storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Content Marketing Specialist - UK ",
+    "location": "Remote",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://www.storyblok.com/job?gh_jid=4998396101",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-08"
+  },
+  {
     "id": "smartrecruiters:Wise:744000151064849",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1246,6 +1272,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-23"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000154396550",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director, Product Analytics (APAC)",
+    "location": "Singapore, sg",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000154396550",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-08"
   },
   {
     "id": "smartrecruiters:Wise:744000152971678",

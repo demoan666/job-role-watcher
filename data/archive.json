@@ -3288,5 +3288,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-10-02",
     "closed_date": "2026-10-07"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000149959019",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software I",
+    "location": "São Paulo, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149959019",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-17",
+    "closed_date": "2026-10-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000138301400",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Analytics Engineer",
+    "location": "Sofia, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138301400",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-10-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000146836769",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer- Java & Database Development",
+    "location": "Heredia, Heredia, cr",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146836769",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-02",
+    "closed_date": "2026-10-08"
   }
 ]
