@@ -13,19 +13,6 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "greenhouse:Adyen:8255687",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Global Alliances Partner Manager",
-    "location": "London",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-06"
-  },
-  {
     "id": "greenhouse:Adyen:8255685",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -34,6 +21,19 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8255687",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "London",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-10-06"
@@ -312,6 +312,19 @@
     "first_seen": "2026-08-17"
   },
   {
+    "id": "smartrecruiters:Experian:744000154635349",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Data Scientist (Contract)",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154635349",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-09"
+  },
+  {
     "id": "smartrecruiters:Experian:744000138713170",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -424,19 +437,6 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153240050",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-03"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000153253189",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Employment Counsel",
-    "location": "Costa Mesa, CA, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153253189",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-03"
@@ -559,6 +559,19 @@
     "first_seen": "2026-10-08"
   },
   {
+    "id": "smartrecruiters:Experian:744000154511229",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Lead Software Engineer",
+    "location": "Franklin, TN, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154511229",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-09"
+  },
+  {
     "id": "smartrecruiters:Experian:744000142827047",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -663,19 +676,6 @@
     "first_seen": "2026-09-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000148591599",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Backend .NET Software Engineer",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148591599",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-10"
-  },
-  {
     "id": "smartrecruiters:Experian:744000144815929",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -778,19 +778,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-17"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000149798060",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Engineer",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149798060",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-16"
   },
   {
     "id": "smartrecruiters:Experian:744000147161569",
@@ -960,19 +947,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-07"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000144345163",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144345163",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-20"
   },
   {
     "id": "smartrecruiters:Experian:744000151649389",
@@ -1194,19 +1168,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-23"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000146267396",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Account Manager",
-    "location": "Austin, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000146267396",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-29"
   },
   {
     "id": "smartrecruiters:Wise:744000149784179",
