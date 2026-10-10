@@ -152,7 +152,7 @@
     "eu_hireable_or_remote": false,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152493589",
     "ats": "smartrecruiters",
-    "contract_type": "full-time",
+    "contract_type": "intern",
     "first_seen": "2026-09-30"
   },
   {
@@ -466,6 +466,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000154773459",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Especialista de Desenvolvimento de Software - Vaga Afirmativa para Pretos e Pardos",
+    "location": "São Paulo, br",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154773459",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-10"
   },
   {
     "id": "smartrecruiters:Experian:744000067236225",
@@ -1049,7 +1062,7 @@
     "eu_hireable_or_remote": false,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144679769",
     "ats": "smartrecruiters",
-    "contract_type": "contract",
+    "contract_type": "full-time",
     "first_seen": "2026-08-21"
   },
   {
@@ -1077,6 +1090,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-25"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000154722389",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Strategy Execution & Delivery Effectiveness Senior Director",
+    "location": "Canada, CANADA, ca",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154722389",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-10"
   },
   {
     "id": "smartrecruiters:Experian:744000152192455",
