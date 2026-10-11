@@ -13,19 +13,6 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "greenhouse:Adyen:8255685",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Global Alliances Partner Manager",
-    "location": "Berlin",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-06"
-  },
-  {
     "id": "greenhouse:Adyen:8255687",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -34,6 +21,19 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8255685",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "Berlin",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-10-06"
