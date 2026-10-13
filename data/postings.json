@@ -13,19 +13,6 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "greenhouse:Adyen:8255687",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Global Alliances Partner Manager",
-    "location": "London",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-06"
-  },
-  {
     "id": "greenhouse:Adyen:8255685",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -34,6 +21,19 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8255687",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "London",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-10-06"
@@ -260,30 +260,17 @@
     "first_seen": "2026-09-09"
   },
   {
-    "id": "smartrecruiters:Experian:744000154090020",
+    "id": "smartrecruiters:Experian:744000155170869",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Associate Machine Learning Scientist",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154090020",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155170869",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-07"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000149409899",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Client Executive, Community Lending Markets (Northwest Region)",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149409899",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-15"
+    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Experian:744000152270144",
@@ -702,19 +689,6 @@
     "first_seen": "2026-09-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000144815929",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Compensation Analyst (Remote)",
-    "location": "Costa Mesa, CA, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144815929",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-22"
-  },
-  {
     "id": "smartrecruiters:Experian:744000154423089",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -739,19 +713,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-01"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000140984547",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Director, AI Platform Engineering (Remote)",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000140984547",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "smartrecruiters:Experian:744000152534099",
@@ -871,43 +832,17 @@
     "first_seen": "2026-10-01"
   },
   {
-    "id": "smartrecruiters:Experian:744000155010999",
+    "id": "smartrecruiters:Experian:744000155230709",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Operations Project Manager (Strategic Programs)",
+    "title": "Senior Project Manager (Strategic Programs)",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155010999",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155230709",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-12"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000146406989",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Product Manager – Behavioral Analytics",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146406989",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-31"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000145201909",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Product Manager – Digital Intelligence",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000145201909",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-24"
+    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Experian:744000152681041",
@@ -949,17 +884,30 @@
     "first_seen": "2026-08-27"
   },
   {
-    "id": "smartrecruiters:Experian:744000139933636",
+    "id": "smartrecruiters:Experian:744000155238169",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Software Development Engineer in Test",
     "location": "Hyderabad, in",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139933636",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155238169",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-10-13"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000155233259",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155233259",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Experian:744000154082251",
@@ -1014,43 +962,17 @@
     "first_seen": "2026-09-03"
   },
   {
-    "id": "smartrecruiters:Experian:744000154450517",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Staff Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154450517",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000154976070",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Staff Engineer ",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154976070",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-12"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000139938479",
+    "id": "smartrecruiters:Experian:744000155237984",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Solution Architect (Microsoft .NET/Azure Cloud)",
     "location": "Hyderabad, in",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139938479",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155237984",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
+    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Experian:744000149914954",
@@ -1222,6 +1144,19 @@
     "first_seen": "2026-10-08"
   },
   {
+    "id": "greenhouse:Storyblok:5003744101",
+    "company": "Storyblok",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Database Reliability Engineer I - Germany/Austria/UK",
+    "location": "Remote ",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://www.storyblok.com/job?gh_jid=5003744101",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-13"
+  },
+  {
     "id": "smartrecruiters:Wise:744000151064849",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1233,6 +1168,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-23"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000155269329",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "APAC Marketing Director",
+    "location": "Singapore, sg",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000155269329",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Wise:744000149784179",
@@ -1248,17 +1196,17 @@
     "first_seen": "2026-09-16"
   },
   {
-    "id": "smartrecruiters:Wise:744000147145849",
+    "id": "smartrecruiters:Wise:744000155155300",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Commercial Director - South Asia",
     "location": "Singapore, sg",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000147145849",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000155155300",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-03"
+    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Wise:744000154101880",
@@ -1285,6 +1233,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000155074860",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Business Operations - North America",
+    "location": "Austin, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000155074860",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Wise:744000151353199",
@@ -1404,19 +1365,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000139079853",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Product Director – FinCrime & Operations Platform",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000139079853",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Wise:744000151358507",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1454,19 +1402,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-06"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000144290359",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Employment and Expatriate Tax Manager",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000144290359",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-20"
   },
   {
     "id": "smartrecruiters:Wise:744000149273629",
