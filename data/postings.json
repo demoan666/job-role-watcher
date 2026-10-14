@@ -91,19 +91,6 @@
     "first_seen": "2026-09-30"
   },
   {
-    "id": "greenhouse:Adyen:7908806",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior AI Research Engineer",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-07"
-  },
-  {
     "id": "greenhouse:Adyen:8003083",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -167,32 +154,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000148222879",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Account Director (Enterprise) - Banking ",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148222879",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-09"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000150622814",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Account Director - Financial Services",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000150622814",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-21"
   },
   {
     "id": "smartrecruiters:Experian:744000143492702",
@@ -598,19 +559,6 @@
     "first_seen": "2026-08-12"
   },
   {
-    "id": "smartrecruiters:Experian:744000153477640",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Marketing Director",
-    "location": "Mumbai, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153477640",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-05"
-  },
-  {
     "id": "smartrecruiters:Experian:744000152326349",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -845,19 +793,6 @@
     "first_seen": "2026-10-13"
   },
   {
-    "id": "smartrecruiters:Experian:744000152681041",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Sales Engineer - Remote",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152681041",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-30"
-  },
-  {
     "id": "smartrecruiters:Experian:744000150783547",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -934,6 +869,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-07"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000155439444",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer ",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155439444",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-14"
   },
   {
     "id": "smartrecruiters:Experian:744000151649389",
@@ -1194,19 +1142,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-16"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000155155300",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Commercial Director - South Asia",
-    "location": "Singapore, sg",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000155155300",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Wise:744000154101880",
