@@ -13,19 +13,6 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "greenhouse:Adyen:8255685",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Global Alliances Partner Manager",
-    "location": "Berlin",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-06"
-  },
-  {
     "id": "greenhouse:Adyen:8255687",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -34,6 +21,19 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8255685",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "Berlin",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-10-06"
@@ -89,6 +89,19 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-09-30"
+  },
+  {
+    "id": "greenhouse:Adyen:7908806",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior AI Research Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/7908806",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-15"
   },
   {
     "id": "greenhouse:Adyen:8003083",
@@ -273,6 +286,19 @@
     "first_seen": "2026-10-12"
   },
   {
+    "id": "smartrecruiters:Experian:744000155716174",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Data Scientist",
+    "location": "Madrid, es",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155716174",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-15"
+  },
+  {
     "id": "smartrecruiters:Experian:744000154635349",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -336,6 +362,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-02"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000155558779",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director, Program Management",
+    "location": "Franklin, TN, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155558779",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-15"
   },
   {
     "id": "smartrecruiters:Experian:744000148813097",
@@ -455,19 +494,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000153231405",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Expert Compliance Risk Advisor",
-    "location": "United States, UNITED STATES, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153231405",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-03"
-  },
-  {
     "id": "smartrecruiters:Experian:744000153232441",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -518,6 +544,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000155564304",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Lead Data Platform Engineer - AWS, Spark",
+    "location": "Nottingham, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155564304",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-15"
   },
   {
     "id": "smartrecruiters:Experian:744000154348040",
@@ -650,19 +689,6 @@
     "first_seen": "2026-10-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000152939434",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Scientist",
-    "location": "Madrid, es",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152939434",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-01"
-  },
-  {
     "id": "smartrecruiters:Experian:744000152534099",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -674,19 +700,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-30"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000149460539",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Director, Demand Generation (Remote)",
-    "location": "United States, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149460539",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-15"
   },
   {
     "id": "smartrecruiters:Experian:744000148685469",
@@ -1025,19 +1038,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-28"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000138101929",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Technical Architect - (Java,AWS)",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138101929",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
   },
   {
     "id": "greenhouse:Storyblok:4924580101",

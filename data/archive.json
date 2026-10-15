@@ -3680,5 +3680,61 @@
     "contract_type": "full-time",
     "first_seen": "2026-10-13",
     "closed_date": "2026-10-14"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000153231405",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Expert Compliance Risk Advisor",
+    "location": "United States, UNITED STATES, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153231405",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-03",
+    "closed_date": "2026-10-15"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000152939434",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Scientist",
+    "location": "Madrid, es",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152939434",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-01",
+    "closed_date": "2026-10-15"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000149460539",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Director, Demand Generation (Remote)",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149460539",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-15",
+    "closed_date": "2026-10-15"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000138101929",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Technical Architect - (Java,AWS)",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000138101929",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-08-08",
+    "closed_date": "2026-10-15"
   }
 ]
