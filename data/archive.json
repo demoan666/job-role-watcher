@@ -3736,5 +3736,19 @@
     "contract_type": "full-time",
     "first_seen": "2026-08-08",
     "closed_date": "2026-10-15"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000148590762",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "EJECUTIVO DE VINCULACION SMB",
+    "location": "Bogotá, co",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148590762",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-10",
+    "closed_date": "2026-10-16"
   }
 ]

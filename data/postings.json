@@ -13,19 +13,6 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "greenhouse:Adyen:8255687",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Global Alliances Partner Manager",
-    "location": "London",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-06"
-  },
-  {
     "id": "greenhouse:Adyen:8255685",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -34,6 +21,19 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8255687",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "London",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-10-06"
@@ -76,6 +76,19 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-12"
+  },
+  {
+    "id": "greenhouse:Adyen:8266453",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "People Solutions Partner",
+    "location": "Singapore",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8266453",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-16"
   },
   {
     "id": "greenhouse:Adyen:8226137",
@@ -338,6 +351,19 @@
     "first_seen": "2026-09-25"
   },
   {
+    "id": "smartrecruiters:Experian:744000155979409",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Digital Procurement Data Scientist",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155979409",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-16"
+  },
+  {
     "id": "smartrecruiters:Experian:744000154083329",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -414,19 +440,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-22"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000148590762",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "EJECUTIVO DE VINCULACION SMB",
-    "location": "Bogotá, co",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148590762",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-10"
   },
   {
     "id": "smartrecruiters:Experian:744000153240050",
