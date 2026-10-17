@@ -260,19 +260,6 @@
     "first_seen": "2026-10-13"
   },
   {
-    "id": "smartrecruiters:Experian:744000152270144",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Client Solutions Analyst - Remote",
-    "location": "US, US, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152270144",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-29"
-  },
-  {
     "id": "smartrecruiters:Experian:744000143737259",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -481,17 +468,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000154773459",
+    "id": "smartrecruiters:Experian:744000156012304",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Especialista de Desenvolvimento de Software - Vaga Afirmativa para Pretos e Pardos",
     "location": "São Paulo, br",
     "remote": true,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154773459",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156012304",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-10"
+    "first_seen": "2026-10-17"
   },
   {
     "id": "smartrecruiters:Experian:744000067236225",
@@ -700,19 +687,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000152534099",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Director, Client Education - Healthcare SaaS",
-    "location": "United Staters, UNITED STATES, us",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152534099",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-30"
   },
   {
     "id": "smartrecruiters:Experian:744000148685469",
