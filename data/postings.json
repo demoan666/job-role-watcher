@@ -156,17 +156,17 @@
     "first_seen": "2026-09-23"
   },
   {
-    "id": "smartrecruiters:Experian:744000152493589",
+    "id": "smartrecruiters:Experian:744000156270156",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "AI Developer Intern",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152493589",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156270156",
     "ats": "smartrecruiters",
     "contract_type": "intern",
-    "first_seen": "2026-09-30"
+    "first_seen": "2026-10-19"
   },
   {
     "id": "smartrecruiters:Experian:744000146817719",
@@ -299,17 +299,17 @@
     "first_seen": "2026-10-15"
   },
   {
-    "id": "smartrecruiters:Experian:744000154635349",
+    "id": "smartrecruiters:Experian:744000156271765",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Data Scientist (Contract)",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154635349",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156271765",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-09"
+    "first_seen": "2026-10-19"
   },
   {
     "id": "smartrecruiters:Experian:744000138713170",
@@ -325,17 +325,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000151769529",
+    "id": "smartrecruiters:Experian:744000156326789",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Developer (C#)",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151769529",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156326789",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-25"
+    "first_seen": "2026-10-19"
   },
   {
     "id": "smartrecruiters:Experian:744000155979409",
@@ -349,19 +349,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-16"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000154083329",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Platform Architecture - Permission Data",
-    "location": "Hyderabad, 500032, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154083329",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-07"
   },
   {
     "id": "smartrecruiters:Experian:744000152972234",
@@ -585,17 +572,17 @@
     "first_seen": "2026-10-09"
   },
   {
-    "id": "smartrecruiters:Experian:744000142827047",
+    "id": "smartrecruiters:Experian:744000156245439",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Machine Learning Engineer",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000142827047",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156245439",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-12"
+    "first_seen": "2026-10-19"
   },
   {
     "id": "smartrecruiters:Experian:744000152326349",
@@ -624,17 +611,17 @@
     "first_seen": "2026-10-18"
   },
   {
-    "id": "smartrecruiters:Experian:744000149147169",
+    "id": "smartrecruiters:Experian:744000156274449",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Principal Solution Consultant",
     "location": "Kuala Lumpur, KUALA LUMPUR, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149147169",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156274449",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-12"
+    "first_seen": "2026-10-19"
   },
   {
     "id": "smartrecruiters:Experian:744000140191201",
@@ -689,30 +676,30 @@
     "first_seen": "2026-09-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000154423089",
+    "id": "smartrecruiters:Experian:744000156248060",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Data Scientist",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154423089",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156248060",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-08"
+    "first_seen": "2026-10-19"
   },
   {
-    "id": "smartrecruiters:Experian:744000148685469",
+    "id": "smartrecruiters:Experian:744000156275035",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Director, Platform Engineering - SDLC & Cloud Native Foundations",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000148685469",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156275035",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-10"
+    "first_seen": "2026-10-19"
   },
   {
     "id": "smartrecruiters:Experian:744000149963169",
@@ -936,6 +923,19 @@
     "first_seen": "2026-10-13"
   },
   {
+    "id": "smartrecruiters:Experian:744000156277081",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Solutions Architect",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156277081",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-19"
+  },
+  {
     "id": "smartrecruiters:Experian:744000149914954",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -962,30 +962,17 @@
     "first_seen": "2026-09-17"
   },
   {
-    "id": "smartrecruiters:Experian:744000149147209",
+    "id": "smartrecruiters:Experian:744000156324444",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Solutions Architect (Video Conference)",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000149147209",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156324444",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-12"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000144679769",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Solutions Architect - Telephony, Voice Contact Center",
-    "location": "Cyberjaya, Selangor, my",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000144679769",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-21"
+    "first_seen": "2026-10-19"
   },
   {
     "id": "smartrecruiters:Experian:744000152517849",
@@ -1012,19 +999,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-25"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000154722389",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Strategy Execution & Delivery Effectiveness Senior Director",
-    "location": "Canada, CANADA, ca",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000154722389",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-10"
   },
   {
     "id": "smartrecruiters:Experian:744000152192455",
@@ -1144,19 +1118,6 @@
     "first_seen": "2026-09-16"
   },
   {
-    "id": "smartrecruiters:Wise:744000154101880",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Customer Support Specialist (Spanish Speaker - Nightime - 1 am shift)",
-    "location": "São Paulo, br",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000154101880",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-07"
-  },
-  {
     "id": "smartrecruiters:Wise:744000136794784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1209,6 +1170,19 @@
     "first_seen": "2026-10-08"
   },
   {
+    "id": "smartrecruiters:Wise:744000156312360",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Graduate Software Engineer",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156312360",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-19"
+  },
+  {
     "id": "smartrecruiters:Wise:744000152971678",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1256,19 +1230,6 @@
     "remote": false,
     "eu_hireable_or_remote": true,
     "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153793329",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-07"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000153796827",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Paid Search Senior Executive (B2B)",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000153796827",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-07"
