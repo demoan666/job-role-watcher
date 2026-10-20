@@ -156,17 +156,17 @@
     "first_seen": "2026-09-23"
   },
   {
-    "id": "smartrecruiters:Experian:744000156270156",
+    "id": "smartrecruiters:Experian:744000156347739",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "AI Developer Intern",
     "location": "Cyberjaya, Selangor, my",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156270156",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156347739",
     "ats": "smartrecruiters",
     "contract_type": "intern",
-    "first_seen": "2026-10-19"
+    "first_seen": "2026-10-20"
   },
   {
     "id": "smartrecruiters:Experian:744000146817719",
@@ -234,6 +234,19 @@
     "first_seen": "2026-09-18"
   },
   {
+    "id": "smartrecruiters:Experian:744000156370579",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Analista de Desenvolvimento de Software Pleno - Vaga afirmativa para Pessoas com Deficiência (PcD).",
+    "location": "Blumenau, br",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156370579",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-20"
+  },
+  {
     "id": "smartrecruiters:Experian:744000148256719",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -299,19 +312,6 @@
     "first_seen": "2026-10-15"
   },
   {
-    "id": "smartrecruiters:Experian:744000156271765",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Data Scientist (Contract)",
-    "location": "Cyberjaya, Selangor, my",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156271765",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-19"
-  },
-  {
     "id": "smartrecruiters:Experian:744000138713170",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -362,19 +362,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000155558779",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director, Program Management",
-    "location": "Franklin, TN, us",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155558779",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-15"
   },
   {
     "id": "smartrecruiters:Experian:744000148813097",
@@ -572,32 +559,6 @@
     "first_seen": "2026-10-09"
   },
   {
-    "id": "smartrecruiters:Experian:744000156245439",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Machine Learning Engineer",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156245439",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-19"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000152326349",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Operational Excellence Manager",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000152326349",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-29"
-  },
-  {
     "id": "smartrecruiters:Experian:744000156134089",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -674,6 +635,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-02"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156352429",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Data Platform Engineer AWS, Spark",
+    "location": "Nottingham, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156352429",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-20"
   },
   {
     "id": "smartrecruiters:Experian:744000156248060",
@@ -804,19 +778,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-22"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000146033529",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Service Delivery Manager",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000146033529",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-27"
   },
   {
     "id": "smartrecruiters:Experian:744000155238169",
@@ -1014,19 +975,6 @@
     "first_seen": "2026-09-28"
   },
   {
-    "id": "greenhouse:Storyblok:4924580101",
-    "company": "Storyblok",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Product Marketing - USA ",
-    "location": "Remote",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://www.storyblok.com/job?gh_jid=4924580101",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "greenhouse:Storyblok:4998598101",
     "company": "Storyblok",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1170,17 +1118,17 @@
     "first_seen": "2026-10-08"
   },
   {
-    "id": "smartrecruiters:Wise:744000156312360",
+    "id": "smartrecruiters:Wise:744000156354869",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Graduate Software Engineer",
     "location": "London, gb",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156312360",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156354869",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-19"
+    "first_seen": "2026-10-20"
   },
   {
     "id": "smartrecruiters:Wise:744000152971678",
