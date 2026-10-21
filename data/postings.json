@@ -65,6 +65,32 @@
     "first_seen": "2026-09-29"
   },
   {
+    "id": "greenhouse:Adyen:8138721",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Tech Support EMEA",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8138721",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-21"
+  },
+  {
+    "id": "greenhouse:Adyen:8289282",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Legal Innovation Specialist",
+    "location": "San Francisco",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8289282",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-21"
+  },
+  {
     "id": "greenhouse:Adyen:8050072",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -312,6 +338,19 @@
     "first_seen": "2026-10-15"
   },
   {
+    "id": "smartrecruiters:Experian:744000156473699",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Data Scientist (Contract)",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156473699",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
+  },
+  {
     "id": "smartrecruiters:Experian:744000138713170",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -349,6 +388,32 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-16"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156498604",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Platform Architecture",
+    "location": "Nottingham, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156498604",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156704509",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director, Global Delivery Centre Operations & Strategy",
+    "location": "Cyberjaya, Selangor, my",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156704509",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Experian:744000152972234",
@@ -427,6 +492,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156612593",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Enterprise and Operational Risk Director",
+    "location": "Costa Mesa, CA, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156612593",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Experian:744000139122170",
@@ -559,6 +637,45 @@
     "first_seen": "2026-10-09"
   },
   {
+    "id": "smartrecruiters:Experian:744000156527508",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Machine Learning Engineer",
+    "location": "Sofia, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156527508",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156793289",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Marketing Director",
+    "location": "Mumbai, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156793289",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156711209",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Operational Excellence Manager",
+    "location": "Sofia, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156711209",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
+  },
+  {
     "id": "smartrecruiters:Experian:744000156134089",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -609,6 +726,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-06"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156666859",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Revenue Cycle Solutions Consultant",
+    "location": "Franklin, TN, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156666859",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Experian:744000139561521",
@@ -674,6 +804,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-19"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156605619",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Director, Product Design",
+    "location": "United States, UNITED STATES, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156605619",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Experian:744000149963169",
@@ -778,6 +921,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-22"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156584331",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Service Delivery Manager",
+    "location": "Sofia, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156584331",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Experian:744000155238169",
@@ -949,17 +1105,17 @@
     "first_seen": "2026-09-30"
   },
   {
-    "id": "smartrecruiters:Experian:744000151785855",
+    "id": "smartrecruiters:Experian:744000156554744",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Strategy Analyst",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151785855",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156554744",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-25"
+    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Experian:744000152192455",
@@ -973,6 +1129,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-28"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156715650",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "[Expression of Interest] Data Engineer",
+    "location": "Mid Valley City, Lingkaran Syed Putra,, KUALA LUMPUR, my",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156715650",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
   },
   {
     "id": "greenhouse:Storyblok:4998598101",
@@ -1066,6 +1235,19 @@
     "first_seen": "2026-09-16"
   },
   {
+    "id": "smartrecruiters:Wise:744000156538110",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Customer Support Specialist (Spanish Speaker - Nightime - 1 am shift)",
+    "location": "São Paulo, br",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156538110",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
+  },
+  {
     "id": "smartrecruiters:Wise:744000136794784",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1129,6 +1311,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-20"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000156471210",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Financial Crime Compliance and MLRO, Japan",
+    "location": "Tokyo, jp",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156471210",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Wise:744000152971678",

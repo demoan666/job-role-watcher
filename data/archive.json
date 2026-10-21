@@ -4086,5 +4086,19 @@
     "contract_type": "full-time",
     "first_seen": "2026-10-19",
     "closed_date": "2026-10-20"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000151785855",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Strategy Analyst",
+    "location": "Sofia, bg",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151785855",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-09-25",
+    "closed_date": "2026-10-21"
   }
 ]
