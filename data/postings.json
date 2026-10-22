@@ -130,6 +130,19 @@
     "first_seen": "2026-09-30"
   },
   {
+    "id": "greenhouse:Adyen:8276205",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "People Technology Data Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8276205",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-22"
+  },
+  {
     "id": "greenhouse:Adyen:7908806",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -156,32 +169,6 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000151089509",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "AI & Automation Solution Consultant",
-    "location": "Nottingham, England, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151089509",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-23"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000151088864",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "AI & Automation Solution Consultant",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151088864",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-23"
-  },
-  {
     "id": "smartrecruiters:Experian:744000156347739",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -206,19 +193,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-02"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000143492702",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Account Director - Public Sector ",
-    "location": "London, England, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000143492702",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-15"
   },
   {
     "id": "smartrecruiters:Experian:744000152779229",
@@ -297,6 +271,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-13"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000156894725",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Carrier Relations Lead",
+    "location": "Franklin, TN, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156894725",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-22"
   },
   {
     "id": "smartrecruiters:Experian:744000143737259",
@@ -388,19 +375,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-16"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000156498604",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Director of Platform Architecture",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156498604",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Experian:744000156704509",
@@ -585,30 +559,17 @@
     "first_seen": "2026-09-15"
   },
   {
-    "id": "smartrecruiters:Experian:744000139121720",
+    "id": "smartrecruiters:Experian:744000156888670",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Data Platform Engineer",
-    "location": "Nottingham, gb",
+    "title": "Information Security Analyst",
+    "location": "Heredia, Heredia, cr",
     "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139121720",
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156888670",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000155564304",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Lead Data Platform Engineer - AWS, Spark",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155564304",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-15"
+    "first_seen": "2026-10-22"
   },
   {
     "id": "smartrecruiters:Experian:744000154348040",
@@ -674,19 +635,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-21"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000156134089",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Principal Data Architect",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156134089",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-18"
   },
   {
     "id": "smartrecruiters:Experian:744000156274449",
@@ -767,30 +715,17 @@
     "first_seen": "2026-09-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000156352429",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Data Platform Engineer AWS, Spark",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156352429",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-20"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000156248060",
+    "id": "smartrecruiters:Experian:744000156848087",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Data Scientist",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156248060",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156848087",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-19"
+    "first_seen": "2026-10-22"
   },
   {
     "id": "smartrecruiters:Experian:744000156275035",
@@ -832,19 +767,6 @@
     "first_seen": "2026-09-17"
   },
   {
-    "id": "smartrecruiters:Experian:744000147161569",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior FullStack Engineer - TypeScript - Python",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147161569",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-03"
-  },
-  {
     "id": "smartrecruiters:Experian:744000153149080",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -871,17 +793,17 @@
     "first_seen": "2026-10-02"
   },
   {
-    "id": "smartrecruiters:Experian:744000151792599",
+    "id": "smartrecruiters:Experian:744000157047629",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Senior Manager, Competitive Intelligence",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151792599",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157047629",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-09-25"
+    "first_seen": "2026-10-22"
   },
   {
     "id": "smartrecruiters:Experian:744000152918779",
@@ -895,19 +817,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-01"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000155230709",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Project Manager (Strategic Programs)",
-    "location": "Sofia, bg",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155230709",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Experian:744000150783547",
@@ -1001,32 +910,6 @@
     "first_seen": "2026-10-14"
   },
   {
-    "id": "smartrecruiters:Experian:744000151649389",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer - .NET",
-    "location": "Nottingham, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000151649389",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-25"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000147162210",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer - Python",
-    "location": "London, gb",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000147162210",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-09-03"
-  },
-  {
     "id": "smartrecruiters:Experian:744000155237984",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1105,17 +988,17 @@
     "first_seen": "2026-09-30"
   },
   {
-    "id": "smartrecruiters:Experian:744000156554744",
+    "id": "smartrecruiters:Experian:744000157045274",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Strategy Analyst",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156554744",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157045274",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-21"
+    "first_seen": "2026-10-22"
   },
   {
     "id": "smartrecruiters:Experian:744000152192455",
@@ -1313,17 +1196,17 @@
     "first_seen": "2026-10-20"
   },
   {
-    "id": "smartrecruiters:Wise:744000156471210",
+    "id": "smartrecruiters:Wise:744000157035619",
     "company": "Wise",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Head of Financial Crime Compliance and MLRO, Japan",
     "location": "Tokyo, jp",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156471210",
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000157035619",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-21"
+    "first_seen": "2026-10-22"
   },
   {
     "id": "smartrecruiters:Wise:744000152971678",
