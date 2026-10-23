@@ -130,19 +130,6 @@
     "first_seen": "2026-09-30"
   },
   {
-    "id": "greenhouse:Adyen:8276205",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "People Technology Data Engineer",
-    "location": "Amsterdam",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8276205",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-22"
-  },
-  {
     "id": "greenhouse:Adyen:7908806",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -156,6 +143,19 @@
     "first_seen": "2026-10-15"
   },
   {
+    "id": "greenhouse:Adyen:8002425",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Forward Deployed Engineer",
+    "location": "Amsterdam",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8002425",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-23"
+  },
+  {
     "id": "greenhouse:Adyen:8003083",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -167,6 +167,19 @@
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000157217599",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": " Client Executive, Credit Unions ",
+    "location": "Washington, DC, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157217599",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-23"
   },
   {
     "id": "smartrecruiters:Experian:744000156347739",
@@ -260,30 +273,30 @@
     "first_seen": "2026-09-09"
   },
   {
-    "id": "smartrecruiters:Experian:744000155170869",
+    "id": "smartrecruiters:Experian:744000157171739",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Associate Machine Learning Scientist",
     "location": "Sofia, bg",
     "remote": false,
     "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155170869",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157171739",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-13"
+    "first_seen": "2026-10-23"
   },
   {
-    "id": "smartrecruiters:Experian:744000156894725",
+    "id": "smartrecruiters:Experian:744000157214369",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": "Carrier Relations Lead",
     "location": "Franklin, TN, us",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000156894725",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157214369",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-22"
+    "first_seen": "2026-10-23"
   },
   {
     "id": "smartrecruiters:Experian:744000143737259",
@@ -442,19 +455,6 @@
     "first_seen": "2026-09-22"
   },
   {
-    "id": "smartrecruiters:Experian:744000153240050",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "EJECUTIVO DE VINCULACION SME",
-    "location": "Bogotá, co",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000153240050",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-03"
-  },
-  {
     "id": "smartrecruiters:Experian:744000139866919",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -544,6 +544,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-21"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000157180999",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Head of Enablement & Innovation",
+    "location": "London, England, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157180999",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-23"
   },
   {
     "id": "smartrecruiters:Experian:744000149512499",
@@ -689,19 +702,6 @@
     "first_seen": "2026-10-21"
   },
   {
-    "id": "smartrecruiters:Experian:744000139561521",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Sales Representative (m/f/d)",
-    "location": "Wien, Wien, at",
-    "remote": false,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000139561521",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-08-08"
-  },
-  {
     "id": "smartrecruiters:Experian:744000146838439",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -726,6 +726,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-22"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000157200624",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Director, AI Software Engineering",
+    "location": "United States, UNITED STATES, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157200624",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-23"
   },
   {
     "id": "smartrecruiters:Experian:744000156275035",
@@ -908,19 +921,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-14"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000155237984",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Solution Architect (Microsoft .NET/Azure Cloud)",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155237984",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-13"
   },
   {
     "id": "smartrecruiters:Experian:744000156277081",
@@ -1142,6 +1142,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-08-08"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000157426399",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Director of Analytics - Customer Support",
+    "location": "London, gb",
+    "remote": false,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000157426399",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-23"
   },
   {
     "id": "smartrecruiters:Wise:744000155074860",
