@@ -4408,5 +4408,47 @@
     "contract_type": "full-time",
     "first_seen": "2026-10-13",
     "closed_date": "2026-10-23"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000157217599",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": " Client Executive, Credit Unions ",
+    "location": "Washington, DC, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157217599",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-23",
+    "closed_date": "2026-10-24"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000155233259",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Software Engineer",
+    "location": "Hyderabad, in",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155233259",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-13",
+    "closed_date": "2026-10-24"
+  },
+  {
+    "id": "smartrecruiters:Wise:744000156538110",
+    "company": "Wise",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Customer Support Specialist (Spanish Speaker - Nightime - 1 am shift)",
+    "location": "São Paulo, br",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156538110",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-21",
+    "closed_date": "2026-10-24"
   }
 ]

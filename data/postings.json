@@ -13,19 +13,6 @@
     "first_seen": "2026-09-25"
   },
   {
-    "id": "greenhouse:Adyen:8255687",
-    "company": "Adyen",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Global Alliances Partner Manager",
-    "location": "London",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
-    "ats": "greenhouse",
-    "contract_type": null,
-    "first_seen": "2026-10-06"
-  },
-  {
     "id": "greenhouse:Adyen:8255685",
     "company": "Adyen",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -34,6 +21,19 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://job-boards.greenhouse.io/adyen/jobs/8255685",
+    "ats": "greenhouse",
+    "contract_type": null,
+    "first_seen": "2026-10-06"
+  },
+  {
+    "id": "greenhouse:Adyen:8255687",
+    "company": "Adyen",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Global Alliances Partner Manager",
+    "location": "London",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://job-boards.greenhouse.io/adyen/jobs/8255687",
     "ats": "greenhouse",
     "contract_type": null,
     "first_seen": "2026-10-06"
@@ -169,17 +169,17 @@
     "first_seen": "2026-08-08"
   },
   {
-    "id": "smartrecruiters:Experian:744000157217599",
+    "id": "smartrecruiters:Experian:744000157486624",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
     "title": " Client Executive, Credit Unions ",
     "location": "Washington, DC, us",
     "remote": false,
     "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157217599",
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157486624",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
-    "first_seen": "2026-10-23"
+    "first_seen": "2026-10-24"
   },
   {
     "id": "smartrecruiters:Experian:744000156347739",
@@ -297,6 +297,19 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-23"
+  },
+  {
+    "id": "smartrecruiters:Experian:744000157573989",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Client Executive ",
+    "location": "United States, UNITED STATES, us",
+    "remote": true,
+    "eu_hireable_or_remote": true,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157573989",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-24"
   },
   {
     "id": "smartrecruiters:Experian:744000143737259",
@@ -832,6 +845,19 @@
     "first_seen": "2026-10-01"
   },
   {
+    "id": "smartrecruiters:Experian:744000157558849",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Senior Marketing Manager, Fintech",
+    "location": "Costa Mesa, CA, us",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157558849",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-24"
+  },
+  {
     "id": "smartrecruiters:Experian:744000150783547",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -866,19 +892,6 @@
     "remote": false,
     "eu_hireable_or_remote": false,
     "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155238169",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-13"
-  },
-  {
-    "id": "smartrecruiters:Experian:744000155233259",
-    "company": "Experian",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Senior Software Engineer",
-    "location": "Hyderabad, in",
-    "remote": false,
-    "eu_hireable_or_remote": false,
-    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000155233259",
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-10-13"
@@ -1014,6 +1027,19 @@
     "first_seen": "2026-09-28"
   },
   {
+    "id": "smartrecruiters:Experian:744000157531999",
+    "company": "Experian",
+    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
+    "title": "Technology Operations Center Senior Technician",
+    "location": "Heredia, Heredia, cr",
+    "remote": false,
+    "eu_hireable_or_remote": false,
+    "url": "https://api.smartrecruiters.com/v1/companies/Experian/postings/744000157531999",
+    "ats": "smartrecruiters",
+    "contract_type": "full-time",
+    "first_seen": "2026-10-24"
+  },
+  {
     "id": "smartrecruiters:Experian:744000156715650",
     "company": "Experian",
     "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
@@ -1116,19 +1142,6 @@
     "ats": "smartrecruiters",
     "contract_type": "full-time",
     "first_seen": "2026-09-16"
-  },
-  {
-    "id": "smartrecruiters:Wise:744000156538110",
-    "company": "Wise",
-    "cluster": "Enterprise Software / SaaS / Fintech / B2B Tech",
-    "title": "Customer Support Specialist (Spanish Speaker - Nightime - 1 am shift)",
-    "location": "São Paulo, br",
-    "remote": true,
-    "eu_hireable_or_remote": true,
-    "url": "https://api.smartrecruiters.com/v1/companies/wise/postings/744000156538110",
-    "ats": "smartrecruiters",
-    "contract_type": "full-time",
-    "first_seen": "2026-10-21"
   },
   {
     "id": "smartrecruiters:Wise:744000136794784",
